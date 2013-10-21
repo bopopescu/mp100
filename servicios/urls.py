@@ -1,0 +1,35 @@
+# -*- coding: utf-8 -*-
+
+from django.conf.urls.defaults import *
+
+urlpatterns = patterns('servicios.views',
+    url(r'^$', 'ser_inicio', name='ser_inicio'),
+    url(r'^registro/$', 'ser_registro', name='ser_registro'),
+    url(r'^verificar_usuario/(?P<clave>[\w]+)/$', 'ser_verificar_usuario',
+        name='ser_verificar_usuario'),
+    url(r'^cambio_password/(?P<clave_activacion>[\w]+)/(?P<password>[\w]+)/$',
+        'ser_cambio_password', name='ser_cambio_password'),
+    url(r'^cerrar_sesion$', 'ser_cerrar_sesion', name='ser_cerrar_sesion'),
+    url(r'^perfiles/(?P<filtro>[\w]+)/(?P<id_tipo>\d+)/$', 'ser_perfiles',
+        name='ser_perfiles'),
+    url(r'^perfiles/(?P<filtro>[\w]+)/$', 'ser_perfiles', name='ser_perfiles'),
+    url(r'^(?P<id_servicio>\d+)/$', 'ser_perfil_publico',
+        name='ser_perfil_publico'),
+    url(r'^usuario/fotos/eliminar_foto/(?P<id_foto>\d+)/$',
+        'ser_eliminar_foto', name='ser_eliminar_foto'),
+    url(r'^usuario/fotos/$', 'ser_editar_fotos', name='ser_editar_fotos'),
+    url(r'^usuario/$', 'ser_perfil_privado', name='ser_perfil_privado'),
+    # respuestas json
+    url(r'^json_fast_servicios/(?P<substring>[\w]+)/$', 'json_fast_servicios',
+        name='json_fast_servicios'),
+    url(r'^json_fast_noadmin/(?P<substring>[\w]+)/$', 'json_fast_noadmin',
+        name='json_fast_noadmin'),
+    url(r'^json_get_servicio/(?P<servicio_id>\d+)/$', 'json_get_servicio',
+        name='json_get_servicio'),
+    url(r'^json_valorar_opinion/(?P<opinion_id>\d+)/$',
+        'json_valorar_opinion', name='json_valorar_opinion'),
+    url(r'^json_responder_opinion/(?P<opinion_id>\d+)/(?P<respuesta>[\w|\s]+)/$',
+        'json_responder_opinion', name='json_responder_opinion'),
+    url(r'^json_get_panimage/(?P<index>\d+)/$', 'json_get_panimage',
+        name='json_get_panimage'),
+)

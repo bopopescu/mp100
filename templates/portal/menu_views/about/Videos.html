@@ -1,0 +1,150 @@
+{% extends "portal/menu_views/base_menu.html" %}
+{% load i18n %}
+
+
+{% block title %} 
+  {% blocktrans %}Videos{% endblocktrans %}
+{% endblock %}
+
+{% block head %}
+    <script type="text/javascript" src="http://c520866.r66.cf2.rackcdn.com/1/js/easy_rotator.min.js"></script>    
+{% endblock %}
+
+{% block center_content %}
+
+<div class="span-13 last breadcrumbs">
+    <label class="link_all_green"><a href="{% url portal_about_history %}">{% blocktrans %}Machu Picchu & Peru{% endblocktrans %} ></a></label>
+    {% blocktrans %}Machu Picchu{% endblocktrans %}
+</div>
+
+
+<div class="span-14 last winners_menu" id="about_bar">
+  <ul>
+    <li class="light">
+      <a href="{% url portal_about_history %}">{% blocktrans %}Machu Picchu{% endblocktrans %}</a>
+    </li>
+    <li class="light"><a href="{% url portal_about_history 2 %}">{% blocktrans %}Peru{% endblocktrans %}</a></li>
+    <li class="light"><a href="{% url portal_about_history 3 %}">{% blocktrans %}Trivia{% endblocktrans %}</a></li>
+    <li class="selected"><a href="{% url portal_about_history 4 %}">{% blocktrans %}Videos{% endblocktrans %}</a></li>
+  </ul>
+</div>
+<br/>
+<!--<ul class="about-top-menu">
+  <li><a href="#">{% blocktrans %}Incan Empire{% endblocktrans %}</a></li>
+  <li><a href="#">{% blocktrans %}Spanish Conquerors{% endblocktrans %}</a></li>
+  <li><a href="#">{% blocktrans %}Discovery{% endblocktrans %}</a></li>
+  <li><a href="#">{% blocktrans %}New 7 wonders{% endblocktrans %}</a></li>
+</ul>-->
+<div class="about-content relative_push_down_10">
+<!--<h3>{% blocktrans %}Videos{% endblocktrans %}</h3>-->
+{% if LANGUAGE_CODE == 'en' %}{% else %}{% endif %}
+    <!-- Begin DWUser_EasyRotator -->
+    <div class="dwuserEasyRotator" style="width: 550px; height: 550px; position:relative; text-align: left;" data-erconfig="{autoplayEnabled:false, lpp:'102-105-108-101-58-47-47-47-85-115-101-114-115-47-109-97-99-111-110-109-111-114-114-105-115-111-110-47-68-111-99-117-109-101-110-116-115-47-69-97-115-121-82-111-116-97-116-111-114-80-114-101-118-105-101-119-47-112-114-101-118-105-101-119-95-115-119-102-115-47', pro_infiniteLoop:true, pro_mouseWheelAndSwipeEnabled:true}" data-ername="YouTube">
+      <div data-ertype="content" style="display: none;"><ul data-erlabel="Main Category">
+            {% get_current_language as LANGUAGE_CODE %}
+            <li>
+                    <a class="mainLink" href="http://www.youtube.com/watch?v=GL_mHZ3KkxI">
+                    <img class="main" src="http://img.youtube.com/vi/GL_mHZ3KkxI/0.jpg" alt="{% blocktrans %}PERU EXPERIENCE{% endblocktrans %}" /></a>
+                    <img class="thumb" src="http://img.youtube.com/vi/GL_mHZ3KkxI/2.jpg" />
+                    <span class="title">{% blocktrans %}PERU EXPERIENCE{% endblocktrans %}</span>
+                    <span class="ervideo" data-erConfig="{src:'http://www.youtube.com/watch?v=GL_mHZ3KkxI', autoplay:true}" style="display:none;"></span>
+            </li>
+            <li>
+                    <a class="mainLink" href="{% if LANGUAGE_CODE == 'en' %}http://www.youtube.com/watch?v=LVK6YcoFt_I{% else %}http://www.youtube.com/watch?v=OIhkoe2WgAI{% endif %}">
+                    <img class="main" src="http://img.youtube.com/vi/LVK6YcoFt_I/0.jpg" alt="{% blocktrans %}PERU: ADVENTURE{% endblocktrans %}" /></a>
+                    <img class="thumb" src="http://img.youtube.com/vi/LVK6YcoFt_I/2.jpg" />
+                    <span class="title">{% blocktrans %}PERU: ADVENTURE{% endblocktrans %}</span>
+                    <span class="ervideo" data-erConfig="{src:'{% if LANGUAGE_CODE == 'en' %}http://www.youtube.com/watch?v=LVK6YcoFt_I{% else %}http://www.youtube.com/watch?v=OIhkoe2WgAI{% endif %}', autoplay:true}" style="display:none;"></span>
+            </li>
+            <li>
+                    <a class="mainLink" href="{% if LANGUAGE_CODE == 'en' %}http://www.youtube.com/watch?v=_OreoTH2QF8{% else %} http://www.youtube.com/watch?v=SKEKyJOza00{% endif %}">
+                    <img class="main" src="http://img.youtube.com/vi/_OreoTH2QF8/0.jpg" alt="{% blocktrans %}PERU: LIVE THE LEGEND{% endblocktrans %}" /></a>
+                    <img class="thumb" src="http://img.youtube.com/vi/_OreoTH2QF8/2.jpg" />
+                    <span class="title">{% blocktrans %}PERU: LIVE THE LEGEND{% endblocktrans %}</span>
+                    <span class="ervideo" data-erConfig="{src:'{% if LANGUAGE_CODE == 'en' %}http://www.youtube.com/watch?v=_OreoTH2QF8{% else %} http://www.youtube.com/watch?v=SKEKyJOza00{% endif %}', autoplay:true}" style="display:none;"></span>
+            </li>
+            <li>    <a class="mainLink" href="{% if LANGUAGE_CODE == 'en' %}http://www.youtube.com/watch?v=EILV83jr9NA{% else %}http://www.youtube.com/watch?v=KH65VsAS-Dc{% endif %}">
+                    <img class="main" src="http://img.youtube.com/vi/EILV83jr9NA/0.jpg" alt="{% blocktrans %}PERU: HISTORY AND CULTURE{% endblocktrans %}" />
+                    <img class="thumb" src="http://img.youtube.com/vi/EILV83jr9NA/2.jpg" />
+                    <span class="title">{% blocktrans %}PERU: HISTORY AND CULTURE{% endblocktrans %}</span>
+                    <span class="ervideo" data-erConfig="{src:'{% if LANGUAGE_CODE == 'en' %}http://www.youtube.com/watch?v=EILV83jr9NA{% else %}http://www.youtube.com/watch?v=KH65VsAS-Dc{% endif %}', autoplay:true}" style="display:none;"></span>
+            </li>
+            <li>
+                    <a class="mainLink" href="{% if LANGUAGE_CODE == 'en' %}http://www.youtube.com/watch?v=9VR5KDnK46E{% else %}http://www.youtube.com/watch?v=nTkmi1xxi3c{% endif %}">
+                    <img class="main" src="http://img.youtube.com/vi/9VR5KDnK46E/0.jpg" alt="{% blocktrans %}PERU: WORLD'S CATALOG{% endblocktrans %}" />
+                    <img class="thumb" src="http://img.youtube.com/vi/9VR5KDnK46E/2.jpg" />
+                    <span class="title">{% blocktrans %}PERU: WORLD'S CATALOG{% endblocktrans %}</span>
+                    <span class="ervideo" data-erConfig="{src:'{% if LANGUAGE_CODE == 'en' %}http://www.youtube.com/watch?v=9VR5KDnK46E{% else %}http://www.youtube.com/watch?v=nTkmi1xxi3c{% endif %}', autoplay:true}" style="display:none;"></span>
+            </li>
+            <li>
+                    <a class="mainLink" href="{% if LANGUAGE_CODE == 'en' %}http://www.youtube.com/watch?v=ehQUjlCqYs4{% else %}http://www.youtube.com/watch?v=_U3CIT57tFw{% endif %}">
+                    <img class="main" src="http://img.youtube.com/vi/ehQUjlCqYs4/0.jpg" alt="{% blocktrans %}PERU: SOUTHERN CIRCUIT{% endblocktrans %}" /></a>
+                    <img class="thumb" src="http://img.youtube.com/vi/ehQUjlCqYs4/2.jpg" />
+                    <span class="title">{% blocktrans %}PERU: SOUTHERN CIRCUIT{% endblocktrans %}</span>
+                    <span class="ervideo" data-erConfig="{src:'{% if LANGUAGE_CODE == 'en' %}http://www.youtube.com/watch?v=ehQUjlCqYs4{% else %}http://www.youtube.com/watch?v=_U3CIT57tFw{% endif %}', autoplay:true}" style="display:none;"></span>
+            </li>
+            <li>
+                    <a class="mainLink" href="{% if LANGUAGE_CODE == 'en' %}http://www.youtube.com/watch?v=Hc94p94ROws{% else %}http://www.youtube.com/watch?v=VagBABbCmrc{% endif %}">
+                    <img class="main" src="http://img.youtube.com/vi/Hc94p94ROws/0.jpg" alt="{% blocktrans %}PERU: NORTHERN CIRCUIT{% endblocktrans %}" /></a>
+                    <img class="thumb" src="http://img.youtube.com/vi/Hc94p94ROws/2.jpg" />
+                    <span class="title">{% blocktrans %}PERU: NORTHERN CIRCUIT{% endblocktrans %}</span>
+                    <span class="ervideo" data-erConfig="{src:'{% if LANGUAGE_CODE == 'en' %}http://www.youtube.com/watch?v=Hc94p94ROws{% else %}http://www.youtube.com/watch?v=VagBABbCmrc{% endif %}', autoplay:true}" style="display:none;"></span>
+            </li>
+            <li>
+                    <a class="mainLink" href="{% if LANGUAGE_CODE == 'en' %}http://www.youtube.com/watch?v=DTZIfe33Gqw{% else %}http://www.youtube.com/watch?v=LqQOYWyTmVA{% endif %}">
+                    <img class="main" src="http://img.youtube.com/vi/DTZIfe33Gqw/0.jpg" alt="{% blocktrans %}PERU: NATURE{% endblocktrans %}" /></a>
+                    <img class="thumb" src="http://img.youtube.com/vi/DTZIfe33Gqw/2.jpg" />
+                    <span class="title">{% blocktrans %}PERU: NATURE{% endblocktrans %}</span>
+                    <span class="ervideo" data-erConfig="{src:'{% if LANGUAGE_CODE == 'en' %}http://www.youtube.com/watch?v=DTZIfe33Gqw{% else %}http://www.youtube.com/watch?v=LqQOYWyTmVA{% endif %}', autoplay:true}" style="display:none;"></span>
+            </li>
+            <li>
+                    <a class="mainLink" href="http://www.youtube.com/watch?v=pzLSReWCmYc">
+                    <img class="main" src="http://img.youtube.com/vi/pzLSReWCmYc/0.jpg" alt="PERU: MUCHO GUSTO" /></a>
+                    <img class="thumb" src="http://img.youtube.com/vi/pzLSReWCmYc/2.jpg" />
+                    <span class="title">PERU: MUCHO GUSTO</span>
+                    <span class="ervideo" data-erConfig="{src:'http://www.youtube.com/watch?v=pzLSReWCmYc', autoplay:true}" style="display:none;"></span>
+                    <span class="desc">{% blocktrans %}Peru - A Culinary Wonder{% endblocktrans %}</span>
+            </li>
+    </ul>
+    </div>
+      <div data-ertype="layout" data-ertemplatename="NONE" style="">			<div class="erimgMainOneUp" style="position: absolute; left: 0; right: 0; top:0; bottom:0;" data-erConfig="{___numTiles:3, scaleMode:'scaleDown', transition:'fade', imgType:'main', __loopNextButton:false, arrowButtonMode:'rollover'}">
+                                    <div class="erimgMain_slides" style="position: absolute; left:0; top:0; bottom:0; right:0;">
+                                            <div class="erimgMainOneUp_img" style="position: absolute; left: 0; right: 0; top: 0; bottom: 0;"></div>
+                                    </div>
+                                    <div class="erimgMain_arrowLeft" style="position:absolute; left: 20px; top: 50%; margin-top: -15px;" data-erConfig="{image:'rectSmall', image2:'rectSmall'}"></div>
+                                    <div class="erimgMain_arrowRight" style="position:absolute; right: 20px; top: 50%; margin-top: -15px;" data-erConfig="{image:'rectSmall', image2:'rectSmall'}"></div>
+                            </div>
+                            
+                            
+                            <div style="position: absolute; left:0; right:0; bottom:0; height: 70px;" class="erthumbGridWrap">
+                                    <div class="erthumbGrid" style="position: absolute; left: 0; right: 0; top: 0; bottom: 0;" data-erConfig="{scaleMode:'fillArea', loopNextButton:false, arrowButtonMode:'rollover', __slideLinkEvent:'rollover', mouseWheel:true, swipeEnabled:true, direction:'horizontal', spacing:5}">
+                                            <div style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; background: #000; background: rgba(0,0,0,0.6);"></div>
+                                            <div class="erimgMain_slides" style="position: absolute; left:45px; top:5px; bottom:5px; right:45px;">
+                                                    <div class="erimgMain_slide" style="width: 80px; height: 60px;">
+                                                            <div class="erimgMain_img" style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; margin: /*2px 1px*/0;"></div>
+                                                    </div>
+                                            </div>
+                                            <div class="erimgMain_arrowLeft" style="position:absolute; left: 10px; top: 50%; margin-top: -15px;" data-erConfig="{image:'circleSmall', image2:'circleSmall'}"></div>
+                                            <div class="erimgMain_arrowRight" style="position:absolute; right: 10px; top: 50%; margin-top: -15px;"></div>
+                                    </div>
+                            </div>
+                            
+                            <div style="position: absolute; left:0;right:0;top:0; background: #000; background: rgba(0,0,0,0.6); padding: 10px; text-shadow: #000 1px 1px 0; font-size: 10px; font-family: 'Lucida Grande', 'Lucida Sans', Arial, _sans; color: #FFF; text-align:center;">
+                                    <div class="erdynamicText" data-erfield="title" style="font-weight: bold; padding:0; margin:0;"></div>
+                                    <div class="erdynamicText" data-erfield="desc" style="color: #CCC; padding:0; margin: 6px 0 0 0;"></div>
+                            </div>
+    <div class="erabout erFixCSS3" style="color: #FFF; text-align: left; background: #000; background:rgba(0,0,0,0.93); border: 2px solid #FFF; padding: 20px; font: normal 11px/14px Verdana,_sans; width: 300px; border-radius: 10px; display: none;"> This <a style="color:#FFF;" href="http://www.dwuser.com/easyrotator/" target="_blank">jQuery slider</a> was created with the free <a style="color:#FFF;" href="http://www.dwuser.com/easyrotator/" target="_blank">EasyRotator</a> software from DWUser.com. <br />
+          <br />
+          Need a powerful <a style="color:#FFF;" href="http://www.dwuser.com/flashslideshow/" target="_blank">Flash slideshow</a> creator with built-in iPhone/iPad/Android support?  EasyRotator is supported by the <a style="color:#FFF;" href="http://www.dwuser.com/flashslideshow/" target="_blank">XML Flash Slideshow v4 Software</a>. <br />
+          <br />
+          <a style="color:#FFF;" href="#" class="erabout_ok">OK</a> </div>
+      </div>
+    </div>
+    <!-- End DWUser_EasyRotator -->
+
+
+<p class="link_all_green"><br/>{% blocktrans %}Videos provided by PromPeru via their YouTube Channel:{% endblocktrans %} <a href="http://www.youtube.com/visitperu" target="_blank">youtube.com/visitperu</a></p>
+</div>
+{% endblock %}
+
+

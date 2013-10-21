@@ -1,0 +1,252 @@
+{% extends "portal/menu_views/base_menu.html"  %}
+{% load i18n %}
+{% load portal_tags %}
+{% load thumbnail %} 
+{% block title %}
+  {% blocktrans %}Panoramic Photo{% endblocktrans %}
+{% endblock %}
+
+{% block head %}
+  <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/jquery.lightbox-0.5.css" media="screen" />
+  <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.lightbox-0.5.js"></script>
+  <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.prettyPopin.js"></script>
+  <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/prettyPopin.css"/>
+  <script src="{{ MEDIA_URL }}js/jquery.jqEasyCharCounter.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      //inicializa prettyPopin
+      $("a[rel^='prettyPopin']").prettyPopin({
+	      //modal : false, /* true/false */
+	      width : 200, /* false/integer */
+	      //height: false, /* false/integer */
+	      //opacity: 0.5, /* value from 0 to 1 */
+	      //animationSpeed: 'fast', /* slow/medium/fast/integer */
+	      //followScroll: true, /* true/false */
+	      loader_path: '{{ MEDIA_URL }}images/prettyPopin/loader.gif', /* path to your loading image */
+	      callback: function(){} /* callback called when closing the popin */
+      });
+
+      {% if user.is_authenticated %} 
+      // Puntuar la foto
+      $("#me_gusta").click(function(){
+	  json_url = "{% url json_me_gusta foto.id %}";
+	  $.getJSON(json_url, function(rpta) {
+	      if(rpta.maximo){
+		  $("#me_gusta").before("<spam>{% blocktrans %}You already used your 5 votes for this Voting Period{% endblocktrans %}</spam>");
+		  $("#me_gusta").remove();                        
+	      }
+	      else{
+		  var remainingVotes = 5-{{user.get_profile.me_gusta_temp}}-1;
+		  var msj="";
+		  //var msj_premio = "<spam>Sabías que puedes ganar 1 Iphone 8G si las fotos que eliges como favoritas ganan alguna temporada. </spam>";
+		  msj = "<spam>{% blocktrans %}You voted for this photo{% endblocktrans %}</spam>";
+		  if(remainingVotes == 1){
+		      msj2 = "<spam>{% blocktrans %}you have{% endblocktrans %} " + remainingVotes + " {% blocktrans %}vote remaining{% endblocktrans %}.</spam>"
+		  }
+		  else{
+		      msj2 = "<spam>{% blocktrans %}you have{% endblocktrans %} " + remainingVotes + " {% blocktrans %}votes remaining{% endblocktrans %}.</spam>"
+		  }
+		  $("#me_gusta").before(msj);
+		  $("#me_gusta").remove();
+		  $(".remaining_votes").html(msj2);
+	      }
+	  });
+      });
+      {% endif %}
+      ////////////////////////////////////////////////////////////////////////
+      /////////////////////////events popin report concern form////////////////////////
+      ////////////////////////////////////////////////////////////////////////
+      var triggers6 = $('a.G_reportConcern_ex6bTrigger')[0];
+      $('#G_reportConcern_ex6b').jqm({
+        trigger: triggers6,
+        target: 'div.jqmAlertContent',
+	toTop: true,
+        overlay: 0
+        });
+      
+      // Show popin if some login error exists
+	{% if form_concern.errors %}
+	      $('#G_reportConcern_ex6b').jqmShow();
+	{% endif %}
+      ////////////////////////////////////////////////////////////////////////
+  
+      ////////////////////////////////////////////////////////////////////////
+      /////////////////////////events popin report sended////////////////////////
+      ////////////////////////////////////////////////////////////////////////	
+	$('#G_reportConcern_ex7b').jqm({
+	  trigger: '',
+	  target: 'div.jqmAlertContent',
+	  toTop: true,
+	  overlay: 0
+	  });
+      // Show popin a report was sended successfully
+	{% if flag_report_sended %}
+	      $('#G_reportConcern_ex7b').jqmShow();
+	{% endif %}
+      ////////////////////////////////////////////////////////////////////////
+      $('.countable1').jqEasyCounter({
+	      'maxChars': 250,
+	      'maxCharsWarning': 200,
+	      'msgFontSize': '12px',
+	      'msgFontColor': '#899F3E',
+	      'msgFontFamily': 'Verdana',
+	      'msgTextAlign': 'right',
+	      'msgWarningColor': '#F00',
+	      'msgAppendMethod': 'insertAfter'				
+      });            
+    });
+    
+    $(function() {
+      $('a.lightbox').lightBox({
+	  imageLoading:			'{{MEDIA_URL}}images/jquery-lightbox-0.5/lightbox-ico-loading.gif',		
+	  imageBtnPrev:			'{{MEDIA_URL}}images/jquery-lightbox-0.5/lightbox-btn-prev.gif',			
+	  imageBtnNext:			'{{MEDIA_URL}}images/jquery-lightbox-0.5/lightbox-btn-next.gif',			
+	  imageBtnClose:			'{{MEDIA_URL}}images/jquery-lightbox-0.5/lightbox-btn-close.gif',		
+	  imageBlank:				'{{MEDIA_URL}}images/jquery-lightbox-0.5/lightbox-blank.gif',			              
+      });
+    });
+  </script>
+{% endblock %}
+
+{% block wall_menu %}
+<div class="wall_menu wall_menu_vote span-24 last">
+{% endblock %}
+
+{% block center_content %}   
+	<div class="span-14 last">
+	  <form action="{% url portal_panoramic_photos %}" method="post">{% csrf_token %}
+	    <div class=" span-4 all_to_left fixed_height_20">
+	      {{form.texto}}
+	    </div>
+	    <div class=" span-7 all_to_middle fixed_height_20">
+	      
+	      <label for="id_categoria" class="special_gray">{% blocktrans %}Categories{% endblocktrans %}</label>
+	      <!--{{form.categoria}}-->
+	      <select id="id_categoria" class="styled special_gray" name="categoria">
+		<option selected="selected" value=""> --------- </option>
+	      {% get_current_language as LANGUAGE_CODE %}
+	      {% if LANGUAGE_CODE == 'en' %}
+		{% for categoria in lista_categorias %}
+		  <option value="{{categoria.id}}">{{categoria}}</option>
+		{% endfor %}
+	      {% else %}
+		{% for categoria in lista_categorias %}
+		  <option value="{{categoria.id}}">{{categoria.nombre_espaniol}}</option>
+		{% endfor %}	  
+	      {% endif %}
+	      </select>	      	      
+	    </div>
+	    <div class=" span-3 all_to_right last fixed_height_20 push_down_6">
+	      <input class="cute_green_button" type="submit" value="{% blocktrans %}Search{% endblocktrans %}">
+	    </div>	    
+	  </form>
+	</div>
+	
+	<div class="span-14 last countDown">
+<!--	  <div class="span-7 ">
+	    <h3>
+	    {% if user.is_authenticated %}
+	      <span class="remaining_votes">{% blocktrans %}You have{% endblocktrans %} {{user.get_profile.remaining_votes}} {% blocktrans %}vote{% endblocktrans %}{{user.get_profile.remaining_votes|pluralize}} {% blocktrans %}remaining{% endblocktrans %} </span>
+	    {% else %}
+	      {% blocktrans %}You must be logged in to vote{% endblocktrans %}
+	    {% endif %}
+	    </h3>
+	  </div>-->
+	  <div class="span-14 last all_to_right">
+	    <h3 class="link_all_green"><a href="{% url portal_panoramic_photos %}">{% blocktrans %}Return to Panoramic Photos{% endblocktrans %}</a></h3>
+	  </div>
+	</div>
+
+	<div class="span-14 last">
+	  <div class="span-7 last " >
+	      {% if user.is_authenticated %}
+		<p class="link_all_green no_margin"><a class="no_decoration G_ex6bTrigger" href="#">{% blocktrans %}Report this photo{% endblocktrans %}</a></p>
+	      {% endif %}
+	      <!--  Begin report_concern_form-->
+	      {% include "portal/tags/report_concern/popin_report_concern.html" %}
+	      <!--  End report_concern_form-->
+	      <!-- Begin pop in report sended successfully -->
+	      {% include "portal/tags/report_concern/popin_report_concern_sended.html" %}
+	      <!-- End pop in report sended successully -->	      
+	  </div>
+	  <div class="clear"></div>
+	  <div class="span-6">
+	    <div class="vote_foto">
+	    <a href="{{ MEDIA_URL }}{{ foto.foto}}" class="lightbox" title="{{foto.titulo}}">
+	      <img width="220px" alt="{{foto.titulo}}" src='{{foto.foto.url}}'>
+	    </a>
+	    <p class="share_this_frase no_margin">{% blocktrans %}Share this photo with friends{% endblocktrans %}</p>
+	    </div>
+	    <span class="st_email" st_url="http://{{domain}}{% url portal_photo_vote foto.codigo_user.id foto.id 0 %}" st_title="Photo contest I was in Machu Picchu" st_summary="{% blocktrans %}Vote for my photo{% endblocktrans %} {{foto.titulo}}" st_image="{% thumbnail foto.foto '122x116' %}"></span>
+	    <span class="st_facebook" st_url="http://{{domain}}{% url portal_photo_vote foto.codigo_user.id foto.id 0 %}" st_title="Photo contest I was in Machu Picchu" st_summary="{% blocktrans %}Vote for my photo{% endblocktrans %} {{foto.titulo}}" st_image="{% thumbnail foto.foto '122x116' %}"></span>
+	    <span class="st_twitter" st_url="http://{{domain}}{% url portal_photo_vote foto.codigo_user.id foto.id 0 %}" st_title="Photo contest I was in Machu Picchu" st_summary="{% blocktrans %}Vote for my photo{% endblocktrans %} {{foto.titulo}}" st_image="{% thumbnail foto.foto '122x116' %}"></span>
+	    <span class="st_sharethis" st_url="http://{{domain}}{% url portal_photo_vote foto.codigo_user.id foto.id 0 %}" st_title="Photo contest I was in Machu Picchu" st_summary="{% blocktrans %}Vote for my photo{% endblocktrans %} {{foto.titulo}}" st_image="{% thumbnail foto.foto '122x116' %}"></span>  
+	    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+	    <script type="text/javascript">
+		    stLight.options({
+			    publisher:'b6c7f2ae-02bd-4c16-87c5-05c4bcb7ae33',
+			    tracking:'google'
+		    });
+	    </script>	
+	  </div>	    
+	  
+	  <div class="span-8 last">
+	    <h3 class="green no_margin"><label>{% blocktrans %}Photo title{% endblocktrans %}: {{foto.titulo}}</label></h3>
+	    {% blocktrans %}Author{% endblocktrans %}: {{foto.codigo_user.first_name}}&nbsp;{{foto.codigo_user.last_name}}<br/>
+	    <a class="link_all_green green" href="{{foto.codigo_user.get_profile.get_absolute_url}}">{% blocktrans %}View all by{% endblocktrans %} {{foto.codigo_user.first_name}}&nbsp;{{foto.codigo_user.last_name}}</a>
+	    <p></p>
+	    <h3 class="green no_margin"><label>{% blocktrans %}Category{% endblocktrans %}</label></h3>
+	    {{foto.categoria}}
+	    <p></p>
+	    <h3 class="green no_margin"><label>{% blocktrans %}Description{% endblocktrans %}:</label></h3>
+	    {% if foto.descripcion %}
+	      {{foto.descripcion}}
+	    {% else %}
+	      {% blocktrans %}There is no description.{% endblocktrans %}
+	    {% endif %}
+	    <p></p>
+<!--	    <div class="span-8 last">	    
+	    {% if user.is_authenticated %}
+	      {% if foto.temporada_habilitado == 'S' %}
+		{% if user.id in fans %}
+		<spam>{% blocktrans %}You voted for this photo{% endblocktrans %}</spam>
+		{% else %}
+		  {% if is_temporada %}
+		    {% if user.get_profile.has_remaining_votes %}
+		      {% if foto.categoria.nombre != "Professional" %}
+		      <a id="me_gusta" rel="prettyPopin" href="{% url portal_msje_voto %}"><input class="cute_green_button" type="submit" value="{% blocktrans %}Vote{% endblocktrans %}"></a>
+		      {%endif%}
+		    {% else %}
+		      {% blocktrans %}You already used your 5 votes for this Voting Period{% endblocktrans %}
+		    {% endif %}		    			
+		  {% endif %}
+		{% endif %}
+	      {% endif %}		
+	    {% else %}
+	      <a class="ex3bTrigger" href="#">
+		<input id="" class="large_cute_green_button" type="submit" value="{% blocktrans %}Login to vote{% endblocktrans %}" >
+	      </a>
+	    {% endif %}
+	    </div>-->
+<!--	    <div class="span-4 append-1 all_to_left pagination_links push_down_6">
+	    <a href="#"><< previous </a>
+	    </div>
+	    <div class="span-3 all_to_right pagination_links last push_down_6">
+	    <a href="#">next >> </a>
+	    </div>-->	    
+	  </div>
+	  
+	  <div class="span-14 push_down_30 comments_separator last">
+	    <hr>
+	  </div>
+	  
+	  <div class="span-14 last">
+	  <iframe src="http://www.facebook.com/plugins/like.php?href=machu-picchu100.com&amp;layout=standard&amp;show_faces=false&amp;width=320&amp;action=like&amp;font=arial&amp;colorscheme=dark&amp;height=40" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:550px; height:40px;" allowTransparency="true"></iframe>
+	  <div id="fb-root"></div>
+	  <script src="http://connect.facebook.net/en_US/all.js#appId=APP_ID&amp;xfbml=1"></script>
+	  <fb:comments href="{{domain}}{% url portal_photo_vote foto.codigo_user.id foto.id 0 %}" num_posts="3" width="550"></fb:comments>	    
+	  </div>
+	  
+	</div>
+{% endblock %}
+    

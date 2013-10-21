@@ -1,0 +1,81 @@
+{% extends "portal/menu_views/base_menu.html"  %}
+{% load i18n %}
+{% load portal_tags %}
+{% load thumbnail %} 
+{% block title %}
+  {% blocktrans %}Panoramic Photography Prize{% endblocktrans %}
+{% endblock %}
+
+{% block head %}
+  {% include "portal/tags/sharethis/standard.html" %}
+{% endblock %}
+
+
+{% block center_content %}
+<div class="span-14 last breadcrumbs">
+    <label class="link_all_green">
+	<a href="{% url portal_winners %}">{% blocktrans %}Winners{% endblocktrans %} ></a>
+    </label>
+    <label class="link_all_green">
+	<a href="{% url portal_mp100_special_awards %}">{% blocktrans %}Machu Picchu 100 Special Awards{% endblocktrans %} ></a>
+    </label>
+    <label class="link_all_green">
+	<a href="{% url portal_panoramic_intro %}">{% blocktrans %}Panoramic Photography{% endblocktrans %} ></a>
+    </label>
+    {% blocktrans %}Prize{% endblocktrans %}
+</div>
+<div class="span-14 last winners push_down_25">
+  <div class="span-9 last">
+    <h1>{% blocktrans %}Photo Contest{% endblocktrans %}</h1>
+    <h2>{% blocktrans %}I was in Machu Picchu{% endblocktrans %}</h2>
+    <h3>{% blocktrans %}A Photographic Wonder{% endblocktrans %}</h3>
+  </div>
+  <div class="span-9 last panoramic_photoprize_word">
+    <span>{% blocktrans %}Panoramic{% endblocktrans %}</span><br/>
+    <span>{% blocktrans %}Photography Prize{% endblocktrans %}</span>
+  </div>
+</div>
+
+<div class="span-16 last panoramic_photos_prize_image">
+{% get_current_language as LANGUAGE_CODE %}
+{% if LANGUAGE_CODE == 'en' %}
+    <img height="349px" width="643px" src="{{MEDIA_URL}}style_imgs/sony_nex_5_en.jpg">
+{% else %}
+    <img height="349px" width="643px" src="{{MEDIA_URL}}style_imgs/sony_nex_5_es.jpg">
+{% endif %}
+</div>
+
+<div class="span-14 last push_down_320 prize_panoramic">
+    <p>{% blocktrans %}Enter a Panoramic Photo  in any of  the Contest Categories and you will be automatically entered  to  win  a  a  Sony  α  945;  NEX  Digital  Camera  featuring  3D  Sweep Panorama&trade;! A special panel of judges will announce the best Panoramic Photo on August 26, 2011.{% endblocktrans %}
+    </p>
+    
+    <ul>
+    <li>{% blocktrans %}DSLR quality  images with Exmor ™ CMOS sensor 14.2 megapixel APS HD{% endblocktrans %}</li>
+    <li>{% blocktrans %}Video Full HD 1920 x 1080i AVCHD {% endblocktrans %}</li>
+    <li>{% blocktrans %}High-speed shooting up to 7 fps{% endblocktrans %}</li>
+    <li>{% blocktrans %}Sweeping panoramic 3D{% endblocktrans %}</li>
+    <li>{% blocktrans %}LCD TruBlack of 7.5 cm / 3" with adjustable tilt{% endblocktrans %}</li>
+    <li>{% blocktrans %}Simple  through  the online help guide{% endblocktrans %}</li>
+    <li>{% blocktrans %}System  interchangeable  lens mount  type E{% endblocktrans %}</li>
+    <li>{% blocktrans %}Stylish magnesium housing{% endblocktrans %}</li>
+    </ul>
+    
+    <h1>{% blocktrans %}Interchangeable  lenses{% endblocktrans %}</h1>
+    <p>
+    {% blocktrans %}Compatible with Sony's E-mount series of smaller, lighter lenses designed specifically for α compact interchangeable lens cameras. Opens up a world of creative options.{% endblocktrans %}
+    </p>
+    
+    <h1>{% blocktrans %}First in class with 1080/60i movies{% endblocktrans %}</h1>
+    <p>
+    {% blocktrans %}This is the world's first interchangeable lens still camera with 1080/60i AVCHD Full HD, exactly the same resolution and frame rate as most broadcast and cable HDTV channels. Records in 1080/60i AVCHD™ format, 1080/30p high definition in PC-friendly MP4 format and standard definition 480/30p in MP4 format.2{% endblocktrans %}
+    </p>
+    <h1>{% blocktrans %}3D Panorama{% endblocktrans %}</h1>
+    <p>
+    {% blocktrans %}Captures scenic vistas in spectacular 3D. As you sweep across the panorama, the camera records separate right-eye and left-eye images that make landscapes come alive on your 3D television.1{% endblocktrans %}
+    </p>    
+    <h1>{% blocktrans %}Professional Results{% endblocktrans %}</h1>
+    <p>
+    {% blocktrans %}Get professional pictures easily, even if you have experience with digital photography. The NEX-5 presents a simple interface color and a handy Jog Dial ™ to set the camera settings. It also has an on-screen shooting guide with useful tips for anyone to make better pictures without complications.{% endblocktrans %}
+    </p>       
+</div>
+{% endblock %}

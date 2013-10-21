@@ -1,0 +1,233 @@
+{% block ini %}
+  {% load thumbnail %}
+  {% load banners %}
+{% endblock %}
+  
+  
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="description" content="Concurso de Fotografia Yo Estuve en Machu
+  Picchu Una Maravilla de Oportunidad | Photo Contest I was in Machu Picchu A
+  Photographic Wonder" /> 
+  <meta name="keywords" content="3J-BpTZZkghBoHGsys5aGBCJ46U" />
+    <link REL="SHORTCUT ICON" HREF="http://c498733.r33.cf2.rackcdn.com/favicon.ico">
+    <!-- Framework CSS -->
+    <link rel="stylesheet" href="{{ MEDIA_URL }}blueprint/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="{{ MEDIA_URL }}blueprint/print.css" type="text/css" media="print"/>
+    <link rel="stylesheet" href="{{ MEDIA_URL }}css/main.css" type="text/css" media="screen"/>
+  
+    <!--[if lt IE 8]><link rel="stylesheet" href="{{ MEDIA_URL }}blueprint/ie.css" type="text/css" media="screen, projection"/><![endif]-->
+
+    <!--[if IE]><link rel="stylesheet" href="{{ MEDIA_URL }}css/ie_general.css" type="text/css" media="screen, projection"/><![endif]-->
+    <!--[if IE 6]>
+    <link rel="stylesheet" href="{{ MEDIA_URL }}css/ie6.css" type="text/css" media="screen, projection"/><![endif]-->
+
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/common/jquery-1.6.min.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/jqModal.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/jqModal.css"/>    
+    <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/portal_style.css"/>
+
+    {% block head %}
+    {% endblock %}
+  
+
+      <title>
+	  {% block title %}
+		{% if page_title %}
+		      {{ page_title }} -
+		{% endif %}
+		{{ site_name }}
+	  {% endblock %}
+      </title>
+
+    <script type="text/javascript">
+    //jqmodal alert        
+    $(document).ready(function() {
+      ////////////////////////////////////////////////////////////////////////
+      /////////////////////////events popin login form////////////////////////
+      ////////////////////////////////////////////////////////////////////////
+      var triggers = $('a.ex3bTrigger');
+      var triggers_ = $('input#bigEnter_not_logged');
+      var close = $('a.green-button')[0];
+      $('#ex3b').jqm({
+        ajax: '{% url ajax_login_form %}',
+        trigger: triggers,
+        target: 'div.jqmAlertContent',
+	toTop: true,
+        overlay: 0
+        }).jqmAddClose(close).jqmAddTrigger(triggers_);
+
+      var forgot = $('a.green')[0];
+      $('#ex3b').jqm().jqmAddClose(forgot);
+      
+      // Close Button Highlighting. IE doesn't support :hover.
+      if($.browser.msie) {
+      $('div.jqmAlert .jqmClose')
+      .hover(
+        function(){ $(this).addClass('jqmCloseHover'); }, 
+        function(){ $(this).removeClass('jqmCloseHover'); });
+      }
+      
+      // Show popin if some login error exists
+      {% if error or form_login.errors %}
+	    $('#ex3b').jqmShow();
+      {% endif %}
+      
+      /// button close popin login
+      $('.close_login').live("click", function(event){
+	event.preventDefault();
+        $('#ex3b').jqmHide();
+      });      
+
+      $('.login-register').live("click", function(event){
+	event.preventDefault();
+        $('#ex3b').jqmHide();
+        $('#ex4b').jqmShow();
+      });      
+
+      ////////////////////////////////////////////////////////////////////////
+
+      ////////////////////////////////////////////////////////////////////////
+      /////////////////////////events popin register form////////////////////////
+      ////////////////////////////////////////////////////////////////////////
+      var triggers1 = $('a.ex4bTrigger')[0];
+      var triggers2 = $('a.green-button')[0];
+      $('#ex4b').jqm({
+        trigger: triggers1,
+        target: 'div.jqmAlertContent',
+	toTop: true,
+        overlay: 0
+        }).jqmAddTrigger(triggers2);
+      
+      // Show popin if some login error exists
+      {% if form_register.errors or error_size or captcha_error %}
+	    {% if not user.is_authenticated %}
+		  $('#ex4b').jqmShow();
+	    {% endif %}
+      {% endif %}
+      ////////////////////////////////////////////////////////////////////////
+
+      ////////////////////////////////////////////////////////////////////////
+      /////////////////////////events popin password recovey /////////////////
+      ////////////////////////////////////////////////////////////////////////
+      $("a.green").live("click", function(){
+          if($(this).hasClass("continue") == false){
+             $('#ex3b').jqmHide();
+             $('#ex6b').jqmShow();
+          }
+      });
+      var recovery_tr = $('a.green')[0];
+      $('#ex6b').jqm({
+        trigger: recovery_tr,
+        target: 'div.jqmRecovery',
+	    toTop: true,
+        overlay: 0
+        });
+    
+      // Show popin if some error exists
+      {% if datos_incorrectos %}
+	    $('#ex6b').jqmShow();
+      {% endif %}
+    
+      // Show popin after have sended the email
+      $('#G_ex7b').jqm({
+        target: 'div.jqmAlertContent',
+	toTop: true,
+        overlay: 0
+        });      
+      
+      {% if new_pass_sended %}
+	    $('#G_ex7b').jqmShow();
+      {% endif %}    
+    
+      ////////////////////////////////////////////////////////////////////////
+
+      //clear on click register input text
+      $('.clearInput').focus(function () {
+	      if ($(this).val() == $(this).attr("title")) {
+		      $(this).val("");
+	      }
+      }).blur(function () {
+	      if ($(this).val() == "") {
+		      $(this).val($(this).attr("title"));
+	      }
+      });
+      
+
+
+      // Show popin after successfully register
+      $('#ex5b').jqm({
+        target: 'div.jqmAlertContent',
+	toTop: true,
+        overlay: 0
+        });      
+      
+      {% if successful_register %}
+	    $('#ex5b').jqmShow();
+      {% endif %}
+
+
+
+      /////////////////////////events contest calendar////////////////////////
+      var triggers = $('a.GL_ex6bTrigger')[0];
+      $('#GL_ex6b').jqm({
+        trigger: triggers,
+        target: 'div.jqmAlertContent',
+	toTop: true,
+        overlay: 0
+        });     
+      $("#login_ajax_form").live("submit", function(){
+         $.post("{% url ajax_login_form %}",
+                 $("#login_ajax_form").serialize(),
+                 function(data){          
+                     //alert(data.html);
+                     if(data.response == "OK"){
+                        window.location.href = window.location.pathname;
+                     }
+                     else{
+                         $("#ajax_login_box").html(data.html);
+                     }
+                 },'json');
+         return false;
+      });
+      $("#password-recovery-form").live("submit", function(){
+         $.post("{% url recuperar_password %}", 
+                $("#password-recovery-form").serialize(),
+                function(data){
+                    $("#password-recovery-form .errorlist").hide();
+                    if (data == "email"){
+                       $("#password-recovery-form").html("<p style='color:#000000;'>Las instrucciones para recuperar su contraseña se enviaron a su email.</p>");
+                    }
+                    if (data == "error"){
+                       $("#password-recovery-form .errorlist").show();
+                    }
+                });
+         return false;
+      });
+
+    });    
+    
+    </script>
+
+    <script type="text/javascript">
+      
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-20948534-5']);
+	_gaq.push(['_trackPageview']);
+      
+	(function() {
+	  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+      
+      </script>
+      
+</head>
+
+{% block body %}
+      
+{% endblock %}
+</html>

@@ -1,0 +1,31 @@
+{% extends "portal/menu_views/base_menu.html"  %}
+{% load i18n %}
+
+{% block head %}
+  {% include "portal/tags/sharethis/standard.html" %}
+{% endblock %}
+
+{% block title %}
+  {% blocktrans %}Enter{% endblocktrans %}
+{% endblock %}
+
+{% block center_content %}
+	<div class="span-14 last all_link_green">
+	  <p>{% blocktrans %}Thank you for sharing your photo!. Your photo will soon appear
+	  among this week's entries.{% endblocktrans %}</p>
+	  <p>{% blocktrans %}We'll send you an email within the next few hours confirming that your photo
+	  has been accepted.{% endblocktrans %}</p>
+	  {% if user.get_profile.remaining_uploads > 0 %}
+	    <p>{% blocktrans %}You may submit{% endblocktrans %} {{user.get_profile.remaining_uploads}}
+	    {% blocktrans %}additional photo{% endblocktrans %}{{user.get_profile.remaining_uploads|pluralize}}
+	    {% get_current_language as LANGUAGE_CODE %}
+	    {% if LANGUAGE_CODE == 'es' %} más{% endif %}.</p>
+	    <p><a class="green continue" href={% url portal_subir_fotos %}>{% blocktrans %}Keep uploading photos{% endblocktrans %}</a><p/>
+	  {% else %}
+	    <p>{% blocktrans %}You already have uploaded your photos for the next Voting Period{% endblocktrans %}</p>
+	  {% endif %}
+	  <p>
+	  <strong>{% blocktrans %}IMPORTANT{% endblocktrans %}:</strong> {% blocktrans %}There is a chance our response to you will be discarded by your spam filter. You should receive an acknowledgment email in approximately 15 minutes. Please check your inbox for our auto-acknowledgment email, which has just been sent to the email address you specified. If you don't see the email, look in your junk-mail folder. If you find it there, please mark the email as Not Junk and add @machu-picchu100.com to your address book.{% endblocktrans %}
+	  </p>
+	</div>
+{% endblock %}

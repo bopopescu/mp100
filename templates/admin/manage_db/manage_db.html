@@ -1,0 +1,19 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% load adminmedia %}{% admin_media_prefix %}css/dashboard.css" />{% endblock %}
+
+{% block coltype %}colMS{% endblock %}
+
+{% block bodyclass %}dashboard{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+
+    <p>El backup de la base de datos será guardado en la carpeta backup en la raiz de la aplicación MP100,
+    bajo el nombre de: backup_ </p>
+    
+    <a href="{% url admin_generar_backup %}" ><button type="button"> Generar backup</button></a>
+    
+{% endblock %}

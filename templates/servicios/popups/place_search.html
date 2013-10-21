@@ -1,0 +1,15 @@
+{% load i18n %}
+
+<div id="popup_search_map" class="jqmWindow services_box">
+    <h2>{% blocktrans %}Search by location{% endblocktrans %}</h2>
+    <div class="services_box_content">
+        <span>{% blocktrans %}Point out the location that are looking for on the map{% endblocktrans %}</span>
+        <div id="map_ubicacion" class="prepend-top append-bottom" style="width:570px; height:350px"></div>
+        <div class="center">
+            <input type="text" class="format_ubicacion" readonly="readonly">
+        </div>
+        <div class="right">
+            <span class="closeClass ser_button">{% blocktrans %}Finish{% endblocktrans %}</span>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,260 @@
+{% extends "portal/base.html"  %}
+{% load i18n %}
+{% load thumbnail %}
+{% load portal_tags %}
+
+{% block head %}
+  {% include "portal/tags/sharethis/standard.html" %}
+{% endblock %}
+
+{% block body %}
+<body class="wall">
+
+  <!--begin first navigation menu (idioms, login, register, myrpofile, social links)-->
+  <div class="span-24 last wide_first_navigation_menu">
+    <div class="container">  
+      <div class="span-4">
+	<!--Español | English-->
+      <!-- idiomas -->
+        <table>
+          <tr>
+            <!--<td style="color: #FFFFFF ">English</td>-->
+            <td>
+                <form action="/i18n/setlang/" method="post">{% csrf_token %}
+                <input name="next" type="hidden" value="{% url new_main_portal %}" />
+                <input name="language" type="hidden" value="en" />
+                <input id="languaje_english_icon" type="submit" title="English" alt="English" value="" />
+                </form>
+            </td>
+            <td>|</td>
+            <!--<td style="color: #FFFFFF ">Español</td>-->	    
+            <td>
+                <form action="/i18n/setlang/" method="post">{% csrf_token %}
+                <input name="next" type="hidden" value="{% url new_main_portal %}" />
+                <input name="language" type="hidden" value="es" />
+                <input id="languaje_spanish_icon" type="submit" title="Español" alt="Español" value="" />
+                </form>
+            </td>
+          </tr>
+        </table>
+      <!-- end idiomas -->	
+      </div>
+      <div class="span-8">
+          {% get_current_language as LANGUAGE %}
+          {% include 'portal/tags/fb_like/fb_like_top.html' %}
+      </div>
+      <div class="span-9 text_to_right">
+        {% if user.is_authenticated %}
+            Welcome {{user.username}} | <a href="{% url logout_view %}"> Logout </a>  | <a href="{% url usuario_main_user %}">My Profile</a>
+        {% else %} 
+            <a class="ex3bTrigger" href="#">Login</a> | <a class="ex4bTrigger" href="#">Register</a>
+        {% endif %}
+	
+        <!--begin form_login-->
+          <div class="jqmAlert" id="ex3b">
+              <div id="ex3b" class="jqmAlertWindow">
+                  <div class="jqmAlertTitle clearfix">
+                    <h1>{% trans 'Log-In' %}</h1><a href="#" class="jqmClose"><em>{% trans 'Close' %}</em></a>
+                  </div>
+                  <div class="jqmAlertContent">
+                    <!-- login login form -->
+                    {% include 'portal/tags/login_register/login_form.html' %}
+                    <!-- end of login form -->
+                  </div>
+              </div>
+          </div>
+        <!--end form_login-->
+          <div class="jqmAlert" id="ex4b">
+            <div id="ex4b" class="jqmAlertWindow1">
+              <div class="jqmAlertTitle clearfix">
+                <h1>{% blocktrans %}Please register in order to vote and submit photos{% endblocktrans %}</h1><a href="#" class="jqmClose"><em>{% trans 'Close' %}</em></a>
+              </div>
+              <div class="jqmAlertContent register_scroll black">
+                <!-- register form -->
+                {# include 'portal/tags/login_register/register_form.html' #}
+                 <iframe width="800" height="500" src="{% url ajax_register_form %}"></iframe>
+                <!-- end of register form -->
+              </div>
+            </div>
+          </div>	
+        <!--begin form_register-->
+
+
+        <!--end form_register-->
+        
+        <!--begin successful register-->
+          <div class="jqmAlert" id="ex5b">
+            <div id="ex5b" class="jqmAlertWindow">
+                <div class="jqmAlertTitle clearfix">
+                    <h1>{% trans 'Successful Registration' %}</h1><a href="#" class="jqmClose"><em>{% trans 'Close' %}</em></a>
+                </div>
+                <div class="jqmAlertContent all_to_left">
+                <!-- content -->
+                    {% include 'portal/tags/login_register/register_successfull.html' %}
+                <!-- end content -->
+                </div>
+            </div>
+          </div>
+        <!--end successful register-->
+	
+	<!-- begin password recovery -->
+	<div class="jqmAlert" id="ex6b">
+	  <div id="ex6b" class="jqmAlertWindow0">
+	      <div class="jqmAlertTitle clearfix height_30">
+		  <h1 class="margin_right_40">{% trans 'Recover Your Password' %}</h1><a href="#" class="jqmClose"><em>{% trans 'Close' %}</em></a>
+	      </div>
+	      <div class="jqmAlertContent all_to_left">
+	      <!-- content -->
+		  {% include 'portal/tags/login_register/password_recovery_form.html' %}
+	      <!-- end content -->
+	      </div>
+	  </div>
+	</div>
+	<!-- end password recovery -->  
+
+	<!--begin successful password recovery-->
+	<div class="jqmAlert" id="G_ex7b">
+	  <div id="G_ex7b" class="jqmAlertWindow">
+	      <div class="jqmAlertTitle clearfix">
+		  <h1>{% trans 'Recover Your Password' %}</h1><a href="#" class="jqmClose"><em>{% trans 'Close' %}</em></a>
+	      </div>
+	      <div class="jqmAlertContent all_to_left">
+	      <!-- content -->
+		  {% include 'portal/tags/login_register/passRevocery_successfull.html' %}
+	      <!-- end content -->
+	      </div>
+	  </div>
+	</div>
+	<!--end successful password recovery-->
+	
+      </div>
+      <div class="span-3 last" >
+	<table>
+	  <tr>
+	    <td >
+	      <a class="social_links RSS_button" href="{% url zinnia_entry_latest_feed %}" title="RSS FEEDS" target="_blank"></a>
+	    </td>
+	    <td>
+              <span class="st_sharethis_custom" displayText=""></span>
+	    </td>
+	    <td>
+	      <a class="social_links Twitter_button" href="{{url_redes_sociales.Twitter}}" title="Twitter" target="_blank"></a>
+	    </td>
+	    <td>
+	      <a class="social_links Facebook_button" href="{{url_redes_sociales.Facebook}}" title="Facebook" target="_blank"></a>
+	    </td>
+	  </tr>
+	</table>
+      </div>
+    </div>
+  </div>
+  <!--end fist navigation menu-->  
+  <!-- begin green line -->
+  <div class="span-24 last green_wide_line"></div>
+  <!--end green line -->
+  
+  <div class="container container_height2">     
+    <div class="span-24 last homepage_advertisement">
+      <!-- begin ad tag (tile=1) -->
+      <script language="JavaScript" type="text/javascript">
+      if (typeof ord=='undefined') {ord=Math.random()*10000000000000000;}
+      document.write('<script language="JavaScript" src="http://ad.doubleclick.net/adj/pe.universia.machupicchu100/others;tile=1;dcopt=ist;sz=975x90;ord=' + ord + '?" type="text/javascript"><\/script>');
+      </script><noscript><a href="http://ad.doubleclick.net/jump/pe.universia.machupicchu100/others;tile=1;sz=975x90;ord=123456789?" target="_blank"><img src="http://ad.doubleclick.net/ad/pe.universia.machupicchu100/others;tile=1;sz=975x90;ord=123456789?" width="975" height="90" border="0" alt=""></a></noscript>
+      <!-- End ad tag -->
+    </div>
+
+    <div class="homeStoneMenu span-24 last">
+      <!-- BEGIN MENU -->
+      {% include "portal/tags/menu/menu.html" %}
+      <!-- END MENU -->	
+    </div>
+
+    <div class="span-24 last">
+      <div class="span-5 galery_left_container">      
+	<div class="all_to_left">
+	  <img width="177px" height="97px" alt="Machu Picchu100" src="{{MEDIA_URL}}style_imgs/homepage_logo.png">
+	</div>
+
+	<div class="avatar">
+	  {% thumbnail avatar '113x118' as thumb %}
+	  <img width="113px" height="118px" alt="{{usuario.first_name}}" src="{% if avatar %}{{thumb}}{% else %}{{MEDIA_URL}}{{avatar.name}}{% endif %}">
+	  <div class="all_to_right">
+	    <h1>{{usuario.first_name}}&nbsp;{{usuario.last_name}}</h1>
+	    {% if user.is_authenticated %}
+	    <p class="link_all_green" ><a href="{% url usuario_main_user %}">{% blocktrans %}back to my profile{% endblocktrans %}</a></p>
+	    {% endif %}
+	  </div>
+	</div>	
+	
+	<div class="vertical_advertisement">
+	  <!--<p class="v_adv_text no_margin">{% blocktrans %}Sponsored by{% endblocktrans %}</p>-->
+	  <ul>
+	   <li><a href="{% url portal_panoramic_fotos %}"><img width="120px" height="90px" alt="advertisement" src="{{MEDIA_URL}}left_logos/SonyPanoramicPhotos.png"/></a></li>
+<!-- 	   <li> -->
+<!-- <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="120" height="90" id="movie_name" align="middle"> -->
+<!--     <param name="movie" value="{{MEDIA_URL}}flash/120x90.swf" /> -->
+<!--     <\!--[if !IE]>-\-> -->
+<!--     <object type="application/x-shockwave-flash" data="{{MEDIA_URL}}flash/120x90.swf" width="120" height="90"> -->
+<!--         <param name="movie" value="{{MEDIA_URL}}flash/120x90.swf" /> -->
+<!--     <\!--<![endif]-\-> -->
+<!--         <a href="http://www.adobe.com/go/getflash"> -->
+<!--             <img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" /> -->
+<!--         </a> -->
+<!--     <\!--[if !IE]>-\-> -->
+<!--     </object> -->
+<!--     <\!--<![endif]-\-> -->
+<!-- </object> -->
+<!-- 	   </li>	    -->
+<!--	   <li><a href="#"><img width="120px" height="90px" alt="advertisement" src="{{MEDIA_URL}}dump_images/left_logo.png"/></a></li>
+	   <li><a href="#"><img width="120px" height="90px" alt="advertisement" src="{{MEDIA_URL}}dump_images/left_logo.png"/></a></li>
+	   <li><a href="#"><img width="120px" height="90px" alt="advertisement" src="{{MEDIA_URL}}dump_images/left_logo.png"/></a></li>-->
+	  </ul>
+	</div>	
+	
+      </div>
+      
+      
+      <div class="galery_center_container">
+	<div class="span-1" style="height: 900px; width:0px;"></div>
+	{% block center_content %} {% endblock %}
+      </div>    
+      <div class="span-3 last vertical_advertisement2">
+        <!-- begin ad tag (tile=2) -->
+        <script language="JavaScript" type="text/javascript">
+        if (typeof ord=='undefined') {ord=Math.random()*10000000000000000;}
+        document.write('<script language="JavaScript" src="http://ad.doubleclick.net/adj/pe.universia.machupicchu100/others;tile=2;sz=120x600;ord=' + ord + '?" type="text/javascript"><\/script>');
+        </script><noscript><a href="http://ad.doubleclick.net/jump/pe.universia.machupicchu100/others;tile=2;sz=120x600;ord=123456789?" target="_blank"><img src="http://ad.doubleclick.net/ad/pe.universia.machupicchu100/others;tile=2;sz=120x600;ord=123456789?" width="120" height="600" border="0" alt=""></a></noscript>
+        <!-- End ad tag -->      </div>
+    </div>
+    
+    <div class="span-24 last bottom_logos">
+      {% include "portal/tags/bottom_advertisement/bottom_advertisement.html" %}
+    </div>
+
+  </div>
+  
+  <div class="footer_wrapper">
+    <div class="footer_chart">
+      <div class="container">
+	<div class="span-24 last center">
+	{% include "portal/tags/footer/footer_menu.html" %}
+	</div>
+      </div>
+    </div>
+    <div class="last_line_footer">
+      <div class="container">
+	<div class="span-24 last">
+	  <div class="span-7 append-1"> &copy; {% blocktrans %}Copyright{% endblocktrans %} 2011 Quimera HG</div>
+	  <div class="span-7 append-1"><a href="mailto:info@machu-picchu100.com">{% blocktrans %}Email Us{% endblocktrans %}</div>
+	  <div class="span-3 append-1"><a href="{% url portal_bases %}">{% blocktrans %}Official Rules{% endblocktrans %}</a></div>
+	  <div class="span-4 last"><a href="{% url portal_faqs %}">{% blocktrans %}FAQ's{% endblocktrans %}</a></div>
+	</div>
+      </div>
+    </div>
+  </div>
+  <!-- begin green line -->
+  <div class="span-24 last green_wide_line"></div>
+  <!--end green line -->  
+  
+</body>
+{% endblock %}

@@ -1,0 +1,161 @@
+<mockup version="1.0" skin="sketch" measuredW="899" measuredH="1174" mockupW="742" mockupH="1116">
+  <controls>
+    <control controlID="599" controlTypeID="com.balsamiq.mockups::FieldSet" x="205" y="370" w="694" h="266" measuredW="200" measuredH="170" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Subir%20nueva%20foto</text>
+      </controlProperties>
+    </control>
+    <control controlID="600" controlTypeID="com.balsamiq.mockups::Label" x="246" y="444" w="-1" h="-1" measuredW="58" measuredH="21" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Ubicaci%F3n</text>
+      </controlProperties>
+    </control>
+    <control controlID="601" controlTypeID="com.balsamiq.mockups::TextInput" x="337" y="443" w="505" h="-1" measuredW="79" measuredH="27" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="602" controlTypeID="com.balsamiq.mockups::Label" x="246" y="484" w="-1" h="-1" measuredW="72" measuredH="21" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Descripci%F3n</text>
+      </controlProperties>
+    </control>
+    <control controlID="603" controlTypeID="com.balsamiq.mockups::TextArea" x="337" y="487" w="505" h="66" measuredW="200" measuredH="140" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="604" controlTypeID="com.balsamiq.mockups::CheckBox" x="246" y="568" w="-1" h="-1" measuredW="102" measuredH="22" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Foto%20principal</text>
+      </controlProperties>
+    </control>
+    <control controlID="605" controlTypeID="com.balsamiq.mockups::Button" x="764" y="590" w="-1" h="-1" measuredW="78" measuredH="27" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Subir%20foto</text>
+      </controlProperties>
+    </control>
+    <control controlID="606" controlTypeID="com.balsamiq.mockups::FieldSet" x="205" y="646" w="694" h="198" measuredW="200" measuredH="170" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Galer%EDa%20de%20fotos</text>
+      </controlProperties>
+    </control>
+    <control controlID="607" controlTypeID="com.balsamiq.mockups::Label" x="246" y="401" w="-1" h="-1" measuredW="52" measuredH="21" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Nombre</text>
+      </controlProperties>
+    </control>
+    <control controlID="608" controlTypeID="com.balsamiq.mockups::TextInput" x="337" y="400" w="505" h="-1" measuredW="79" measuredH="27" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="609" controlTypeID="com.balsamiq.mockups::Image" x="261" y="712" w="-1" h="-1" measuredW="77" measuredH="79" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Foto</text>
+      </controlProperties>
+    </control>
+    <control controlID="610" controlTypeID="com.balsamiq.mockups::Label" x="273" y="681" w="-1" h="-1" measuredW="52" measuredH="21" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Nombre</text>
+      </controlProperties>
+    </control>
+    <control controlID="611" controlTypeID="com.balsamiq.mockups::Link" x="263" y="791" w="-1" h="-1" measuredW="64" measuredH="21" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Editar%20foto</text>
+      </controlProperties>
+    </control>
+    <control controlID="613" controlTypeID="com.balsamiq.mockups::Link" x="259" y="813" w="-1" h="-1" measuredW="74" measuredH="21" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Eliminar%20foto</text>
+      </controlProperties>
+    </control>
+    <control controlID="614" controlTypeID="com.balsamiq.mockups::FieldSet" x="205" y="165" w="694" h="197" measuredW="200" measuredH="170" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Foto%20de%20la%20p%E1gina%20principal</text>
+      </controlProperties>
+    </control>
+    <control controlID="615" controlTypeID="com.balsamiq.mockups::Image" x="258" y="206" w="211" h="114" measuredW="77" measuredH="79" zOrder="15" locked="false" isInGroup="-1"/>
+    <control controlID="617" controlTypeID="com.balsamiq.mockups::Label" x="497" y="233" w="370" h="59" measuredW="953" measuredH="21" zOrder="16" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>La%20im%E1gen%20que%20subas%20aqu%ED%20ser%E1%20usada%20para%20tener%20publicidad%20en%20nuestra%20p%E1gina%20de%20inicio%2C%20esta%20debe%20se%20de%20al%20menos%20975px%20de%20ancho%20y%20376px%20de%20alto%20para%20ser%20aceptada</text>
+      </controlProperties>
+    </control>
+    <control controlID="618" controlTypeID="com.balsamiq.mockups::FieldSet" x="205" y="72" w="694" h="85" measuredW="200" measuredH="170" zOrder="17" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Galer%EDa</text>
+      </controlProperties>
+    </control>
+    <control controlID="619" controlTypeID="com.balsamiq.mockups::Label" x="246" y="100" w="621" h="42" measuredW="672" measuredH="21" zOrder="18" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Aqu%ED%20puedes%20subir%20%5BFotos%5D%20para%20tu%20galer%EDa%20o%20una%20%5BFoto%20para%20la%20p%E1gina%20de%20inicio%5D%20y%20%5BVideos%5D%20de%20tu%20alojamiento%20para%20anunciarte.</text>
+      </controlProperties>
+    </control>
+    <control controlID="620" controlTypeID="com.balsamiq.mockups::CallOut" x="348" y="60" w="-1" h="-1" measuredW="39" measuredH="40" zOrder="19" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>A</text>
+      </controlProperties>
+    </control>
+    <control controlID="621" controlTypeID="com.balsamiq.mockups::CallOut" x="166" y="370" w="-1" h="-1" measuredW="39" measuredH="39" zOrder="20" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>A</text>
+      </controlProperties>
+    </control>
+    <control controlID="622" controlTypeID="com.balsamiq.mockups::CallOut" x="172" y="157" w="-1" h="-1" measuredW="39" measuredH="39" zOrder="21" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>B</text>
+      </controlProperties>
+    </control>
+    <control controlID="623" controlTypeID="com.balsamiq.mockups::CallOut" x="569" y="58" w="-1" h="-1" measuredW="39" measuredH="43" zOrder="22" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>B</text>
+      </controlProperties>
+    </control>
+    <control controlID="624" controlTypeID="com.balsamiq.mockups::CallOut" x="683" y="58" w="-1" h="-1" measuredW="40" measuredH="43" zOrder="23" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>C</text>
+      </controlProperties>
+    </control>
+    <control controlID="625" controlTypeID="com.balsamiq.mockups::CallOut" x="157" y="844" w="-1" h="-1" measuredW="40" measuredH="40" zOrder="24" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>C</text>
+      </controlProperties>
+    </control>
+    <control controlID="626" controlTypeID="com.balsamiq.mockups::FieldSet" x="205" y="849" w="694" h="106" measuredW="200" measuredH="170" zOrder="25" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Subir%20nuevo%20video</text>
+      </controlProperties>
+    </control>
+    <control controlID="633" controlTypeID="com.balsamiq.mockups::FieldSet" x="205" y="965" w="694" h="209" measuredW="200" measuredH="170" zOrder="26" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Galer%EDa%20de%20videos</text>
+      </controlProperties>
+    </control>
+    <control controlID="634" controlTypeID="com.balsamiq.mockups::Label" x="246" y="880" w="-1" h="-1" measuredW="20" measuredH="21" zOrder="27" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>url</text>
+      </controlProperties>
+    </control>
+    <control controlID="635" controlTypeID="com.balsamiq.mockups::TextInput" x="337" y="879" w="505" h="-1" measuredW="79" measuredH="27" zOrder="28" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="638" controlTypeID="com.balsamiq.mockups::Link" x="284" y="1117" w="-1" h="-1" measuredW="74" measuredH="21" zOrder="29" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Editar%20video</text>
+      </controlProperties>
+    </control>
+    <control controlID="639" controlTypeID="com.balsamiq.mockups::Link" x="277" y="1144" w="-1" h="-1" measuredW="84" measuredH="21" zOrder="30" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Eliminar%20video</text>
+      </controlProperties>
+    </control>
+    <control controlID="641" controlTypeID="com.balsamiq.mockups::VideoPlayer" x="246" y="993" w="151" h="117" measuredW="300" measuredH="200" zOrder="31" locked="false" isInGroup="-1"/>
+    <control controlID="642" controlTypeID="com.balsamiq.mockups::Button" x="750" y="916" w="-1" h="-1" measuredW="105" measuredH="27" zOrder="32" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Guardar%20video</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

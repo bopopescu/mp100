@@ -1,0 +1,180 @@
+{% extends "portal/menu_views/base_menu.html"  %}
+{% load i18n %}
+{% load portal_tags %}
+{% load thumbnail watermark endless %} 
+{% block title %}
+  {% blocktrans %}10 Most Voted{% endblocktrans %}
+{% endblock %}
+
+{% block head %}
+<!--  <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.lightbox-0.5.js"></script>
+  <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.prettyPopin.js"></script>
+  <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/prettyPopin.css"/>
+  <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/jquery.lightbox-0.5.css"/>-->
+
+  <script src="{{ MEDIA_URL }}js/jquery.jqEasyCharCounter.min.js" type="text/javascript"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+
+
+
+      ////////////////////////////////////////////////////////////////////////
+      /////////////////////////events popin report concern form////////////////////////
+      ////////////////////////////////////////////////////////////////////////
+      var triggers6 = $('a.G_reportConcern_ex6bTrigger')[0];
+      $('#G_reportConcern_ex6b').jqm({
+        trigger: triggers6,
+        target: 'div.jqmAlertContent',
+	toTop: true,
+        overlay: 0
+        });
+      
+      // Show popin if some login error exists
+	{% if form_concern.errors %}
+	      $('#G_reportConcern_ex6b').jqmShow();
+	{% endif %}
+      ////////////////////////////////////////////////////////////////////////
+  
+      ////////////////////////////////////////////////////////////////////////
+      /////////////////////////events popin report sended////////////////////////
+      ////////////////////////////////////////////////////////////////////////	
+	$('#G_reportConcern_ex7b').jqm({
+	  trigger: '',
+	  target: 'div.jqmAlertContent',
+	  toTop: true,
+	  overlay: 0
+	  });
+      // Show popin a report was sended successfully
+	{% if flag_report_sended %}
+	      $('#G_reportConcern_ex7b').jqmShow();
+	{% endif %}
+      ////////////////////////////////////////////////////////////////////////
+      $('.countable1').jqEasyCounter({
+	      'maxChars': 250,
+	      'maxCharsWarning': 200,
+	      'msgFontSize': '12px',
+	      'msgFontColor': '#899F3E',
+	      'msgFontFamily': 'Verdana',
+	      'msgTextAlign': 'right',
+	      'msgWarningColor': '#F00',
+	      'msgAppendMethod': 'insertAfter'				
+      });            
+    });
+
+
+  </script>
+{% endblock %}
+
+{% block wall_menu %}
+<div class="wall_menu wall_menu_vote span-24 last">
+{% endblock %}
+
+{% block center_content %}   
+<div class="span-13 last breadcrumbs">
+    <label class="link_all_green"><a href="{% url portal_most_voted %}">{% blocktrans %}Most Voted{% endblocktrans %} ></a></label>
+    {% blocktrans %}10 Most Voted{% endblocktrans %}
+</div>
+<div class="span-14 last winners push_down_25">
+  <div class="span-9">
+    <h1>{% blocktrans %}Photo Contest{% endblocktrans %}</h1>
+    <h2>{% blocktrans %}I was in Machu Picchu{% endblocktrans %}</h2>
+    <h3>{% blocktrans %}A Photographic Wonder{% endblocktrans %}</h3>
+  </div>
+  <div class="span-5 last most_voted_word">
+    <h1>{% blocktrans %}Most Voted{% endblocktrans %}</h1>
+  </div>
+  <div class="span-14 last mv_stoneMenu">
+    <ul>
+      <li class="MostVoted">
+	<a href="{% url portal_most_voted %}">
+	  <label class="relative_push_down_10">{% blocktrans %}Most Voted{% endblocktrans %}</label>
+	</a>
+      </li>
+      <li class="Most_Voted_10_selected"><a href="{% url portal_top_ten %}">{% blocktrans %}10<br/>Most Voted{% endblocktrans %}</a></li>
+      <li class="Most_Commented"><a href="{% url portal_mp100_special_awards %}">{% blocktrans %}Most<br/>Commented{% endblocktrans %}</a></li>
+      <li class="Last_uploads"><a href="{% url portal_uploads_today %}">{% blocktrans %}Recent<br/>Uploads{% endblocktrans %}</a></li>
+    </ul>
+  </div>  
+</div> 
+	<div class="span-14 last countDown pull_up_70">
+	  <div class="span-14 last ">
+	    <h3>
+	    {% get_actual_and_next_temporadas actual_temp next_temp %}
+	    {% if actual_temp %}
+	      <h3>{% blocktrans %}We are now in Voting Period{% endblocktrans %} {{actual_temp.id}}</h3>
+	    {% endif %}
+	    {% if next_temp and not actual_temp %}
+	      {% if LANGUAGE_CODE == 'es' %}El{% endif %} {% blocktrans  %}Voting Period{% endblocktrans %}
+	      {{next_temp.id}} {% blocktrans %}begins on{% endblocktrans %}
+	      {{next_temp.fecha_inicio|date:"D, j M Y h:i:s a"}}
+	    {% endif %}	      
+	    </h3>
+	  </div>
+	</div>
+
+	<div class="span-14 last pull_up_70">
+	  <div class="span-7 last " >
+	      {% if user.is_authenticated %}
+	      <p class="link_all_green no_margin"><a class="no_decoration G_reportConcern_ex6bTrigger" href="#">{% blocktrans %}Report this photo{% endblocktrans %}</a></p>
+	      {% endif %}
+	      <!--############################################################################-->
+	      <!--  Begin report_concern_form-->
+	      {% include "portal/tags/report_concern/popin_report_concern.html" %}
+	      <!--  End report_concern_form-->
+	      <!-- Begin pop in report sended successfully -->
+	      {% include "portal/tags/report_concern/popin_report_concern_sended.html" %}
+	      <!-- End pop in report sended successully -->
+	  </div>
+	  <div class="clear"></div>
+	  {% paginate 1 lista_fotos %}
+	  {% for foto in lista_fotos %}
+
+	  <div class="span-6">
+	    <div class="vote_foto">
+	    <a href="{{foto.get_absolute_url}}" title="{{foto.titulo}}">
+	    {% thumbnail foto.foto "220x220_upscale"  as small_thumb %}
+            <img width="220px" alt="{{foto.titulo}}" src='{{small_thumb}}'>
+	    </a>
+	    {% if self_user %} <div>{% blocktrans %}votes{% endblocktrans %}: {{ foto.get_nro_votos }} </div> {% endif %}
+	    </div>
+	  </div>	    
+	  
+	  <div class="span-8 last">
+	    <h3 class="green no_margin"><label>{% blocktrans %}Photo title{% endblocktrans %}: {{foto.titulo}}</label></h3>
+	    {% blocktrans %}Author{% endblocktrans %}: {{foto.codigo_user.first_name}}&nbsp;{{foto.codigo_user.last_name}}<br/>
+	    <a class="link_all_green green" href="{{foto.codigo_user.get_profile.get_absolute_url}}">{% blocktrans %}View all by{% endblocktrans %} {{foto.codigo_user.first_name}}&nbsp;{{foto.codigo_user.last_name}}</a>
+	    <p></p>
+	    <h3 class="green no_margin"><label>{% blocktrans %}Category{% endblocktrans %}</label></h3>
+	    {% if LANGUAGE_CODE == 'en' %}
+	      {{foto.categoria}}
+	    {% else %}
+	      {{foto.categoria.nombre_espaniol}}
+	    {% endif %}
+	    <p></p>
+	    <h3 class="green no_margin"><label>{% blocktrans %}Description{% endblocktrans %}:</label></h3>
+	    {% if foto.descripcion %}
+	      {{foto.descripcion}}
+	    {% else %}
+	      {% blocktrans %}There is no description.{% endblocktrans %}
+	    {% endif %}
+	    <p></p>
+	    <div class="span-8 last all_to_right pagination_links push_down_6">	
+	      {% show_pages %}
+	    </div>	    
+<!--	    <div class="span-4 append-1 all_to_left pagination_links push_down_6">
+	    <a href="#"><< previous </a>
+	    </div>
+	    <div class="span-3 all_to_right pagination_links last push_down_6">
+	    <a href="#">next >> </a>
+	    </div>-->
+	  </div>
+	  {% endfor %}	  
+	  
+	  <div class="span-14 push_down_30 comments_separator last">
+	    <hr>
+	  </div>
+	</div>
+{% endblock %}
+    
+</div>

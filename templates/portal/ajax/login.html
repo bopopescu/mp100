@@ -1,0 +1,66 @@
+{% load i18n %}
+<!-- login login form -->
+<div id="ajax_login_box">
+{# include 'portal/tags/login_register/login_form.html' #}
+<style>
+#id_email{
+width: 150px;
+}
+#id_password{
+width: 150px;
+}
+</style>
+
+
+<div class="side_bar login_bar" id="#homepage_login_bar">
+  <form  id="login_ajax_form" method="post" action="{% url ajax_login_form %}" 
+	 class="login-form">
+    {% csrf_token %}
+    <table >
+      <tr height="25">
+        <td colspan="3">
+          {{ form.non_field_errors }}
+        </td>
+      </tr>
+      <tr class="username">
+        <td><label for="id_email" class="grey">{% blocktrans %}Email{% endblocktrans %}:</label></td>
+        <td>
+          {{form.email}}
+        </td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><label for="id_password" class="grey">{% blocktrans %}Password{% endblocktrans %}:</label></td>
+        <td>
+          {{form.password}}
+        </td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+            <a href="#" class="green">{% blocktrans %}Forgot Password{% endblocktrans %}</a>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+        <input type="submit" class="button" value="{% blocktrans %}Login{% endblocktrans %}"/>
+        <a href="#" class="close_login"><input id="login-submit" type="button" class="button" value="{% blocktrans %}Cancel{% endblocktrans %}"></a>
+        </td>
+      </tr>
+    </table>
+  </form>
+  <div class="login-register">
+    <div class="separator"></div>
+    <h2>{% blocktrans %}First time visitor?{% endblocktrans %}</h2>
+    <h4>{% blocktrans %}Register to vote and submit photos{% endblocktrans %}</h4>
+    <a href="#" class="green-button">{% blocktrans %}Register{% endblocktrans %}</a>
+  </div>
+</div>
+
+
+
+
+</div>
+<!-- end of login form -->

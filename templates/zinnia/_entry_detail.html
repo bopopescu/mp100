@@ -1,0 +1,42 @@
+{% load tagging_tags comments i18n thumbnail %}
+
+
+<div class="entry-header span-14 last">
+  <h2 class="entry-title">
+    <a href="{{ object.get_absolute_url }}" title="{{ object.title }}" rel="bookmark">
+      {{ object.title }}
+    </a>
+  </h2>
+</div>
+
+<div class="entry-body span-14 last">
+  {% if object.image %}
+  <div class="entry-image">
+    <p>
+      <a href="{{ object.get_absolute_url }}" rel="bookmark">
+	{% if object.image.width > 550 %}
+	  <img src="{% thumbnail object.image '550x550' %}" alt="{{ object.title }}" class="left" />
+	{% else %}
+	  <img src="{{ object.image.url }}" alt="{{ object.title }}" class="left" />
+	{% endif %}
+      </a>
+    </p>
+  </div>
+  {% endif %}
+  <div class="entry-content">
+    {{ object_content }}
+    
+  <span class="st_email" st_url="http://{{domain}}{{ object.get_absolute_url }}" st_title="Photo contest I was in Machu Picchu" st_summary="{{object.title}}" st_image="{{MEDIA_URL}}style_imgs/homepage_logo.png"></span>
+  <span class="st_facebook" st_url="http://{{domain}}{{ object.get_absolute_url }}" st_title="Photo contest I was in Machu Picchu" st_summary="{{object.title}}" st_image="{{MEDIA_URL}}style_imgs/homepage_logo.png"></span>
+  <span class="st_twitter" st_url="http://{{domain}}{{ object.get_absolute_url }}" st_title="Photo contest I was in Machu Picchu" st_summary="{{object.title}}" st_image="{{MEDIA_URL}}style_imgs/homepage_logo.png"></span>
+  <span class="st_sharethis" st_url="http://{{domain}}{{ object.get_absolute_url }}" st_title="Photo contest I was in Machu Picchu" st_summary="{{object.title}}" st_image="{{MEDIA_URL}}style_imgs/homepage_logo.png" displayText="{% blocktrans %}ShareThis{% endblocktrans %}"></span>  
+  <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+  <script type="text/javascript">
+	  stLight.options({
+                  publisher:'b6c7f2ae-02bd-4c16-87c5-05c4bcb7ae33',
+                  tracking:'google'
+	  });
+  </script>
+  </div>
+  
+</div>

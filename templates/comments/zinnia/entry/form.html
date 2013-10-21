@@ -1,0 +1,41 @@
+{% load comments i18n thumbnail %}
+<script>
+$(document).ready(function(){
+    if($("#id_comment").val() == ''){
+        $("#id_comment").val("{% blocktrans %}Add a comment{% endblocktrans %}");
+    }
+    $("#id_comment").click(function(){
+        if($("#id_comment").val() == '{% blocktrans %}Add a comment{% endblocktrans %}'){
+           $("#id_comment").val("");  
+        }
+    });
+});
+</script>
+<table class="entry-comment">
+<tr>
+<td class="avatar">
+  <img src="{% thumbnail request.user.userprofile.foto "60x60" %}"/>
+  <br/>
+  <span class="username">{{request.user.username}}</span>
+</td>
+<td>
+<form action="{% comment_form_target %}" method="post">
+  {% csrf_token %}
+    <input type="hidden" name="next" value="{% url zinnia_discussion_success %}"/>
+    {% for field in form %}
+    {% if field.is_hidden %}{{ field }}{% else %}
+    {% if field.name != "name" and field.name != "email" and field.name != "url" %}
+    <div{% if field.errors %} class="error"{% endif %}{% ifequal field.name "honeypot" %} style="display:none;"{% endifequal %}>
+      {% if field.errors %}{{ field.errors }}{% else %}<br />{% endif %}
+      {{ field }}
+    </div>
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+    <p class="submit">
+      <input type="submit" name="submit" class="submit-post" value="{% trans "Post" %}" />
+      <input type="submit" name="preview" class="submit-preview" value="{% trans "Preview" %}" />
+    </p>
+</form>
+</td></tr>
+</table>

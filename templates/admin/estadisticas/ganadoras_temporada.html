@@ -1,0 +1,35 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% load adminmedia %}{% admin_media_prefix %}css/dashboard.css" />{% endblock %}
+
+{% block coltype %}colMS{% endblock %}
+
+{% block bodyclass %}dashboard{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+    {% if not eleccion %}
+        <h2>Seleccione una temporada para ver los ganadores</h2>
+        <ul>
+        {% for temporada in temporadas %}
+            <li>    
+                <a href="{% url ganadora_temporada_elegida temporada.id %}">
+                    {{ temporada.titulo }}
+                </a>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <h2>Ganadores de la temporada {{ temporada.titulo }}</h2>
+        <ul>
+            {% for ganador in ganadores %}
+            <li>
+                <h3>{{ ganador.titulo }}</h3>
+                <img src="{{ MEDIA_URL }}{{ ganador.foto }}" />                
+            </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}

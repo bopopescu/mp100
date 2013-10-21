@@ -1,0 +1,90 @@
+{% extends "portal/menu_views/base_menu.html"  %}
+{% load i18n %}
+{% load thumbnail %}
+{% block title %}
+  {% blocktrans %}User Profile - My Photos{% endblocktrans %}
+{% endblock %}
+
+{% block left_menu %}
+<li>
+  <a href="{% url usuario_mis_fotos %}">{% blocktrans %}My Photos{% endblocktrans %}</a>
+</li>
+<li>
+  <a href="{% url usuario_editar_perfil %}">{% blocktrans %}Edit My Profile{% endblocktrans %}</a>
+</li>
+<li>
+  <a href="{% url usuario_amigos %}">{% blocktrans %}My Friends{% endblocktrans %}</a>
+</li>
+<li>
+  <a href="{% url usuario_public_profile user.id %}">{% blocktrans %}My Public Profile{% endblocktrans %}</a>
+</li>  
+{% endblock %}
+
+{% block fb_like_top %}
+  {% include 'portal/tags/fb_like/fb_like_top_UserAccount.html' %}
+{% endblock %}
+
+
+{% block center_content %}
+  <div class="span-14 last machu_picchu_peru">
+    <div class="span-14 last">
+     
+      <div class="span-14 profile_gray_headline">
+	{% blocktrans %}My Photos{% endblocktrans %}
+      </div>
+      <div class="span-14 last all_to_right pagination_links">
+      {% if lista_fotos.object_list %}  
+	{% if lista_fotos.has_previous %}
+	  <a href="?page={{ lista_fotos.previous_page_number }}">{% blocktrans %}previous{% endblocktrans %}</a>
+	{% endif %}
+	{% blocktrans with lista_fotos.number as n and lista_fotos.paginator.num_pages as np %}Page {{ n }} of {{ np }}{% endblocktrans %}.
+	{% if lista_fotos.has_next %}
+	  <a href="?page={{ lista_fotos.next_page_number }}">{% blocktrans %}next{% endblocktrans %}</a>
+	{% endif %}
+      {% endif %}
+      </div>      
+      <div class="span-14 profile_content last">
+	{% if lista_fotos.object_list %}
+	  {% for fotos in lista_fotos.object_list %}
+	    {% for foto in fotos %}  
+	    <div class="span-4">
+	    <a href="{{foto.get_absolute_url}}" >
+            {% thumbnail foto.foto "122x116" as thumb %}
+	    <img width="122px" height="116px" alt="{{foto.titulo}}" src="{{thumb}}">
+	    
+	    </a>
+	    <span>{% blocktrans %}votes{% endblocktrans %}: {{ foto.get_nro_votos }}</span>
+	    </div>
+	    <div class="span-10 last">
+	      <h3 class="green">{% blocktrans %}Title{% endblocktrans %}: {{foto.titulo}}</h3>
+	      <h3 class="green">{% blocktrans %}Category{% endblocktrans %}: {{foto.categoria}}</h3>
+	      <h3 class="green">{% blocktrans %}Description{% endblocktrans %}</h3>
+	      {% if foto.descripcion %}
+		{{foto.descripcion}}  
+	      {% else %}
+		{% blocktrans %}There is no description.{% endblocktrans %}
+	      {% endif %}
+	    </div>
+	    <div class="comments_separator span-14 last push_down_10"><hr></div>
+	    {% endfor %}
+	  {% endfor %}
+	<br/>
+	{% else %}
+	  {% blocktrans %}You have not uploaded photos{% endblocktrans %}
+	{% endif %}
+      </div>
+      <div class="span-14 last all_to_right pagination_links">
+      {% if lista_fotos.object_list %}  
+	{% if lista_fotos.has_previous %}
+	  <a href="?page={{ lista_fotos.previous_page_number }}">{% blocktrans %}previous{% endblocktrans %}</a>
+	{% endif %}
+	{% blocktrans with lista_fotos.number as n and lista_fotos.paginator.num_pages as np %}Page {{ n }} of {{ np }}{% endblocktrans %}.
+	{% if lista_fotos.has_next %}
+	  <a href="?page={{ lista_fotos.next_page_number }}">{% blocktrans %}next{% endblocktrans %}</a>
+	{% endif %}
+      {% endif %}
+      </div>      
+    </div>	
+  
+  </div>	  
+{% endblock %}

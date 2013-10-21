@@ -1,0 +1,10 @@
+{% extends "fotos/noticias/base_profile.html"  %}
+
+{% block body1 %}
+    <div class="noticia">    
+        <h1>{{noticia}}</h1>
+        <h6> {{noticia.fecha}} </h6>
+        <p>{{noticia.descripcion}}<p>
+        <a href="{% url fotos_noticias 'notificaciones'%}"> Volver a la sección noticias</a>
+    </div>
+{% endblock %}

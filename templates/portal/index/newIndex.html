@@ -1,0 +1,566 @@
+{% extends "portal/base.html"  %}
+
+{% block ini %}
+  {% load thumbnail %}
+  {% load banners %}
+  {% load portal_tags %}
+  {% load i18n %}
+{% endblock %}
+
+{% block title %}
+      {% blocktrans %}Photo Contest | I was in Machu Picchu | Machu Picchu 100{% endblocktrans %}
+{% endblock %}
+
+{% block head %}
+  <link href="{{MEDIA_URL}}css/jquery-ui.css" rel="stylesheet" type="text/css"/>
+  <link href="{{MEDIA_URL}}css/servicios.css" rel="stylesheet" type="text/css"/>
+
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/common/jquery-1.5.min.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/common/jquery-ui-1.8.16.custom.min.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/common/jquery.cross-slide.min.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/jqModal.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/jqModal.css"/>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/servicios/common.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.jqmodal/jqModal.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.jqdnr/jqDnR.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/servicios/googlemaps.ubicacion.js"> </script>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+
+    {% include "portal/tags/sharethis/standard.html" %}
+    <script type="text/javascript">           
+    $(document).ready(function() {
+    // services form search
+        $('#form_buscar').submit(function() {
+          geocode_location();
+          return false;
+        });
+
+    // jqueryui tabs
+        $("#tabs").tabs();
+        {% if form_login.non_field_errors %}
+          $("#tabs").tabs("select",1);
+        {% endif %}
+
+    //slider
+        var index = {{ slider.index }};
+            setInterval(function() {
+                var url = "/servicios/json_get_panimage/" + index;
+                $.getJSON(url, function(data) {
+                    if(data) {
+                        $('#slider_photo').fadeOut(1500, function() {
+                            $("#slider_a").attr("href", data.url)
+                            $("#slider_photo").attr("src", data.img);
+                            $("#slider_photo").fadeIn(1500);
+                            $("#service_des").html(data.des);
+                            $("#service_url").attr("href", data.url);
+                        });
+                    }
+                    index++;
+                });
+            }, 8000);
+
+
+    //recover password popin
+        var triggers = $('a.ex6bTrigger')[0];
+        $('#ex6b').jqm({
+          trigger: triggers,
+          target: 'div.jqmAlertContent',
+          toTop: true,
+          overlay: 0   
+        });    
+
+    //services login and recover password popin
+        $("#ser_login").jqm({
+          trigger: $(".login_link")
+        });
+        $("#ser_recuperar").jqm({
+          trigger: $(".recuperar_link")
+        });
+        $('#ser_recuperar').jqDrag();
+        {% if serLogin_form.is_bound and not serLogin_form.is_valid %}
+          $("#ser_login").jqmShow();
+        {% endif %}
+        {% if recuperar_form.is_bound and not recuperar_form.is_valid %}
+          $("#ser_recuperar").jqmShow();
+        {% endif %}
+        $('.closeClass').click(function() {
+          $('.jqmWindow').jqmHide();
+        });
+
+    });    
+    </script>        
+{% endblock %}
+
+{% block body %}
+<body class="bg_gray">
+  <div class="container container_height bg_white">
+    <div class="span-24 table_noMargin">
+      <!--begin first navigation menu (idioms, login, register, myrpofile, social links)-->
+      <div class="span-4">
+	<!--Español | English-->
+      <!-- idiomas -->
+        <table>
+          <tr>
+            <!--<td style="color: #FFFFFF ">English</td>-->
+            <td>
+                <form action="/i18n/setlang/" method="post">{% csrf_token %}
+                <input name="next" type="hidden" value="{% url new_main_portal %}" />
+                <input name="language" type="hidden" value="en" />
+                <input id="lang_en_icon" type="submit" title="English" alt="English" value="" />
+                </form>
+            </td>
+            <td>|</td>
+            <!--<td style="color: #FFFFFF ">Español</td>-->	    
+            <td>
+                <form action="/i18n/setlang/" method="post">{% csrf_token %}
+                <input name="next" type="hidden" value="{% url new_main_portal %}" />
+                <input name="language" type="hidden" value="es" />
+                <input id="lang_es_icon" type="submit" title="Español" alt="EspaÃ±ol" value="" />
+                </form>
+            </td>
+          </tr>
+        </table>
+      <!-- end idiomas -->	
+      </div>
+      <div class="span-9">
+          {% get_current_language as LANGUAGE %}
+          {% include 'portal/tags/fb_like/fb_like_top_newHome.html' %}
+      </div>
+      <div class="span-8 newHome_servicesLoginContainer link_all_green">        
+        {% if user.is_authenticated %}
+	<!-- LO QUE SE MUESTRA ACA COMO USUARIO AUTENTICADO DEBE SER DIFERENTE -->
+	<!-- PARA CADA TIPO DE USUARIO, ESTE ESTA BIEN PARA LOS USUARIOS DEL  -->
+	<!-- CONCURSO, SE DEBE HACER UNO ADECUADO PARA LOS PROVEEDORES DE SERVICIOS -->
+            {% blocktrans %}Welcome{% endblocktrans %} {{user.username}} | <a href="{% url logout_view %}"> {% blocktrans %}Logout{% endblocktrans %} </a>  | <a href="{% url usuario_main_user %}">{% blocktrans %}My Profile{% endblocktrans %}</a>
+        {% else %} 
+            <a class="login_link ser_link" href="#">{% blocktrans %}Services Login{% endblocktrans %}</a>
+            <!-- <span class="login_link ser_link">Login</span>  -->
+	    {# Login para administradores: popup #}
+	    <div id="ser_login" class="jqmWindow services_box">
+              <h2>Login de administrador de servicio</h2>
+              <div class="services_box_content">
+		<form action="" method="post">{% csrf_token %}
+                  <ul class="popup_form">
+                    {{ serLogin_form.as_ul }}
+                  </ul>
+                  <div class="append-bottom right">
+                    <span class="closeClass ser_link">Cerrar</span> |
+                    <span class="recuperar_link ser_link">Recuperar contraseña</span> |
+		    <input type="hidden" value="services" name="services">
+                    <input type="submit" value="Login" name="login_services" />
+                  </div>
+		</form>
+              </div>
+	    </div>
+
+	    {# Recuperar contraseña: popup #}
+	    <div id="ser_recuperar" class="jqmWindow services_box">
+              <h2>Recuperar contraseña</h2>
+              <div class="services_box_content popup_form">
+		<form action="" method="post">{% csrf_token %}
+                  <ul>
+                    <li>
+                      Recibir un correo electrónico con la nueva contraseña
+                    </li>
+                    {{ recuperar_form.as_ul }}
+                  </ul>
+                  <div class="append-bottom right">
+                    <span class="closeClass ser_link">Cerrar</span> |
+                    <input type="submit" value="Recibir correo electrónico" name="recuperar" />
+                  </div>
+		</form>
+              </div>
+	    </div>
+
+        {% endif %}
+      </div>
+      <div class="span-3 last" >
+	<table>
+	  <tr>
+	    <td>|</td>
+	    <td>
+	      <a class="social_links Facebook_button" href="{{url_redes_sociales.Facebook}}" title="Facebook" target="_blank"></a>
+	    </td>
+	    <td>
+	      <a class="social_links Twitter_button" href="{{url_redes_sociales.Twitter}}" title="Twitter" target="_blank"></a>
+	    </td>
+	    <td>
+              <span class="st_sharethis_custom" displayText=""></span>
+	    </td>
+	    <td >
+              <a class="social_links RSS_button" href="{% url zinnia_entry_latest_feed %}" title="RSS FEEDS" target="_blank"></a>
+	    </td>
+	  </tr>
+	</table>
+      </div>
+      <!-- end first navigation menu -->
+    </div>
+
+    <div class="span-24 last homepage_advertisement">
+        <!-- begin ad tag (tile=1) -->
+        <script language="JavaScript" type="text/javascript">
+        if (typeof ord=='undefined') {ord=Math.random()*10000000000000000;}
+        document.write('<script language="JavaScript" src="http://ad.doubleclick.net/adj/pe.universia.machupicchu100/others;tile=1;dcopt=ist;sz=975x90;ord=' + ord + '?" type="text/javascript"><\/script>');
+        </script><noscript><a href="http://ad.doubleclick.net/jump/pe.universia.machupicchu100/others;tile=1;sz=975x90;ord=123456789?" target="_blank"><img src="http://ad.doubleclick.net/ad/pe.universia.machupicchu100/others;tile=1;sz=975x90;ord=123456789?" width="975" height="90" border="0" alt=""></a></noscript>
+        <!-- End ad tag -->
+    </div>
+
+    <!-- BEGIN MENU -->
+    <div class="newHomeMenu span-18">
+      {% include "portal/tags/menu/menuNewHome.html" %}
+    </div>
+    <div class="span-6 span-250px last link_nextTo_newHomeMenu link_all_orange">
+      <a href="{% url ser_registro %}"> &gt;&gt; {% blocktrans %}Publish your services here{% endblocktrans %} &lt;&lt; </a>
+    </div>
+    <div class="span-24 long_green_hr last">
+      <img width="946px" height="2px" src="{{MEDIA_URL}}images/new_home/menuHR.png" >
+    </div>
+    <!-- END MENU -->
+
+    <div class="span-24 last">      
+
+	<!-- BEGIN SLIDER CONTAINER -->
+	<div id="tabs" class="span-24 last slider-container">
+      <a id="slider_a" href="{{ slider.url }}">
+	    <img id="slider_photo" class="br_15px" width="975px" height="376px" src="{{ slider.img }}">
+      </a>
+	  <!-- begin colored regions -->
+	  <div class="span-24 gray">
+	  </div>
+	  <div class="span-24 green">
+	  </div>
+	  <!-- end colored regions -->
+	  <div class="span-24 newHome_sliderHeader">
+	    <div class="prepend-4 span-12 description" id="service_des">{{ slider.des }}</div>
+	    <div class="span-2 smallYellowLinks">
+	      <a href="#">{% blocktrans %}See more{% endblocktrans %}...</a>
+	    </div>
+	    <div class="span-6 newHome_tinyMenu">
+	      <ul>
+		<li>
+		  <a href="#fragment-1">
+		    {% blocktrans %}Services{% endblocktrans %}
+		  </a>
+		</li>
+		{% if not user.is_authenticated %}
+		<li>
+		  <a href="#fragment-2">
+		    {% blocktrans %}Login{% endblocktrans %}
+		  </a>
+		</li>
+		{% endif %}
+	      </ul>
+	    </div>
+	  </div>
+	  <!-- begin search services form -->
+	  <div id="fragment-1" class="span-24 formContainer">
+	    <form id="form_buscar" method="post" action="{% url ser_perfiles 'puntuacion' %}" >
+		  <div class="span-12 container1">
+		    {% blocktrans %}Search Services{% endblocktrans %}
+		  </div>
+		  <div class="span-5 container2-3">
+		    {% blocktrans %}Place{% endblocktrans %}:
+		    <input id="id_ubicacion" type="text" name="ubicacion" class="textbox special_gray search clearInput" />
+		    {{busqueda_form.viewport}}
+		    {{busqueda_form.location}}
+		  </div>
+		  <div class="span-5 container2-3">{% blocktrans %}Type{% endblocktrans %}:
+		    {{busqueda_form.tipo}}
+		  </div>
+		  <div class="span-2">
+		    <input class="newHome_btnSearch" type="submit" value="{% blocktrans %}Search{% endblocktrans %}" />
+		  </div>
+	    </form>
+	  </div>
+	  <!-- end search services form -->
+	  <!-- begin user login form -->
+	  {% if not user.is_authenticated %}
+	  <div id="fragment-2" class="span-24 formContainer">
+	    <div class="span-11 container1 link_all_yellow">
+	      <a class="ex6bTrigger" href="#">{% blocktrans %}Forgot Password{% endblocktrans %}</a>
+
+              <!-- begin password recovery -->
+              <div class="jqmAlert" id="ex6b">
+		<div id="ex6b" class="jqmAlertWindow0">
+                  <div class="jqmAlertTitle clearfix height_30">
+                    <h1 class="margin_right_40">{% trans 'Recover Your Password' %}</h1><a href="#" class="jqmClose"><em>{% trans 'Close' %}</em></a>
+                  </div>
+                  <div class="jqmAlertContent all_to_left">
+                    <!-- content -->
+                    {% include 'portal/tags/login_register/password_recovery_form.html' %}
+                    <!-- end content -->
+                  </div>
+		</div>
+              </div>
+              <!-- end password recovery -->  
+	      
+	    </div>
+	    <form  method="post" action="">{% csrf_token %}
+	      <div class="span-11">
+		<div class="span-5 container2-3">
+		  <label for="id_email">
+		    {% blocktrans %}Email{% endblocktrans %}:
+		  </label>
+		  <input class="textbox special_gray" type="text" id="id_email" class="text" name="email"/>
+		</div>
+		<div class="span-6 container2-3 last">
+		  <label for="id_password">
+		    {% blocktrans %}Password{% endblocktrans %}:
+		  </label>
+		  <input class="textbox special_gray" type="password" id="id_password" class="text" name="password"/>
+		</div>
+		<div class="span-11 login_error">
+		  {{ form_login.non_field_errors }}		  
+		</div>
+	      </div>
+	      <div class="span-2">
+		<input class="newHome_btnSearch" type="submit" name="login" value="{% blocktrans %}Login{% endblocktrans %}" />
+	      </div>
+	    </form>
+	  </div>
+	  {% endif %}
+	  <!-- end user login form -->
+	  <div class="span-4 last" style="position:absolute; top:230px; left:10px;">
+	    <img width="135px" height="112px" src="{{MEDIA_URL}}images/new_home/IWasIn_logo.png">
+	  </div>
+	</div>
+	<div class="span-24 last newHomeSliderShadow">
+	  <div class="span-12 left last"></div>
+	  <div class="span-12 right last"></div>	  
+	</div>
+	<!-- END SLIDER CONTAINER -->
+
+      <div> <!-- IE6 hack -->
+	<!-- BEGIN IMAGES LINKS CONTAINER -->
+	<div class="span-24 last imgLinksContainer">      
+	  <!-- begin image link -->
+	  <div class="span-6 span-236px">
+	    <div class="span-6 span-226px home_imgLinks">
+	      <div class="span-6 span-226px last">
+		<a href="{% url main_portal %}">
+		  <img width="223px" height="114px" class="br_10px" src="{{MEDIA_URL}}images/new_home/{% if LANGUAGE == 'en' %}bot_iwas.png{% else %}bot_yoestuve.png{% endif %}">
+		</a>
+	      </div>
+	      <div class="span-6 span-226px last imgLinksDescription">
+		<div>
+		  <a href="{% url main_portal %}">&gt;&nbsp;&gt; {% blocktrans %}Contest{% endblocktrans %}</a>
+		</div>
+	      </div>
+	    </div>	  
+	    <div class="span-6 span-236px newHomeSmallShadow">
+	      <div class="span-3 left last"></div>
+	      <div class="span-3 right last"></div>
+	    </div>
+	  </div>
+	  <!-- end image link -->
+	  <!-- begin image link -->
+	  <div class="span-6 span-236px">
+	    <div class="span-6 span-226px home_imgLinks">
+	      <div class="span-6 span-226px last">
+		<a href="{% url djangobb:index %}">
+		  <img width="223px" height="114px" class="br_10px" src="{{MEDIA_URL}}images/new_home/{% if LANGUAGE == 'en' %}bot_views.png{% else %}bot_opiniones.png{% endif %}">
+		</a>
+	      </div>
+	      <div class="span-6 span-226px last imgLinksDescription">
+		<div>
+		  <a href="{% url djangobb:index %}">&gt;&nbsp;&gt; {% blocktrans %}Foro{% endblocktrans %}</a>
+		</div>
+	      </div>
+	    </div>	  
+	    <div class="span-6 span-236px newHomeSmallShadow">
+	      <div class="span-3 left last"></div>
+	      <div class="span-3 right last"></div>
+	    </div>
+	  </div>
+	  <!-- end image link -->
+	  <!-- begin image link -->
+	  <div class="span-6 span-236px">
+	    <div class="span-6 span-226px home_imgLinks">
+	      <div class="span-6 span-226px last">
+		<a href="{% url ser_inicio %}">
+		  <img width="223px" height="114px" class="br_10px" src="{{MEDIA_URL}}images/new_home/{% if LANGUAGE == 'en' %}bot_where.png{% else %}bot_donde.png{% endif %}">
+		</a>
+	      </div>
+	      <div class="span-6 span-226px last imgLinksDescription">
+		<div>
+		  <a href="{% url ser_inicio %}">&gt;&nbsp;&gt; {% blocktrans %}Recommended Services{% endblocktrans %}</a>
+		</div>
+	      </div>
+	    </div>	  
+	    <div class="span-6 span-236px newHomeSmallShadow">
+	      <div class="span-3 left last"></div>
+	      <div class="span-3 right last"></div>
+	    </div>
+	  </div>
+	  <!-- end image link -->
+	  <!-- begin image link -->
+	  <div class="span-6 span-236px last">
+	    <div class="span-6 span-226px home_imgLinks last">
+	      <div class="span-6 span-226px last">
+		<a href="#">
+		  <img width="223px" height="114px" class="br_10px" src="{{MEDIA_URL}}images/new_home/{% if LANGUAGE == 'en' %}bot_iwas.png{% else %}bot_yoestuve.png{% endif %}">
+		</a>
+	      </div>
+	      <div class="span-6 span-226px last imgLinksDescription">
+		<div>
+		  <a href="#">&gt;&nbsp;&gt; {% blocktrans %}Contest{% endblocktrans %}</a>
+		</div>
+	      </div>
+	    </div>	  
+	    <div class="span-6 span-236px last newHomeSmallShadow">
+	      <div class="span-3 left last"></div>
+	      <div class="span-3 right last"></div>
+	    </div>
+	  </div>
+	  <!-- end image link -->
+	</div>
+	<!-- END IMAGES LINKS CONTAINER -->
+
+	<!-- BEGIN ACTIVITY STREAM -->
+	<div class="span-24 last">
+	  <!-- begin contest act-str -->
+	  <div class="span-8 span-318px">
+	    <div class="span-8 span-318px newHomeActStr">
+	      <h2>{% blocktrans %}Contest{% endblocktrans %}</h2>
+	      {% for foto in atomfeeds %}
+	      <!-- begin item contest act str -->
+	      <div class="span-7 last item_newHomeActStr">
+		<div class="span-2">
+		  <a href="{{foto.get_absolute_url}}">
+		    <img class="act_str_img" width=50px height=50px alt="{{foto.titulo}}" src="{% thumbnail foto.foto '50x50' %}">
+		  </a>
+		</div>
+		<div class="span-5 last link_all_green">
+		  {% blocktrans %}was uploaded by{% endblocktrans %}:
+		  <br/>
+		  <a href="{{foto.codigo_user.get_profile.get_absolute_url}}">{{foto.codigo_user.username}}</a>
+		</div>
+		<div class="span-6 newActStr_separator last act_str_hr_height">
+		  <hr class="notice_separator">
+		</div>
+	      </div>
+	      <!-- end item contest act str -->
+	      {% empty %}
+	      <div class="span-7 last item_newHomeActStr">
+		<div class="span-6 newActStr_separator last act_str_hr_height">
+		  {% blocktrans %}There are no uploaded photos yet{% endblocktrans %}
+		</div>
+		<div class="span-6 newActStr_separator last act_str_hr_height">
+		  <hr class="notice_separator">
+		</div>
+	      </div>
+	      {% endfor %}
+	    </div>
+	    <div class="span-8 span-318px newHome_shadow1">
+	      <div class="span-4 left last"></div>
+	      <div class="span-4 right last"></div>
+	    </div>
+	  </div>
+	  <!-- end contest act-str -->
+
+	  <!-- begin opinions act-str -->
+	  <div class="span-8 span-318px">
+	    <div class="span-8  span-318px newHomeActStr">
+	      <h2>{% blocktrans %}Opinions{% endblocktrans %}</h2>
+	      {% for post in posts  %}
+	      <!-- begin item opinion act str -->
+	      <div class="span-7 last item_newHomeActStr">
+		<div class="span-7 last link_all_green">
+		  {{post.body|truncatewords:15}}
+		  <br/>
+		  <a href="{{post.get_absolute_url}}">
+		    {{post.user.username}}</a>
+		</div>
+		<div class="span-6 newActStr_separator last act_str_hr_height">
+		  <hr class="notice_separator">
+		</div>
+	      </div>
+	      <!-- end item opinion act str -->
+	      {% empty %}
+	      <div class="span-7 last item_newHomeActStr">
+		<div class="span-6 newActStr_separator last act_str_hr_height">
+		  {% blocktrans %}There are no comments yet{% endblocktrans %}
+		</div>
+		<div class="span-6 newActStr_separator last act_str_hr_height">
+		  <hr class="notice_separator">
+		</div>
+	      </div>
+	      {% endfor %}
+	    </div>
+	    <div class="span-8 span-318px newHome_shadow1">
+	      <div class="span-4 left last"></div>
+	      <div class="span-4 right last"></div>
+	    </div>
+	  </div>
+	  <!-- end opinions act-str -->
+
+
+	  <!-- begin tips and stories act-str -->
+	  <div class="span-8 span-318px last">
+	    <div class="span-8 span-318px newHomeActStr">
+	      <h2>{% blocktrans %}Tips and Stories{% endblocktrans %}</h2>
+	      {% comment %}
+	      <!-- begin item tips and stories act str -->
+	      <div class="span-7 last item_newHomeActStr">
+		<div class="span-7 last link_all_green">
+		  {% lorem 15 w random  %}
+		  <br/>
+		  <a href="#">Ronald3322</a> {% blocktrans %}about{% endblocktrans %} <a href="#">Cuzco</a>
+		</div>
+		<div class="span-6 newActStr_separator last act_str_hr_height">
+		  <hr class="notice_separator">
+		</div>
+	      </div>
+	      <!-- end item tips and stories act str -->
+	      <!-- begin item tips and stories act str -->
+	      <div class="span-7 last item_newHomeActStr">
+		<div class="span-7 last link_all_green">
+		  {% lorem 15 w random  %}
+		  <br/>
+		  <a href="#">Ronald3322</a> {% blocktrans %}about{% endblocktrans %} <a href="#">Cuzco</a>
+		</div>
+		<div class="span-6 newActStr_separator last act_str_hr_height">
+		  <hr class="notice_separator">
+		</div>
+	      </div>
+	      <!-- end item tips and stories act str -->
+	      <!-- begin item tips and stories act str -->
+	      <div class="span-7 last item_newHomeActStr">
+		<div class="span-7 last link_all_green">
+		  {% lorem 15 w random %}
+		  <br/>
+		  <a href="#">Ronald3322</a> {% blocktrans %}about{% endblocktrans %} <a href="#">Cuzco</a>
+		</div>
+		<div class="span-6 newActStr_separator last act_str_hr_height">
+		  <hr class="notice_separator">
+		</div>
+	      </div>
+	      <!-- end item tips and stories act str -->
+	      {% endcomment %}
+	    </div>
+	    <div class="span-8 span-318px newHome_shadow1">
+	      <div class="span-4 left last"></div>
+	      <div class="span-4 right last"></div>
+	    </div>
+	  </div>
+	  <!-- end tips and stories act-str -->
+	</div>
+	<!-- END ACTIVITY STREAM -->
+      </div> <!-- ie6 hack -->
+    </div>
+
+    <!-- BEGIN FOOTER -->
+    <div class="span-24 last center">
+      <div class="span-24 act_str_height push_down_10">
+	<hr>
+      </div>
+      <div class="span-24 last">
+	&copy; {% blocktrans %}Copyright{% endblocktrans %} 2011 Quimeraonlife
+      </div>
+    </div>  
+    <!-- END FOOTER -->
+  </div>
+    
+</body>
+
+{% endblock %}

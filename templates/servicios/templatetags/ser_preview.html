@@ -1,0 +1,59 @@
+{% load thumbnail %}
+{% load i18n %}
+
+<div class="span-{{ left|add:right }} append-bottom service_preview">
+    <div class="span-{{ left|add:right }} append-bottom">
+        <div class="span-{{ left }}">
+            <a href="{{ servicio.get_absolute_url }}">
+                <img class="border_photo" src="{% thumbnail servicio.foto_principal "preview" %}" alt="{{ servicio.nombre }}">
+            </a>
+        </div>
+
+        <div class="span-{{ right|add:"-1" }} last details">
+            <a href="{{ servicio.get_absolute_url }}">
+                <h3>{{ servicio.nombre }}</h3>
+            </a>
+            <h4>{{ servicio.tipo_servicio }}</h4>
+            <ul>
+                <li><span class="span_bold">{% blocktrans %}Address{% endblocktrans %}:</span> {{ servicio.ubicacion.direccion }}</li>
+                {% if servicio.telefono %}<li><span class="span_bold">{% blocktrans %}Phone{% endblocktrans %}:</span> {{ servicio.telefono }}</li>{% endif %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="span-{{ left|add:right }} append-bottom">
+        <div class="span-{{ left }} center">
+            <div class="center">
+                <a href="{{ servicio.get_absolute_url }}#opinion_link" class="llamada">
+                    {{ servicio.num_opiniones }}
+                </a>
+            </div>
+            <a href="{{ servicio.get_absolute_url }}#opinion_link">
+                {% blocktrans %}Review{% endblocktrans %}{{ servicio.num_opiniones|pluralize }}
+            </a>
+        </div>
+
+        <div class="span-{{ right }} last service_preview_adds">
+            <div class="append-bottom">
+                {% blocktrans %}Rating{% endblocktrans %} <span class="point_color">{{ servicio.puntuacion|floatformat:"0" }}</span>
+            </div>
+            <div class="service_links">
+                <ul>
+                    <li>
+                        <span class="mapa_servicio ser_link"
+                              latitud="{{ servicio.ubicacion.latitud }}"
+                              longitud="{{ servicio.ubicacion.longitud }}">{% blocktrans %}Map location{% endblocktrans %}</span> |
+                    </li>
+                    {% if servicio.website %}
+                    <li>
+                        <a href="{{ servicio.website }}">{% blocktrans %}Website{% endblocktrans %}</a> |
+                    </li>
+                    {% endif %}
+                    <li>
+                        <a href="{{ servicio.get_absolute_url }}">{% blocktrans %}Profile{% endblocktrans %}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

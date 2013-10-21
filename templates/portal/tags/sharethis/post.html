@@ -1,0 +1,13 @@
+<!--begin codigo sharethis-->
+  <span class="st_email" st_url="http://{{domain}}{% url portal_photo_vote foto.codigo_user.id foto.id 0 %}" st_title="Photo contest I was in Machu Picchu" st_summary="Vote for my photo {{foto.titulo}}" st_image="{% thumbnail foto.foto '50x50' %}"></span>
+  <span class="st_facebook" st_url="http://{{domain}}{{ object.get_absolute_url }}" st_title="Photo contest I was in Machu Picchu" st_summary="{{object.title}}" st_image="{{MEDIA_URL}}style_imgs/homepage_logo.png"></span>
+  <span class="st_twitter" st_url="http://{{domain}}{{ object.get_absolute_url }}" st_title="Photo contest I was in Machu Picchu" st_summary="{{object.title}}" st_image="{{MEDIA_URL}}style_imgs/homepage_logo.png"></span>
+  <span class="st_sharethis" st_url="http://{{domain}}{{ object.get_absolute_url }}" st_title="Photo contest I was in Machu Picchu" st_summary="{{object.title}}" st_image="{{MEDIA_URL}}style_imgs/homepage_logo.png" displayText="{% blocktrans %}ShareThis{% endblocktrans %}"></span>  
+  <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+  <script type="text/javascript">
+	  stLight.options({
+                  publisher:'b6c7f2ae-02bd-4c16-87c5-05c4bcb7ae33',
+                  tracking:'google'
+	  });
+  </script>
+<!--end codigo sharethis-->

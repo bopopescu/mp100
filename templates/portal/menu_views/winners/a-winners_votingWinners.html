@@ -1,0 +1,99 @@
+{% extends "portal/menu_views/base_menu.html"  %}
+{% load i18n %}
+{% load portal_tags %}
+{% load thumbnail %} 
+{% block title %}
+  {% blocktrans %}Voting Winners{% endblocktrans %}
+{% endblock %}
+
+{% block head %}
+  {% include "portal/tags/sharethis/standard.html" %}
+    <script type="text/javascript">
+    $(document).ready(function() {
+        //directioning of big buttons at home (IE hack)
+        $('input#prizeVotingWinners').click(function(event){
+            event.preventDefault();
+            $(window.location).attr('href', '{% url portal_votingWinnersPrizePrize %}');    
+        });
+    });
+    </script>   
+{% endblock %}
+
+
+{% block center_content %}
+<div class="span-13 last breadcrumbs">
+    <label class="link_all_green"><a href="{% url portal_winners %}">{% blocktrans %}Winners{% endblocktrans %} ></a></label>
+    {% blocktrans %}Voting Winners{% endblocktrans %}
+</div>
+<div class="span-14 last winners push_down_25">
+  <div class="span-9">
+    <h1>{% blocktrans %}Photo Contest{% endblocktrans %}</h1>
+    <h2>{% blocktrans %}I was in Machu Picchu{% endblocktrans %}</h2>
+    <h3>{% blocktrans %}A Photographic Wonder{% endblocktrans %}</h3>
+  </div>
+  <div class="span-9 last votingWinners_votingWinners_word">
+    <span>{% blocktrans %}Voting Winners{% endblocktrans %}</span>
+  </div>
+  <div class="span-14 last winners_stoneMenu">
+    <ul>
+      <li class="Finalists">
+	<a href="{% url portal_finalists %}">
+	  <label class="relative_push_down_10">{% blocktrans %}Winners{% endblocktrans %}</label>
+	</a>
+      </li>
+      <li class="Grand_Final">
+	<a href="{% url portal_winners %}">
+	  <label class="relative_push_down_10">{% blocktrans %}Grand Final{% endblocktrans %}</label>
+	</a>
+      </li>
+      <li class="Voting_winners_selected"><a href="{% url portal_votingWinners %}">{% blocktrans %}Voting<br/>Winners{% endblocktrans %}</a></li>
+      <li class="Machu_Picchu_100"><a href="{% url portal_mp100_special_awards %}">{% blocktrans %}Machu Picchu 100<br/>Special Awards{% endblocktrans %}</a></li>
+    </ul>
+  </div>
+  <div class="span-14 last winners_green_area">
+    {% blocktrans %}Vote for your 5 favorite photos each Voting Period.{% endblocktrans %}
+    <span>{% blocktrans %}Get 5 chances to win a Sony Cyber-shot ® Digital Camera! {% endblocktrans %}</span>
+    {% blocktrans %}Click on  the Voting Periods below  to see who  the  lucky winners are.{% endblocktrans %}
+    <div class="span-13 last all_to_right">
+      <!--enlazar esto con su vista usando js-->
+    <input id="prizeVotingWinners" class="cute_green_button" type="submit" value="{% blocktrans %}View Prizes{% endblocktrans %}">
+    </div>
+  </div>
+  <div class="span-14 last winners_extra_messages">
+    <div class="span-7"><h5 class="green">{% blocktrans %}Top 10{% endblocktrans %}</h5></div>
+    <div class="span-7 last all_to_right">
+      <h5>{% blocktrans %}Voting Period{% endblocktrans %} {% if temp_id != -1 %}{{temp_id}}{% else %}1{% endif %} {% blocktrans %}Finalists{% endblocktrans %}</h5>
+    </div>
+  </div>  
+</div>
+<div class="span-14 last winners_menu votingWinners_menu_modification">
+  <ul>
+    <li class="selected"><a href="{% if Prev_temp %}{% url portal_votingWinners Prev_temp %}{% else %}{% url portal_votingWinners %}{% endif %}"><< {% blocktrans %}Previous{% endblocktrans %}</a></li>
+    <li class="period"><a href="#">{% blocktrans %}Voting period{% endblocktrans %} {% if temp_id != -1 %}{{temp_id}}{% else %}1{% endif %}</a></li>
+    <li class="selected last"><a href="{% if Next_temp %}{% url portal_votingWinners Next_temp %}{% else %}{% url portal_votingWinners %}{% endif %}">{% blocktrans %}Next{% endblocktrans %} >></a></li>
+  </ul>
+</div>
+
+<div class="span-14 last push_down_6 ">
+{% for usuario in lista_users %}
+  <div class="span-1 winners_big_numbers {% cycle 'smooth_green' 'darker_gray' as numberColors %}">
+    <h1>{{forloop.counter}}</h1>
+  </div>
+  <div class="span-4 winners_image_box">
+    <a href="{{usuario.get_profile.get_absolute_url}}">
+    <img width="122px" height="116px" alt="" src="{% thumbnail usuario.get_profile.foto "122x116" %}">
+    </a>
+  </div>
+  <div class="span-8 winners_details_box {% cycle 'darker_gray' '' as textColors %} last">
+    <h3 class="green no_margin"><label>{% blocktrans %}Name:{% endblocktrans %}</label> <span class="black">{{usuario.get_full_name}}</span></h3>
+    <h3 class="green no_margin"><label>{% blocktrans %}Screen Name:{% endblocktrans %}</label> <a class="link_all_black black" href="{{usuario.get_profile.get_absolute_url}}">{{usuario.username}}</a></h3>
+    <img src="{{FLAG_PATH}}{{usuario.get_profile.pais.iso|lower}}.gif" /> &nbsp;{{usuario.get_profile.pais}}
+  </div>
+  <div class="span-14 last winners_separator">
+    <hr>
+  </div>
+{% empty %}
+  {% blocktrans %}There are not winners yet.{% endblocktrans %} 
+{% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% load i18n %}
+
+<div class="jqmAlert" id="G_reportConcern_ex6b">        
+    <div id="G_reportConcern_ex6b" class="jqmAlertWindow1">
+	<div class="jqmAlertTitle clearfix">
+	  <h1>{% trans 'Report a Concern' %}</h1><a href="#" class="jqmClose"><em>{% trans 'Close' %}</em></a>
+	</div>
+	<div class="jqmAlertContent">		      
+	<form method="post" action="{{request.path}}">
+	  <table class="report_concern">
+	    <tr>
+	      <td>{{form_concern.non_field_errors}}</td>
+	    </tr>
+	    <tr>
+	      <th>{% blocktrans %}Thank you for letting us know if you believe there is an issue with this photo. Please indicate the concern{% endblocktrans %}:</th>
+	    </tr>
+	    <tr>
+	      <td>
+		{{form_concern.razon.errors}} 
+		{{form_concern.razon}}
+	      </td>
+	    </tr>
+	    <tr>
+	      <th>{% blocktrans %}Please provide any additional relevant comments that will help us evaluate this report.{% endblocktrans %}
+	      </th>
+	    </tr>
+	    <tr>
+	      <td>{{form_concern.comentario.errors}}
+		  {{form_concern.comentario}}
+	      </td>
+	    </tr>
+	    <tr>	
+	      <td class="all_to_middle"><input type="submit" class="cute_green_button" value="{% blocktrans %}Submit{% endblocktrans %}">
+	      </td>
+	    </tr>
+	  </table>
+	</form>
+	</div>
+    </div>
+</div>				

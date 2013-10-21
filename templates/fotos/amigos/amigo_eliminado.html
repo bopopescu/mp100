@@ -1,0 +1,10 @@
+{% extends "fotos/amigos/base_profile.html"  %}
+{% load i18n %}
+
+{% block body1 %}
+
+{% blocktrans %}Su ex-amigo fue removido exitosamente de su lista de amigos.{% endblocktrans %}
+<br/>
+<a href="{% url fotos_amigos %}" > {% blocktrans %}Volver a la lista de amigos{% endblocktrans %}</a>
+
+{% endblock %}

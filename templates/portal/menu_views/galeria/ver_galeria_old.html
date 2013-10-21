@@ -1,0 +1,28 @@
+{% extends "portal/menu_views/galeria/base_galeria.html"  %}
+
+{% block main_body %}
+
+<h2>Galería de Imágenes</h2>
+
+Categorías:
+<ul>
+    {% if lista_categorias %}
+        {% for categoria in lista_categorias %}
+            <li><a href="{% url portal_galeria_imagenes categoria.id %}">{{categoria}}</a></li>
+        {% endfor %}
+        {% if lista_fotos %}
+            <p>Añadido por: {{lista_fotos.0.codigo_user.first_name}} {{lista_fotos.0.codigo_user.last_name}}</p>
+            <p>Votos: {{foto_0_nro_votos}}       </p>
+                {% load thumbnail %}
+                {% for foto in lista_fotos %}
+                    <img src="{% thumbnail foto.foto 150x150 sharpen %}" width=150px height=150px alt="{{foto.titulo}}" title="{{foto.titulo}}" />
+                {% endfor %}
+        {% else %}
+            Esta categoría todavía no tiene ninguna foto.
+        {% endif %}
+    {%else%}
+        <li>Aún no se han definido categorías</li>
+    {% endif %}
+</ul>
+
+{% endblock %}

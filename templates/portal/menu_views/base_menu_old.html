@@ -1,0 +1,46 @@
+{% extends "portal/base.html"  %}
+{% load i18n %}
+
+{% block title %}
+      {{ block.super }} - {% blocktrans %}Menú {% endblocktrans %}
+{% endblock %}
+
+{% block top_form %}
+    <div class="wide_notices">
+      <div class="container">
+	<div class="span-24 last header_bar">
+	    <!--regiseterbox-->
+          <form  method="post" action="{%url validar_usuario%}" class="login-form">{% csrf_token %}
+          <div class="span-16  login_form">
+	    <label for="id_username">{% blocktrans %}Usuario{% endblocktrans %}:</label>
+	    <input id="id_username" name="username" class="textbox" type="text"/>
+	    <label for="id_password">{% blocktrans %}Contraseña{% endblocktrans %}:</label>
+	    <input id="id_password" name="password" class="textbox" type="password"/>
+	    <input type="submit" value="{% blocktrans %}Ingresar{% endblocktrans %}" class="submit"/>
+	    <span class="helptext"><a class="link_no_decoration" href="{% url recuperar_password %}">{% blocktrans %}¿Has olvidado tu contraseña?{% endblocktrans %}</a></span>
+	  </div>
+	  <div class="span-7 prepend-1 last register_box">
+	    <a class="submit" href="{% url registro  %}">{% blocktrans %}Regístrate{% endblocktrans %}</a>
+	    <a href="{{url_redes_sociales.Flickr}}" title="flickr" target="_blank">
+	      <img src="{{MEDIA_URL}}style_imgs/flickr.png" alt="flickr"/></a>
+	    <a href="{{url_redes_sociales.Facebook}}" title="facebook" target="_blank">
+	      <img src="{{MEDIA_URL}}style_imgs/facebook.png" alt="facebook"/></a>
+	    <a href="{{url_redes_sociales.Twitter}}" title="twitter" target="_blank">
+	      <img src="{{MEDIA_URL}}style_imgs/twitter.png" alt="twitter"/></a>
+	    <a href="{% url rss_feeds %}" title="RSS FEEDS" target="_blank">
+	      <img class="last_icon" src="{{MEDIA_URL}}images/feeds/feed.png" 
+		   alt="RSS"/>
+	    </a>
+	    <!-- end if register_box -->
+	  </div>
+          </form>
+	  <!-- end of header bar -->
+	</div>
+
+	<!-- end if container -->
+      </div>
+
+      <!-- end of wide_notices -->
+    </div>      
+
+{% endblock %}

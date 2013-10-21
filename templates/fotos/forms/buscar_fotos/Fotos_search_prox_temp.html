@@ -1,0 +1,106 @@
+{% extends "fotos/forms/ver_perfil/base_profile.html"  %}
+{% load i18n %}
+
+{% block menu_top%}
+    	<ul class="span-17 last prepend-6">
+    	  <li><a href="{% url fotos_noticias 'notificaciones' %}">{% blocktrans %}Noticias{% endblocktrans %}</a></li>
+    	  <li><a href="{% url fotos_buscar_usuarios %}">{% blocktrans %}Buscar usuarios{% endblocktrans %}</a></li>
+    	  <li class="selected"><a href="{% url fotos_buscar_fotos %}">{% blocktrans %}Galería de fotos{% endblocktrans %}</a></li>
+    	  <li><a href="{% url fotos_subir_fotos %}">{% blocktrans %}Subir fotos{% endblocktrans %}</a></li>
+	  <li><a href="{% url fotos_ver_solicitudes %}">{% blocktrans %}Solicitudes{% endblocktrans %}</a></li>
+    	  <li class="last"><a href="{% url fotos_ayuda %}">{% blocktrans %}Ayuda{% endblocktrans %}</a></li>
+    	</ul>    
+{% endblock %}
+
+{% block menu_left %}
+	  <ul class="menu_bar profile"> 
+	    <li><a href="{% url main_user %}">{% blocktrans %}Inicio{% endblocktrans %}</a></li>
+	    <li><a href="{% url fotos_perfil_publico user.id %}">{% blocktrans %}Perfil Público{% endblocktrans %}</a></li>
+	    <li><a href="{% url editar_perfil %}">{% blocktrans %}Editar Perfil{% endblocktrans %}</a></li>
+	    <li><a href="{% url fotos_ver_fotos %}">{% blocktrans %}Mis Fotos{% endblocktrans %}</a></li>
+	    <li><a href="{% url fotos_amigos %}">{% blocktrans %}Mis Amigos{% endblocktrans %}</a></li>
+	  </ul>    
+{% endblock %}
+
+{% block body1 %}
+  <div class="user_details">
+    <form action="" method=POST> {% csrf_token %}
+        <h3>{% blocktrans %}Buscar fotos{% endblocktrans %}</h3>
+        <table>
+            {{form.as_table}}
+            </td>
+            <td><input type="submit" class="button" value="{% blocktrans %}Buscar{% endblocktrans %}"/></td>
+            <td><a href="{% url fotos_buscar_fotos %}">{% blocktrans %}Ver fotos de la temporada actual{% endblocktrans %}</a></td>
+          </tr>
+        </table>
+    </form>
+  </div>
+
+    <hr class="profile_separator"/>
+    <h2>{% blocktrans %}Lista de Fotos{% endblocktrans %}</h2>
+    {% if lista_fotos.object_list %}
+        {% load thumbnail %}        
+        {% for usuarios in lista_fotos.object_list %}
+            <ul class="image_list wide main">
+            {% for usuario in usuarios %}
+                <li>
+                    <a class="resultados_search" href="{{ usuario.get_absolute_url }}">
+                        <img src="{% thumbnail usuario.foto "75x75" %}" width="75" height="75" alt="{{usuario.titulo}}" title="{% blocktrans %}Ver{% endblocktrans %}" /></a>
+                        <p class="caption">
+                            <div class="resultados_search">
+                            <!--{{usuario.titulo|truncatewords_html:"1"|safe}}--> <!--<br/>-->
+                            {% blocktrans %}Por:{% endblocktrans %}<br/>
+                            {{usuario.codigo_user.username}}
+                            </div>
+                        </p>
+                </li>
+            {% endfor %}
+            </ul>
+            <div class="clear"></div>
+            <hr class="profile_separator"/>            
+        {% endfor %}        
+        <ul class="image_list wide main">
+            <li>
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if lista_fotos.has_previous %}
+                            <a href="?page={{ lista_fotos.previous_page_number }}">{% blocktrans %}anterior{% endblocktrans %}</a>
+                        {% endif %}
+                
+                        <span class="current">
+                            {% blocktrans with lista_fotos.number as n and lista_fotos.paginator.num_pages as np %}Página {{ n }} de {{ np }}{% endblocktrans %}.
+                        </span>
+                
+                        {% if lista_fotos.has_next %}
+                            <a href="?page={{ lista_fotos.next_page_number }}">{% blocktrans %}siguiente{% endblocktrans %}</a>
+                        {% endif %}
+                    </span>
+                </div>
+            </li>
+        </ul>
+    {% else %}
+        <ul class="image_list wide main">
+            <li>{% blocktrans %}No se encontraron resultados.{% endblocktrans %}</li>
+        </ul>
+    {% endif %}
+    
+    {% load fotos_tags %}
+    {% get_ganadores_temporadas 4 as ganadores_last_temp %}
+    <hr class="profile_separator"/>
+    <h2>{% blocktrans %}Ganadores de la Temporada{% endblocktrans %}</h2>
+    <ul class="image_list main">
+        {% if ganadores_last_temp %}            
+            {% for usuario in ganadores_last_temp %}
+                {% load thumbnail %}
+                <li><a href="{{ usuario.get_profile.get_absolute_url}}" title="{{ usuario.first_name }}{{ usuario.last_name }} ">
+                    <img src="{% thumbnail usuario.get_profile.foto "75x75" %}" width=75px height=75px alt="{{ usuario.first_name }}{{ usuario.last_name }}" /></a></li>
+            {% endfor %}
+        {% else %}
+            <li>{% blocktrans %}Todavía no hay ningún ganador.{% endblocktrans %}</li>
+        {% endif %}
+    </ul>
+    <div class="clear"></div>
+    <p class="more_profile"><a href="{% url fotos_ver_ganadores %}">{% blocktrans %}Ver más...{% endblocktrans %}</a></p>
+    <hr class="profile_separator"/>    
+
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends "portal/menu_views/base_menu.html"  %}
+{% load i18n %}
+{% load portal_tags %}
+{% load thumbnail %} 
+{% block title %}
+      {% blocktrans %}Sponsors{% endblocktrans %}
+{% endblock %}
+
+{% block head %}
+  {% include "portal/tags/sharethis/standard.html" %}  
+{% endblock %}
+
+{% block wall_menu %}
+<div class="wall_menu wall_menu_sponsors span-24 last">
+{% endblock %}
+
+
+{% block social_reponsability %}
+    <p class="link_all_black text_bold link_hover_black">
+      <a href="{% url portal_sponsors %}">Movistar</a></p>
+    <p class="link_all_green text_bold link_hover_black">
+      <a href="{% url portal_sponsors 2 %}">Taca</a></p>
+    <p class="link_all_green text_bold link_hover_black">
+      <a href="{% url portal_sponsors 3 %}">PeruRail</a></p>
+    <p class="link_all_green text_bold link_hover_black">
+      <a href="{% url portal_sponsors 4 %}">Sonesta</a></p>    
+    <p class="link_all_green text_bold link_hover_black">
+      <a href="{% url portal_sponsors 5 %}">Sony</a></p>
+     <p class="link_all_green text_bold link_hover_black">
+      <a href="{% url portal_sponsors 6 %}">Orient Express</a></p>
+{% endblock %}
+
+{% block center_content %}
+<div class="span-13 last breadcrumbs">
+    <label class="link_all_green"><a href="{% url portal_sponsors %}">{% blocktrans %}Organizers & Sponsors{% endblocktrans %} ></a></label>
+    {% blocktrans %}Sponsors{% endblocktrans %}
+</div>
+
+<div class="span-14 last sponsors_organizers">
+  <div class="span-14 last">
+    <h1>{% blocktrans %}Sponsors{% endblocktrans %}</h1>
+    <p></p>
+    <a href="http://ad.doubleclick.net/clk;243326230;20679243;x?http://smartphones.movistar.com.pe/equipos.html?cod=eq24" target="_blank">
+    <img width="550" height="350" src="{{MEDIA_URL}}images/sponsors/movistar.jpg">
+    </a>
+  </div>
+  
+  <div class="span-14 last wide_green_tile">
+    <h5>Movistar</h5>
+  </div>
+
+  <div class="span-14 last sponsors_organizers push_down_70">
+<!--<p>
+{% blocktrans %}In the last fifteen years, the Movistar Group has given a crucial boost to telecommunications in Peru installing more than two million telephone lines, eight hundred thousand broadband Internet connections and more than fifteen million mobile phones.{% endblocktrans %}
+</p>
+<p>
+{% blocktrans %}Movistar is one of the leading integrated telecommunications operators worldwide providing solutions for communication, information and entertainment, with presence in Europe, Africa and Latin America. It operates in 25 countries and has a customer base of over 287.6 million at December 2010.{% endblocktrans %}
+</p>
+<p>
+{% blocktrans %}The company has a the most international footprint of the telecommunications sector, generating over 60&#37; of its business outside its home market and is established as the leading operator in Spanish and Portuguese speaking markets.{% endblocktrans %}
+</p>
+<p>
+{% blocktrans %}In Spain, the Group has over 80 years of experience since its establishment in 1924, serving more than 47.5 million customers at the end of December 2010. In Latin America, the company serves more than 183.7 million customers at December 31, 2010, positioning itself as a leading operator in Brazil, Argentina, Chile and Peru and with significant operations in Colombia, Ecuador, El Salvador, Guatemala, Mexico, Nicaragua, Panama, Puerto Rico, Uruguay and Venezuela. In Europe, the company has a presence, in addition to Spain, the United Kingdom, Ireland, Germany, Czech Republic and Slovakia, serving more than 56.2 million customers at the end of December 2010.{% endblocktrans %}
+</p>-->
+
+  </div>
+</div>
+{% endblock %}

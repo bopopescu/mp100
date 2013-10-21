@@ -1,0 +1,42 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% load adminmedia %}{% admin_media_prefix %}css/dashboard.css" />{% endblock %}
+
+{% block coltype %}colMS{% endblock %}
+
+{% block bodyclass %}dashboard{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+    <h1>Fotos favoritas</h1>
+    {% if form_lleno %}
+        <ol>
+        {% for favorita in favoritas %}
+            <li>
+                <h3>{{ favorita.foto }}</h3>
+                <img src="{{ MEDIA_URL }}{{ favorita.foto.foto }}">
+                <p>Favorita con {{ favorita.fans|length }} voto{{ favorita.fans|pluralize }} de:</p>
+                <h4>Lista de votantes</h4>
+                <ol>
+                {% for fan in favorita.fans %}
+                    <li>
+                    <a href="{% url fotos_perfil_publico fan.id %}">{{ fan.username }}</a>
+                    </li>
+                {% endfor %}
+                </ol>
+            </li>
+        {% endfor %}
+        </ol>
+    {% else %}
+    <form method="post" action="">
+        <ul>
+            {{ form.as_ul }}
+            <li>
+                <input type="submit" value="Encontrar favoritos" />
+            </li>
+        </ul>
+    </form>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,201 @@
+{% extends 'servicios/ser_base.html' %}
+
+{% load thumbnail %}
+{% load blocktags %}
+{% load filters %}
+{% load i18n %}
+
+{% block ser_title %}{% blocktrans %}Search{% endblocktrans %}{% endblock %}
+
+{% block head %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}js/jquery.searchbox/jquery.searchbox.css" />
+    <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}js/jquery.jqmodal/jqModal.css" />
+
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.searchbox/jquery.searchbox.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.jqmodal/jqModal.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/servicios/ser_perfiles.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/servicios/googlemaps.ubicacion.js"> </script>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#id_nombre').SearchBox("/servicios/json_fast_servicios/", mostrar_busqueda, {box_img: '{{ MEDIA_URL }}servicios/recursos/lupa.png'});
+            var tipo_servicio = "{{ busqueda.tipo.id }}";
+             $("#filter").change(function() {
+                var url = "/servicios/perfiles/" + $(this).val() + "/" + tipo_servicio;
+                window.location.href = url;
+            });
+
+            var filtro = "{{ busqueda.filtro }}";
+            $("#filter").find("option[value=" + filtro + "]").attr("selected", "selected");
+
+            var results = new Array();
+            var elem;
+            {% for resultado in all_results %}
+                elem = {
+                    nombre: "{{ resultado.nombre }}",
+                    tipo_servicio: "{{ resultado.tipo_servicio }}",
+                    direccion: "{{ resultado.ubicacion.direccion }}",
+                    icono: "{% thumbnail resultado.tipo_servicio.icono "small" %}",
+                    bigIcon: "{% thumbnail resultado.foto_principal "bigIcon" %}",
+                    link: "{{ resultado.get_absolute_url }}",
+                    valoracion: "{{ resultado.puntuacion|floatformat:"0" }}",
+                    latlng: new google.maps.LatLng({{ resultado.ubicacion.getLatLng }})
+                }
+                results.push(elem);
+            {% endfor %}
+            var myLatlng = new google.maps.LatLng({{ busqueda.latitud }}, {{ busqueda.longitud }});
+            loadResultsMap("map_resultados", myLatlng, results);
+            $('.results_link').click(function() {
+                loadResultsMap("map_resultados_big", myLatlng, results);
+            });
+        })
+    </script>
+{% endblock %}
+
+{% block ser_content %}
+    {# Contenedor derecho #}
+    <div class="span-12">
+        {# Búsqueda de servicios #}
+        <div class="span-12 last services_box">
+            <h2>{% blocktrans %}Service finder{% endblocktrans %}</h2>
+            <div class="services_box_content min_search_form">
+                <form action="" method="post" id="form_buscar">
+                    <ul>
+                        {{ busqueda_form.non_field_errors }}
+                        <li>
+                            {{ busqueda_form.ubicacion.errors }}
+                            {{ busqueda_form.ubicacion.label_tag }}
+                            {{ busqueda_form.ubicacion }}
+                            <img class="map_link ser_link" src="{{ MEDIA_URL }}servicios/recursos/mundo boton vermapa.png" />
+                            <img class="map_link ser_link img_vert" src="{{ MEDIA_URL }}servicios/recursos/btn_ver mapa.png" alt="{% blocktrans %}See map{% endblocktrans %}" />
+                            {{ busqueda_form.viewport }}
+                            {{ busqueda_form.location }}
+                        </li>
+                        <li>
+                            {{ busqueda_form.nombre.errors }}
+                            {{ busqueda_form.nombre.label_tag }}
+                            {{ busqueda_form.nombre }}
+                        </li>
+                        <li class="right">
+                            <input type="submit" value="{% blocktrans %}Search{% endblocktrans %}" />
+                        </li>
+                    </ul>
+                </form>
+            </div>
+        </div>
+        <div class="span-12 last services_shadow">
+            <div class="span-6 left"></div><div class="span-6 last right"></div>
+        </div>
+
+        {# Lista de resultados #}
+        <div class="span-12 services_box">
+            <h2>{% blocktrans %}Search results for{% endblocktrans %} {{ busqueda.direccion }}</h2>
+            <div class="span-12 ser_types">
+                <ul>
+                    <a href="{% url ser_perfiles busqueda.filtro %}">
+                        <li{% if not busqueda.tipo %} class="active"{% endif %}>
+                            {% blocktrans %}All{% endblocktrans %}
+                        </li>
+                    </a>
+                    {% for tipo in tipos %}
+                    <a href="{% url ser_perfiles busqueda.filtro tipo.id  %}">
+                        <li{% if busqueda.tipo == tipo %} class="active"{% endif %}>
+                            {{ tipo.nombre }}
+                        </li>
+                    </a>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="span-12 services_box_content">
+                {# Cabecera de opciones de la lista de resultados #}
+                <div class="span-12">
+                    <div class="span-6">
+                        {{ all_results|length }} {% blocktrans %}Result{% endblocktrans %}{{ all_results|pluralize }}
+                    </div>
+
+                    {# filtros de búsqueda #}
+                    <div class="span-5">
+                        <span>{% blocktrans %}Sort by{% endblocktrans %}:</span>
+                        <select id="filter">
+                        {% for key, item in filtros.items %}
+                            <option value="{{ key }}">{{ item }}</option>
+                        {% endfor %}
+                        </select>
+                    </div>
+
+                    {# Paginador de servicios #}
+                    <div class="span-12 append-bottom">
+                        {% ser_paginator resultados "services_link" %}
+                    </div>
+                </div>
+
+                {# Servicio destacado #}
+                {% if destacado %}
+                <div class="span-12">
+                    <h3 class="ser_result_type">{% blocktrans %}Promoted service{% endblocktrans %}</h3>
+                    <div class="span-12 prepend-top">
+                        {% ser_preview destacado "2,9" %}
+                    </div>
+                </div>
+                {% endif %}
+
+                {# Lista de resultados  #}
+                <div class="span-12">
+                    <a name="services_link"></a>
+                    <h3 class="ser_result_type">{% blocktrans %}Results sorted by{% endblocktrans %}: {{ filtros|hash:busqueda.filtro|lower }}</h3>
+                    {% for resultado in resultados.object_list %}
+                        <div class="span-12 prepend-top">
+                            {% ser_preview resultado "2,9" %}
+                        </div>
+                    {% endfor %}
+                </div>
+
+                {# Paginador de servicios #}
+                <div class="span-12">
+                    {% ser_paginator resultados "services_link" %}
+                </div>
+            </div>
+        </div>
+        <div class="span-12 last services_shadow">
+            <div class="span-6 left"></div><div class="span-6 last right"></div>
+        </div>
+    </div>
+
+    {# Contenedor derecho #}
+    <div class="span-8 last">
+        {# Mapa de resultados #}
+        <div class="span-8 services_box">
+            <h2>{% blocktrans %}Results map{% endblocktrans %}</h2>
+            <div class="services_box_content">
+                <div id="map_resultados" style="width:280px; height:300px"></div>
+                <div class="prepend-top">
+                    <span class="ser_link results_link">{% blocktrans %}See full map{% endblocktrans %}</span>
+                </div>
+            </div>
+        </div>
+        <div class="span-8 last services_shadow">
+            <div class="span-4 left"></div><div class="span-4 last right"></div>
+        </div>
+    </div>
+
+    {# POPUPS #}
+    {# Mapa del servicio cargado desde el botón ubicación en los destacados y mejor valorados: popup #}
+    {% include "servicios/popups/place_preview.html" %}
+
+    {# Mapa para ayudar a encontrar una ubicación para buscar: popup #}
+    {% include "servicios/popups/place_search.html" %}
+
+    {# Mapa de los resultados, de mayor tamaño: popup #}
+    <div id="popup_results_map" class="jqmWindow services_box">
+        <h2>{% blocktrans %}Results map{% endblocktrans %}</h2>
+        <div class="services_box_content">
+            <div id="map_resultados_big" class="append-bottom" style="width:570px; height:300px"></div>
+            <div class="right">
+                <span class="closeClass ser_button">{% blocktrans %}Close{% endblocktrans %}</span>
+            </div>
+        </div>
+    </div>
+{% endblock %}

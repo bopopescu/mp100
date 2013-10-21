@@ -1,0 +1,13 @@
+<div class="comentarios-perfil">
+    {% load thumbnail %}
+    {% for comentario in comentarios %}
+    <div class="comment">
+        <a href="{% url fotos_perfil_publico comentario.amigo.id %}">
+            <!--<img src="/media/{{ comentario.amigo.foto }}" width="50" />-->
+            <img alt="{{comentario.amigo.user.first_name}}" width="50" height="50" src="{% thumbnail comentario.amigo.foto 50x50 crop="smart" upscale %}"/>
+        </a>
+        <p>{{ comentario.texto }}</p>
+        <div class="clear"></div>
+    </div>
+    {% endfor %}
+</div>

@@ -1,0 +1,242 @@
+{% extends "portal/menu_views/base_menu.html"  %}
+{% load i18n %}
+{% load portal_tags %}
+{% block title %}
+  {% blocktrans %}Enter{% endblocktrans %}
+{% endblock %}
+
+{% block head %}
+  <script src="{{ MEDIA_URL }}js/jquery.jqEasyCharCounter.min.js" type="text/javascript"></script>
+
+  <script type="text/javascript">
+  $(document).ready(function(){		  
+
+    $('.countable1').jqEasyCounter({
+	    'maxChars': 250,
+	    'maxCharsWarning': 200,
+	    'msgFontSize': '12px',
+	    'msgFontColor': '#899F3E',
+	    'msgFontFamily': 'Verdana',
+	    'msgTextAlign': 'right',
+	    'msgWarningColor': '#F00',
+	    'msgAppendMethod': 'insertAfter'				
+    });
+    
+    $('input#display_login_to_upload').click(function (event) {
+      event.preventDefault();
+      $("div#loging_to_upload").show('slow');
+    });
+
+    var enter_triggers = $('a.popinEditsAllowed_trigger');
+    $('#G_popinEditsAllowed').jqm({
+      trigger: enter_triggers,
+      target: 'div.jqmAlertContent',
+      toTop: true,
+      overlay: 0
+      });
+  
+  });
+  </script>  
+  {% include "portal/tags/sharethis/standard.html" %}
+{% endblock %}
+
+{% block center_content %}
+	<div class="span-14 last enter_big_title">
+	  <h3>{% blocktrans %}Share your Machu Picchu experience with the world{% endblocktrans %}!</h3>
+	</div>
+	{% if user.is_authenticated %}
+	<div class="span-14 last enter_big_message">
+	  {% if not constest_finished %}
+	    {% blocktrans %}Enter up to 5 photos for each Voting Period{% endblocktrans %}
+	  {% else %}
+	    <label class="elegant_red">{% blocktrans %}The Photo Contest has finished{% endblocktrans %}</label>
+	  {% endif %}
+	</div>
+	{% get_actual_and_next_temporadas actual_temp next_temp %}
+	<div class="span-14 last">
+	  {% if next_temp %}
+	    {% get_current_language as LANGUAGE_CODE %}	
+	    {% blocktrans %}You have entered{% endblocktrans %} {{user.get_profile.uploaded_photos}}
+	    {% blocktrans %}photo{% endblocktrans %}{{user.get_profile.uploaded_photos|pluralize}}
+	    {% blocktrans %}for Voting Period{% endblocktrans %} {{next_temp.get_order_number}}.
+	    {% if user.get_profile.remaining_uploads > 0 %}
+	      {% blocktrans %}You may enter{% endblocktrans %} {{user.get_profile.remaining_uploads}}
+	      {% blocktrans %}aditional photo{% endblocktrans %}{{user.get_profile.remaining_uploads|pluralize}}{% if LANGUAGE_CODE == 'es' %} más{% endif %}
+	      {% blocktrans %}before{% endblocktrans %}{% if LANGUAGE_CODE == 'es' %} del{% endif %} {{next_temp.fecha_inicio|date:"D, j M Y h:i:s a"}} GMT -005 (Lima)
+	    {% endif %}
+	  {% endif %}
+	</div>	
+	{% else %}
+	<div class="span-14 last enter_big_message" id="loging_to_upload" style="display: none">
+	  {% blocktrans %}You must be logged in to upload photos{% endblocktrans %}
+	</div>
+	{% endif %}
+
+	<div class="span-14 last push_down_30">
+	  <form class="" action="" method="post" enctype="multipart/form-data">{% csrf_token %}	  
+	    <div class="span-8 last all_to_left padding_bottom_20">
+	      <h3 class="green">{% blocktrans %}Select your photo{% endblocktrans %}</h3>
+	    </div>
+	    
+	    <div class="clear"></div>
+	    <div class="span-6">
+	      <img width=214 height=258 alt="image_preview" src="{{MEDIA_URL}}style_imgs/no_image_preview.png"/>
+	    </div>
+	    <div class="span-8 last">
+	      {% if error_imagen %}
+	      <ul class="errorlist">
+	      <li>{{error_imagen}}</li>
+	      </ul>
+	      {% endif %}
+	      {{form.foto.errors}}
+	      <input id="id_foto" class="textbox special_gray" type="file" name="foto">
+	    </div>
+	    <div class="span-8 last">
+	      {{form.titulo.errors}}
+	      <label for="id_titulo">{% blocktrans %}Title{% endblocktrans %}</label>
+	      <input id="id_titulo" class="textbox special_gray clearInput" type="text" name="titulo">	    
+	    </div>
+	    <div class="span-8 last">
+	      {{form.descripcion.errors}}
+	      <textarea id="id_descripcion" class=" textarea_enter1 textbox special_gray countable1" name="descripcion" cols="10" rows="10">{% blocktrans %}Description to be published with your photo.{% endblocktrans %}</textarea>
+	      <!--<p class="green all_to_right no_margin">250 characters remaining</p>-->
+	    </div>
+	    <div class="span-8 last">
+	      {{form.ediciones.errors}}
+	      <textarea id="id_ediciones" class=" textarea_enter1 textbox special_gray" name="ediciones" cols="10" rows="10">{% blocktrans %}Please describe any minors edits or retouching including use of HRD. This information is for judges user and will not be plublished with your photo.{% endblocktrans %}</textarea>
+	      <p class="all_to_right no_margin link_all_green"><a class="popinEditsAllowed_trigger" href="#">{% blocktrans %}what edits are allowed{% endblocktrans %}</a></p>
+	      <!--begin popin_edits_allowed-->
+		<div class="jqmAlert" id="G_popinEditsAllowed">
+		    <div id="G_popinEditsAllowed" class="jqmAlertWindow1">
+			<div class="jqmAlertTitle clearfix">
+			  <h1>{% trans 'what edits are allowed' %}</h1><a href="#" class="jqmClose"><em>{% trans 'Close' %}</em></a>
+			</div>
+			<div class="jqmAlertContent">
+			  <!-- begin info edits -->
+			  {% include 'portal/tags/edits_allowed/edits_allowed.html' %}
+			  <!-- end info edits -->
+			</div>
+		    </div>
+		</div>
+		<!--end popin_edits_allowed-->	      
+	    </div>
+	    
+	    <div class="span-14 last push_down_10">
+	      <div class="span-14 last">
+		<label for="id_categoria"><h3 class="green margin_top_24">{% blocktrans %}Select a category{% endblocktrans %}:</h3></label><br/>
+		<table class="select_category">
+		{% if lista_categorias %}
+		  {% if form.categoria.errors %}
+		    <tr>
+		      <td>{{form.categoria.errors}}
+		      </td>
+		      <td>
+		      </td>
+		    </tr>
+		  {% endif %}
+		  {% for categoria in lista_categorias %}
+		    <tr>
+		      <td><label for="id_categoria_{{categoria.id}}">
+			    <input id="id_categoria_{{categoria.id}}" type="radio" name="categoria" value="{{categoria.id}}">		    
+			    {% if LANGUAGE_CODE == 'en' %}
+			      {% if categoria.nombre == 'Vintage' %}
+				{{categoria}}
+			      {% else %}
+				{{categoria}}
+			      {% endif %}
+			    {% else %}
+			      {% if categoria.nombre == 'Vintage' %}
+				{{categoria.nombre_espaniol}}
+			      {% else %}
+				{{categoria.nombre_espaniol}}  
+			      {% endif %}
+			    {% endif %}
+			  </label>
+		      </td>
+		      <td><!--<div class="span-1" style="width: 21px;"><a href="#"><img width=21 height=21 alt="image_preview" title="" src="{{MEDIA_URL}}style_imgs/category_information.png"/></a></div>-->
+			<div class="span-7 prepend-2 last">{% if LANGUAGE_CODE == 'en' %}{{categoria.descripcion}} {% else %} {{categoria.descripcion_espaniol}} {% endif %}</div>
+		      </td>
+		    </tr>		      
+		  {% endfor %}
+		{%else%}
+		    <tr>
+		      <td>{% blocktrans %}There are not categories yet{% endblocktrans %}.</td>
+		    </tr>
+		{% endif %}		
+		</table>
+      
+		<h3 class="green margin_top_24">{% blocktrans %}Or participate as{% endblocktrans %}:</h3>
+		<table class="select_category">
+		  <tr>
+		    <td><label for="id_categoria_{{categoria_pro.id}}">
+			  <input id="id_categoria_{{categoria_pro.id}}" type="radio" name="categoria" value="{{categoria_pro.id}}">		    
+			  {% if LANGUAGE_CODE == 'en' %}
+			    Professional Photographer
+			  {% else %}
+			    Fotógrafo Profesional 
+			  {% endif %}
+			</label>
+		    </td>
+		    <td><!--<div class="span-1" style="width: 21px;"><a href="#"><img width=21 height=21 alt="image_preview" title="" src="{{MEDIA_URL}}style_imgs/category_information.png"/></a></div>-->
+		      <div class="span-7 prepend-2 last">{% if LANGUAGE_CODE == 'en' %}{{categoria_pro.descripcion}} {% else %} {{categoria_pro.descripcion_espaniol}} {% endif %}</div>
+		    </td>		    
+		  </tr>
+		</table>
+		<div class="span-14 last all_to_middle">
+		  <!-- uncomment to upload and be able to vote on the same voting period -->
+
+		  {% if user.is_authenticated %}
+		    {% if user.get_profile.remaining_uploads > 0 %}
+		      <input class="cute_green_button" type="submit" value="{% blocktrans %}Upload{% endblocktrans %}">
+		    {% else %}
+		      {% blocktrans %}You already have uploaded your photos for this Voting Period{% endblocktrans %}}
+		    {% endif %}
+		  {% else %}
+		    </form>
+		    <a class="ex3bTrigger" href="#">
+		      <input id="" class="large_cute_green_button" type="submit" value="{% blocktrans %}Login to upload{% endblocktrans %}" >
+		    </a>
+		  {% endif %}
+
+		  <!-- end uploading and voting -->
+
+		  <!-- uncomment to allow normal behavior -->
+		  {% comment %}
+		  {% if user.is_authenticated %}
+		    {% if user.get_profile.remaining_uploads > 0 %}
+		      {% if user.is_authenticated %}
+			<input class="cute_green_button" type="submit" value="{% blocktrans %}Upload{% endblocktrans %}">
+		      {% endif %}
+		    {% else %}
+		      {% if next_temp %}
+			{% blocktrans %}You already have uploaded your photos for the next Voting Period{% endblocktrans %}
+		      {% else %}
+			{% if very_last_temporada %}
+			  {% blocktrans %}Thank you for your interest but all the Uploading Periods have finished{% endblocktrans %}.
+			  <a href="{% url portal_vote %}">{% blocktrans %}Vote for your favorites{% endblocktrans %}</a> {% blocktrans %}in this last Voting Period{% endblocktrans %} 
+			{% else %}
+			  {% if constest_finished %}
+			    <label class="elegant_red">{% blocktrans %}The Photo Contest has finished{% endblocktrans %}</label>
+			  {% else %}
+			    {% blocktrans %}New Voting Periods will start soon{% endblocktrans %}
+			  {% endif %}
+			{% endif %}			
+		      {% endif %}
+		    {% endif %}
+		  {% else %}
+		    </form>
+		    {% if not user.is_authenticated %}
+		    <a class="ex3bTrigger" href="#">
+				<input id="" class="large_cute_green_button" type="submit" value="{% blocktrans %}Login to upload{% endblocktrans %}" >
+			</a>
+		    {% endif %}
+		  {% endif %}
+		  {% endcomment %}
+		  <!-- end normal behavior -->
+		</div>
+	      </div>
+	    </div>
+	  </form>
+	</div>
+
+{% endblock %}

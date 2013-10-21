@@ -1,0 +1,32 @@
+{% extends "fotos/forms/invitacion/base_profile.html"  %}
+{% load i18n %}
+
+{% block menu_left %}
+
+	  <ul class="menu_bar profile"> 
+	    <li><a href="{% url main_user %}">{% blocktrans %}Inicio{% endblocktrans %}</a></li>
+	    <li><a href="{% url fotos_perfil_publico user.id %}">{% blocktrans %}Perfil Público{% endblocktrans %}</a></li>
+	    <li><a href="{% url editar_perfil %}">{% blocktrans %}Editar Perfil{% endblocktrans %}</a></li>
+	    <li><a href="{% url fotos_ver_fotos %}">{% blocktrans %}Mis Fotos{% endblocktrans %}</a></li>
+	    <li class="last"><a href="{% url fotos_amigos %}">{% blocktrans %}Mis Amigos{% endblocktrans %}</a></li>
+	  </ul>
+        
+{% endblock %}
+
+{% block body1 %}
+    <hr class="profile_separator"/>
+    <h2>{% blocktrans %}Invitar{% endblocktrans %}</h2>    
+    <div class="user_details">
+        <form action="" method=POST> {% csrf_token %}
+            <table>
+                {{ form.as_table }}
+            <tr>
+                <th>
+                </th>
+                <td><input type="submit" class="button" value="{% blocktrans %}Enviar invitación{% endblocktrans %}" >
+                </td>
+            </tr>
+            </table>            
+        </form>
+    </div>
+{% endblock %}

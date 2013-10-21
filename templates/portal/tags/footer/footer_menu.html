@@ -1,0 +1,33 @@
+{% load i18n %}
+
+<div class="prepend-2 span-5 no_spaces">
+  <p class="amarillo">{% blocktrans %}Contest{% endblocktrans %}</p>
+  <p><a {% if not user.is_authenticated %}class="ex3bTrigger"{% endif%} href="{% url portal_subir_fotos %}">{% blocktrans %}Enter{% endblocktrans %}</a></p>
+  <p><a href="{% url portal_vote %}">{% blocktrans %}Vote{% endblocktrans %}</a></p>
+  <p><a href="{% url portal_final_prizes %}">{% blocktrans %}Prizes{% endblocktrans %}</a></p>
+  <p><a href="{% url portal_bases %}">{% blocktrans %}Rules{% endblocktrans %}</a></p>
+  <p><a href="{% url portal_faqs %}">{% blocktrans %}FAQ's{% endblocktrans %}</a></p>
+</div>
+<div class="span-5">
+  <p class="amarillo">{% blocktrans %}Machu Picchu & Perú{% endblocktrans %}</p>
+  <p><a href="{% url portal_about_history %}">{% blocktrans %}Machu Picchu{% endblocktrans %}</a></p>
+  <p><a href="{% url portal_about_history 2 %}">{% blocktrans %}Peru{% endblocktrans %}</a></p>
+  <p><a href="{% url portal_about_history 3 %}">{% blocktrans %}Trivia{% endblocktrans %}</a></p>
+  <p><a href="{% url portal_about_history 4 %}">{% blocktrans %}Videos{% endblocktrans %}</a></p>
+</div>
+<div class="span-5">
+  <p class="amarillo">{% blocktrans %}Contest News{% endblocktrans %}</p>
+  <p><a href="{% url zinnia_entry_archive_index %}">{% blocktrans %}Blog{% endblocktrans %}</a></p>
+  <p><a href="{% url portal_winners %}">{% blocktrans %}Weekly Winners{% endblocktrans %}</a></p>
+  <p><a target="_blank" href="http://www.machupicchu360.org">Machu Picchu 360</a></p>
+  <p><a target="_blank" href="http://www.perutravelnow.com">Peru Travel Now</a></p>
+
+</div>
+<div class="span-5 last">
+  {% if user.is_authenticated %}
+  <p class="amarillo">{% blocktrans %}My profile{% endblocktrans %}</p>
+  <p><a href="{% url usuario_mis_fotos %}">{% blocktrans %}My Photos{% endblocktrans %}</a></p>
+  <p><a href="{% url usuario_main_user %}">{% blocktrans %}My Votes{% endblocktrans %}</a></p>
+  <p><a href="{% url usuario_amigos %}">{% blocktrans %}My Contacts{% endblocktrans %}</a></p>
+  {% endif %}
+</div>	  	  

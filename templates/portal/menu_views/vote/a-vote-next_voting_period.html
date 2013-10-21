@@ -1,0 +1,110 @@
+{% extends "portal/menu_views/base_menu.html"  %}
+{% load i18n %}
+{% load portal_tags %}
+{% load thumbnail endless %} 
+{% block title %}
+  {% blocktrans %}Next Voting Period{% endblocktrans %}
+{% endblock %}
+
+{% block head %}
+  {% include "portal/tags/sharethis/standard.html" %}
+{% endblock %}
+
+{% block wall_menu %}
+<div class="wall_menu wall_menu_vote span-24 last">
+{% endblock %}
+
+{% block center_content %}      
+  <div class="span-14 last">
+    <form class="" action="" method="get">{% csrf_token %}
+      <div class=" span-4 all_to_left fixed_height_20">
+	{{form.texto}}
+      </div>
+      <div class=" span-7 all_to_middle fixed_height_20">
+	<label for="id_categoria" class="special_gray">{% blocktrans %}Categories{% endblocktrans %}</label>
+	<!--{{form.categoria}}-->
+	<select id="id_categoria" class="styled special_gray" name="categoria">
+	  <option selected="selected" value=""> --------- </option>
+	{% get_current_language as LANGUAGE_CODE %}
+	{% if LANGUAGE_CODE == 'en' %}
+	  {% for categoria in lista_categorias %}
+	    <option value="{{categoria.id}}">{{categoria}}</option>
+	  {% endfor %}
+	{% else %}
+	  {% for categoria in lista_categorias %}
+	    <option value="{{categoria.id}}">{{categoria.nombre_espaniol}}</option>
+	  {% endfor %}	  
+	{% endif %}
+	</select>	      		
+      </div>
+      <div class=" span-3 all_to_right last fixed_height_20 push_down_6">
+	<input class="cute_green_button" type="submit" value="{% blocktrans %}Search{% endblocktrans %}">
+      </div>	    
+    </form>
+  </div>
+  
+  <div class="span-14 last countDown">
+    {% get_actual_and_next_temporadas actual_temp next_temp %}
+    {% if next_temp %}
+      <h3>{% blocktrans %}Next Voting Period{% endblocktrans %}: {% blocktrans %}Vote for these photos on{% endblocktrans %} {{next_temp.fecha_inicio}}</h3>
+    {% endif %}
+    {% if actual_temp %}
+      {% blocktrans %}Submit your photos until{% endblocktrans %} {{next_temp.fecha_inicio}}
+    {% endif %}
+  </div>
+
+  <div class="span-14 last">
+    <div class="span-7 append-2">
+      <label class="green">
+      {% blocktrans %}New fotos uploaded.{% endblocktrans %}
+      </label>
+    </div>
+    <div class="span-5 last all_to_right pagination_links">
+    {% comment %}  
+    {% if lista_fotos.object_list %}  
+      {% if lista_fotos.has_previous %}
+	<a href="?page={{ lista_fotos.previous_page_number }}">{% blocktrans %}previous{% endblocktrans %}</a>
+      {% endif %}
+      {% blocktrans with lista_fotos.number as n and lista_fotos.paginator.num_pages as np %}Page {{ n }} of {{ np }}{% endblocktrans %}.
+      {% if lista_fotos.has_next %}
+	<a href="?page={{ lista_fotos.next_page_number }}">{% blocktrans %}next{% endblocktrans %}</a>
+      {% endif %}
+    {% endif %}
+    {% endcomment %}
+    {% paginate lista_fotos %}
+    {% show_pages %} 
+    </div>	  
+  </div>
+
+{% if lista_fotos %}       
+  <div class="span-14 last">
+    <ul class="image_list wide main">
+      {% for usuario in lista_fotos %}
+	  <li>
+	    <a class="resultados_search" href="{% url portal_photo_vote_next_voting_period usuario.codigo_user.id usuario.id %}">
+	      <img width=122px height=116px src="{% thumbnail usuario.foto '122x116' %}" alt="{{usuario.titulo}}" title="{% blocktrans %}Check it out{% endblocktrans %}"/>
+	    </a>			
+	  </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="span-14 last all_to_right pagination_links">
+  {% comment %}
+  {% if lista_fotos.has_previous %}
+    <a href="?page={{ lista_fotos.previous_page_number }}">{% blocktrans %}previous{% endblocktrans %}</a>
+  {% endif %}
+  {% blocktrans with lista_fotos.number as n and lista_fotos.paginator.num_pages as np %}Page {{ n }} of {{ np }}{% endblocktrans %}.
+  {% if lista_fotos.has_next %}
+    <a href="?page={{ lista_fotos.next_page_number }}">{% blocktrans %}next{% endblocktrans %}</a>
+  {% endif %}
+  {% endcomment %}
+  {% show_pages %}
+  </div>	  	
+{% else %}
+  <div class="span-14 last">
+    {% blocktrans %}There are no results.{% endblocktrans %}
+  </div>
+{% endif %}
+
+{% endblock %}

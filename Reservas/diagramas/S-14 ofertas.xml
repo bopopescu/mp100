@@ -1,0 +1,163 @@
+<mockup version="1.0" skin="sketch" measuredW="1116" measuredH="527" mockupW="1036" mockupH="469">
+  <controls>
+    <control controlID="861" controlTypeID="__group__" x="80" y="58" w="1008" h="52" measuredW="1008" measuredH="52" zOrder="0" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::FieldSet" x="0" y="0" w="1008" h="52" measuredW="200" measuredH="170" zOrder="0" locked="false" isInGroup="861">
+          <controlProperties>
+            <text>Barra%20de%20herramientas</text>
+          </controlProperties>
+        </control>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::LinkBar" x="698" y="21" w="-1" h="-1" measuredW="269" measuredH="21" zOrder="1" locked="false" isInGroup="861">
+          <controlProperties>
+            <text>Perfil%2C%20Cambiar%20password%2C%20Cerrar%20sesi%F3n</text>
+          </controlProperties>
+        </control>
+        <control controlID="2" controlTypeID="com.balsamiq.mockups::Label" x="20" y="21" w="117" h="21" measuredW="90" measuredH="21" zOrder="2" locked="false" isInGroup="861">
+          <controlProperties>
+            <text>Bienvenido%20xxx</text>
+          </controlProperties>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="862" controlTypeID="__group__" x="80" y="118" w="200" h="409" measuredW="200" measuredH="409" zOrder="1" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::FieldSet" x="0" y="0" w="200" h="409" measuredW="200" measuredH="170" zOrder="0" locked="false" isInGroup="862">
+          <controlProperties>
+            <text>Administrador</text>
+          </controlProperties>
+        </control>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::List" x="15" y="24" w="170" h="368" measuredW="100" measuredH="359" zOrder="1" locked="false" isInGroup="862">
+          <controlProperties>
+            <text>%5BEdici%F3n%20r%E1pida%5D%0A%20%0A%5BCalendario%5D%0A%20%0A%5BTipos%20de%20habitaciones%5D%0A%20%0A%5BHabitaciones%5D%0A%20%0A%5BTemporadas%5D%0A%20%0A%5BServicios%20especiales%5D%0A%20%0A%5BCaracter%EDsticas%5D%0A%20%0A%5BClientes%5D%0A%20%0A%5BOfertas%5D</text>
+          </controlProperties>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="866" controlTypeID="com.balsamiq.mockups::FieldSet" x="295" y="118" w="793" h="362" measuredW="200" measuredH="170" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Ofertas</text>
+      </controlProperties>
+    </control>
+    <control controlID="867" controlTypeID="com.balsamiq.mockups::Icon" x="898" y="244" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>SquaredPlusIcon%7Csmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="868" controlTypeID="com.balsamiq.mockups::Label" x="933" y="245" w="-1" h="-1" measuredW="42" measuredH="21" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>A%F1adir</text>
+      </controlProperties>
+    </control>
+    <control controlID="869" controlTypeID="com.balsamiq.mockups::Icon" x="990" y="244" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>TrashIcon%7Csmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="870" controlTypeID="com.balsamiq.mockups::Label" x="1025" y="245" w="-1" h="-1" measuredW="42" measuredH="21" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Borrar</text>
+      </controlProperties>
+    </control>
+    <control controlID="871" controlTypeID="com.balsamiq.mockups::CheckBox" x="312" y="292" w="-1" h="-1" measuredW="69" measuredH="22" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Ofertas</text>
+      </controlProperties>
+    </control>
+    <control controlID="872" controlTypeID="com.balsamiq.mockups::CheckBox" x="312" y="334" w="-1" h="-1" measuredW="26" measuredH="22" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="873" controlTypeID="com.balsamiq.mockups::Label" x="501" y="292" w="-1" h="-1" measuredW="91" measuredH="21" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Fecha%20de%20inicio</text>
+      </controlProperties>
+    </control>
+    <control controlID="874" controlTypeID="com.balsamiq.mockups::Label" x="772" y="292" w="-1" h="-1" measuredW="116" measuredH="21" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Tasa%20de%20descuento</text>
+      </controlProperties>
+    </control>
+    <control controlID="875" controlTypeID="com.balsamiq.mockups::TextInput" x="809" y="331" w="42" h="-1" measuredW="22" measuredH="27" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>5</text>
+      </controlProperties>
+    </control>
+    <control controlID="876" controlTypeID="com.balsamiq.mockups::Label" x="938" y="292" w="44" h="22" measuredW="46" measuredH="21" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Estado</text>
+      </controlProperties>
+    </control>
+    <control controlID="877" controlTypeID="com.balsamiq.mockups::CheckBox" x="918" y="334" w="-1" h="-1" measuredW="81" measuredH="22" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <state>selected</state>
+        <text>Disponible</text>
+      </controlProperties>
+    </control>
+    <control controlID="878" controlTypeID="com.balsamiq.mockups::CheckBox" x="312" y="381" w="-1" h="-1" measuredW="26" measuredH="22" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="879" controlTypeID="com.balsamiq.mockups::TextInput" x="809" y="378" w="42" h="-1" measuredW="22" measuredH="27" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>5</text>
+      </controlProperties>
+    </control>
+    <control controlID="880" controlTypeID="com.balsamiq.mockups::CheckBox" x="918" y="381" w="-1" h="-1" measuredW="81" measuredH="22" zOrder="16" locked="false" isInGroup="-1">
+      <controlProperties>
+        <state>selected</state>
+        <text>Disponible</text>
+      </controlProperties>
+    </control>
+    <control controlID="881" controlTypeID="com.balsamiq.mockups::Icon" x="1030" y="330" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="17" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>PencilIcon%7Csmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="882" controlTypeID="com.balsamiq.mockups::Icon" x="1030" y="377" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="18" locked="false" isInGroup="-1">
+      <controlProperties>
+        <icon>PencilIcon%7Csmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="883" controlTypeID="com.balsamiq.mockups::CallOut" x="1060" y="323" w="-1" h="-1" measuredW="56" measuredH="43" zOrder="19" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>S-15</text>
+      </controlProperties>
+    </control>
+    <control controlID="884" controlTypeID="com.balsamiq.mockups::Button" x="946" y="438" w="-1" h="-1" measuredW="121" measuredH="27" zOrder="20" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Guardar%20cambios</text>
+      </controlProperties>
+    </control>
+    <control controlID="885" controlTypeID="com.balsamiq.mockups::TextInput" x="338" y="331" w="134" h="-1" measuredW="61" measuredH="27" zOrder="21" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Oferta%201</text>
+      </controlProperties>
+    </control>
+    <control controlID="886" controlTypeID="com.balsamiq.mockups::TextInput" x="338" y="378" w="134" h="-1" measuredW="64" measuredH="27" zOrder="22" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Oferta%202</text>
+      </controlProperties>
+    </control>
+    <control controlID="887" controlTypeID="com.balsamiq.mockups::DateChooser" x="501" y="332" w="-1" h="-1" measuredW="90" measuredH="25" zOrder="23" locked="false" isInGroup="-1"/>
+    <control controlID="888" controlTypeID="com.balsamiq.mockups::DateChooser" x="501" y="379" w="-1" h="-1" measuredW="90" measuredH="25" zOrder="24" locked="false" isInGroup="-1"/>
+    <control controlID="889" controlTypeID="com.balsamiq.mockups::Label" x="623" y="292" w="-1" h="-1" measuredW="121" measuredH="21" zOrder="25" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Fecha%20de%20caducidad</text>
+      </controlProperties>
+    </control>
+    <control controlID="890" controlTypeID="com.balsamiq.mockups::DateChooser" x="638" y="332" w="-1" h="-1" measuredW="90" measuredH="25" zOrder="26" locked="false" isInGroup="-1"/>
+    <control controlID="891" controlTypeID="com.balsamiq.mockups::DateChooser" x="638" y="379" w="-1" h="-1" measuredW="90" measuredH="25" zOrder="27" locked="false" isInGroup="-1"/>
+    <control controlID="892" controlTypeID="com.balsamiq.mockups::Label" x="327" y="158" w="733" h="43" measuredW="922" measuredH="21" zOrder="28" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Crea%20una%20oferta%2C%20comp%E1rtela%20con%20tus%20clientes%20y%20ayuda%20a%20promocionar%20tu%20alojamiento%2C%20tu%20anuncio%20se%20colocar%E1%20en%20mejor%20posici%F3n%20en%20los%20resultados%20si%20tienes%20una%20oferta.</text>
+      </controlProperties>
+    </control>
+    <control controlID="893" controlTypeID="com.balsamiq.mockups::Label" x="327" y="201" w="733" h="43" measuredW="1163" measuredH="21" zOrder="29" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Las%20ofertas%20se%20activar%E1n%20autom%E1ticamente%20en%20la%20fecha%20que%20coloques%2C%20puedes%20especificar%20los%20tipos%20de%20habitaciones%20sobre%20las%20que%20se%20dar%E1%20la%20oferta%20y%20enviar%20correos%20public%E1ndola%20entrando%20a%20la%20vista%20de%20edici%F3n</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>

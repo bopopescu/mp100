@@ -1,0 +1,21 @@
+{% extends 'servicios/ser_base.html' %}
+
+{% load i18n %}
+
+{% block ser_title %}{% blocktrans %}Confirmation{% endblocktrans %}{% endblock %}
+
+{% block ser_content %}
+    <div class="push-3 span-14 services_box">
+        <h2>{% blocktrans %}Confirm registration{% endblocktrans %}</h2>
+        <div class="services_box_content center">
+            <div class="append-bottom">
+                {% blocktrans %}You'll get an e-mail to verify your registration{% endblocktrans %}
+            </div>
+            <a href="{% url ser_inicio %}">Back to services home</a> |
+            <a href="{% url main_portal %}">Back to home</a>
+        </div>
+    </div>
+    <div class="push-3 span-14 last services_shadow">
+        <div class="span-7 left"></div><div class="span-7 last right"></div>
+    </div>
+{% endblock %}

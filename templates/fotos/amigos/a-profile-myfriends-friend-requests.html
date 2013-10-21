@@ -1,0 +1,109 @@
+{% extends "portal/menu_views/base_menu.html"  %}
+{% load i18n %}
+{% load thumbnail %}
+{% load fotos_tags %}
+{% block title %}
+  {% blocktrans %}User Profile - Friends{% endblocktrans %}
+{% endblock %}
+
+
+{% block left_menu %}
+<li>
+  <a href="{% url usuario_mis_fotos %}">{% blocktrans %}My Photos{% endblocktrans %}</a>
+</li>  
+<li>
+  <a href="{% url usuario_editar_perfil %}">{% blocktrans %}Edit My Profile{% endblocktrans %}</a>
+</li>
+<li>
+  <a href="{% url usuario_amigos %}">{% blocktrans %}My Friends{% endblocktrans %}</a>
+</li>
+<li>
+  <a href="{% url usuario_public_profile user.id %}">{% blocktrans %}My Public Profile{% endblocktrans %}</a>
+</li>  
+{% endblock %}
+
+{% block fb_like_top %}
+  {% include 'portal/tags/fb_like/fb_like_top_UserAccount.html' %}
+{% endblock %}
+
+{% block center_content %}
+  <div class="span-14 last machu_picchu_peru">
+    <div class="span-14 last">
+      <div class="span-14 all_to_left link_all_green last">
+	<h1>{% blocktrans %}My Profile{% endblocktrans %}</h1>
+      </div>
+
+      <div class="span-14 profile_gray_headline">
+	{% blocktrans %}My Friends{% endblocktrans %}
+      </div>
+      <div class="span-14 profile_content">
+	{% get_some_friends_fotos user 6 as friend_fotos %}
+	{% if friend_fotos %}
+	<div class="span-14 last link_all_black">
+	  <ul class="image_list wide main">
+	    {% for friend in friend_fotos %}
+	    <li>
+	      <a href="{{friend.get_absolute_url}}">
+		<div class="span-2 tag_friends">
+		  {% thumbnail friend.foto "50x50" as thumb %}
+		  <img width="50px" height="50px" src='{% if friend.foto %}{{thumb}}{% else %}{{MEDIA_URL}}{{friend.foto.name}}{% endif %}'>
+		  <p>{{friend.user.first_name}} &nbsp {{friend.user.last_name}}
+		  </p>
+		</div>
+	      </a>
+	    </li>
+	    {% endfor %}
+	  </ul>
+	</div>
+	<br/>
+	{% else %}
+	{% blocktrans %}You do not have friends yet{% endblocktrans %}
+	{% endif %}
+      </div>
+      {% if friend_fotos %}
+      <div class="span-14 all_to_right last link_all_green">
+	<a class="no_decoration" href="{% url usuario_ver_amigos %}">{% blocktrans %}See more...{% endblocktrans %}</a>
+      </div>
+      {% endif %}
+      
+      <div class="span-14 profile_gray_headline">
+	{% blocktrans %}Friend Requests{% endblocktrans %}
+      </div>
+      <div class="span-14 profile_content">
+	{% if solicitudes %}
+	<div class="span-14 last link_all_black">
+	  {% for solicitud in solicitudes %}
+	  <div class="span-2">
+	    <a target="_blank" href="{{solicitud.codigo_user_solicitante.get_profile.get_absolute_url}}">
+	      {% thumbnail solicitud.codigo_user_solicitante.get_profile.foto "50x50" as thumb %}
+	      <img width="50px" height="50px" src='{% if solicitud.codigo_user_solicitante.get_profile.foto %}{{thumb}}{% else %}{{MEDIA_URL}}{{solicitud.codigo_user_solicitante.get_profile.foto.name}}{% endif %}'>
+	    </a>
+	  </div>
+	  <div class="span-2 append-5">
+	    <a target="_blank" href="{{solicitud.codigo_user_solicitante.get_profile.get_absolute_url}}"><p>{{solicitud.codigo_user_solicitante.first_name}}&nbsp;{{solicitud.codigo_user_solicitante.last_name}}</p></a>
+	  </div>
+	  <div class="span-2">
+	    <form action="{% url usuario_aceptar_solicitud %}" method="post">{% csrf_token %}
+	      <input type="hidden" value="{{solicitud.codigo_user_solicitante.id}}" id="id_amigo" name="amigo">
+	      <input type="submit" class="cute_green_button" value="{% blocktrans %}Accept{% endblocktrans %}">
+	    </form>
+	  </div>
+	  <div class="span-2 last">
+	    <form action="{% url usuario_eliminar_solicitud %}" method="post">{% csrf_token %}
+	      <input type="hidden" value="{{solicitud.codigo_user_solicitante.id}}" id="id_amigo" name="amigo">
+	      <input type="submit" class="cute_green_button" value="{% blocktrans %}Reject{% endblocktrans %}">
+	    </form>
+	  </div>
+
+	  <div class="comments_separator span-14 last push_down_10"><hr></div>
+	  {% endfor %}
+	</div>
+	<br/>
+	{% else %}
+	  {% blocktrans %}You does not have friend requests{% endblocktrans %}
+	{% endif %}
+      </div>
+    </div>	
+  
+  </div>	  
+{% endblock %}

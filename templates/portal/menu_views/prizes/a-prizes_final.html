@@ -1,0 +1,112 @@
+{% extends "portal/menu_views/base_menu.html"  %}
+{% load i18n %}
+{% load portal_tags %}
+{% load thumbnail %} 
+{% block title %}
+  {% blocktrans %}Prizes{% endblocktrans %}
+{% endblock %}
+
+{% block head %}
+  {% include "portal/tags/sharethis/standard.html" %}
+    <script type="text/javascript">
+    $(document).ready(function() {
+        //directioning of big buttons at home (IE hack)
+        $('input#linkGrandPrize').click(function(event){
+            event.preventDefault();
+            $(window.location).attr('href', '{% url portal_grand_prize %}');    
+        });
+        $('input#linkVotingWinnerPrize').click(function(event){
+            event.preventDefault();
+            $(window.location).attr('href', '{% url portal_votingWinnersPrizePrize %}');    
+        });
+        $('input#linkPanoramicPrize').click(function(event){
+            event.preventDefault();
+            $(window.location).attr('href', '{% url portal_panoramic_prize %}');    
+        });	
+    });
+    </script>  
+{% endblock %}
+
+
+{% block center_content %}
+<div class="span-14 last breadcrumbs">
+    {% blocktrans %}Prizes{% endblocktrans %}
+</div>
+<div class="span-14 last winners push_down_25">
+  <div class="span-9 last">
+    <h1>{% blocktrans %}Photo Contest{% endblocktrans %}</h1>
+    <h2>{% blocktrans %}I was in Machu Picchu{% endblocktrans %}</h2>
+    <h3>{% blocktrans %}A Photographic Wonder{% endblocktrans %}</h3>
+  </div>
+  <div class="span-9 last panoramic_photoprize_word">
+    <h1 class="prizes-title-head">{% blocktrans %}Prizes{% endblocktrans %}</h1>
+  </div>
+</div>
+<div class="span-14 last pull_up_90">
+    <h2 class="profesionalCategory_word">{% blocktrans %}Grand Final{% endblocktrans %}</h2>
+    <div class="span-14 last ">
+      <h3 class="verystrong-prizes-text">
+	{% blocktrans %}Win the most luxurious trip to Machu Picchu than you 
+	can imagine!{% endblocktrans %}</h3>
+      {% blocktrans %}The top 10 most voted photos of each Voting Period will
+      proceed to the Grand Final to compete for this{% endblocktrans %}
+      <strong class="prize-strong">
+	{% blocktrans %}wonder of a prize  (or more if there's a tie!){% endblocktrans %}
+	.</strong>
+      <br/>
+      <div class="span-12 last all_to_right">
+	<input id="linkGrandPrize" class="cute_green_button" type="submit" value="{% blocktrans %}View Details{% endblocktrans %}"/>
+      </div>
+      <hr class="prize-ruler"/>
+    </div>
+
+
+    <h2 class="profesionalCategory_word">{% blocktrans %}Voting Winners{% endblocktrans %}</h2>
+    <div class="span-14 last ">
+      {% blocktrans %}Vote for your 5 favorite photos each Voting Period.{% endblocktrans %}
+      <strong class="prize-strong">
+	{% blocktrans %}
+      Get 5 chances to win a Sony Cyber-shot ® Digital Camera!{% endblocktrans %}
+      </strong>
+      <br/>
+      <img width="353px" height="240px" src="{{MEDIA_URL}}images/portal/prizes_votingWinnersCam.png"/>
+       <br/>
+      <div class="span-12 last all_to_right">
+	<input id="linkVotingWinnerPrize" class="cute_green_button" type="submit" value="{% blocktrans %}View Details{% endblocktrans %}"/>
+      </div>
+      <hr class="prize-ruler"/>
+    </div>
+
+
+
+
+<h2 class="profesionalCategory_word">{% blocktrans %}Special Awards{% endblocktrans %}</h2>
+    <div class="span-14 last ">
+      <h3 class="verystrong-prizes-text">
+	{% blocktrans %}Professional Photography{% endblocktrans %}</h3>
+      {% blocktrans %}In order to disseminate professional images of the
+      citadel, we have summoned Professional Photographers to share their
+      works of Machu Picchu with the world. The best professional photo will 
+      judged and announced by a panel of Professional Photographers on August 
+      26, 2011.{% endblocktrans %}
+      <br/>
+      <br/>
+      <h3 class="verystrong-prizes-text">
+	{% blocktrans %}Panoramic Photos{% endblocktrans %}</h3>
+      {% blocktrans %}Enter a Panoramic Photo in any of the Contest Categories
+      and you will be automatically entered to win a a Sony α NEX-5 Digital
+      Camera featuring 3D Sweep PanoramaTM! A special panel of judges will 
+      announce the best Panoramic Photo on August 26, 2011.{% endblocktrans %}
+
+      <img width="388px" height="245px" src="{{MEDIA_URL}}images/portal/prizes_specialAwardsCam.png"/>
+    
+       <div class="span-12 last all_to_right">
+	<input id="linkPanoramicPrize" class="cute_green_button" type="submit" value="{% blocktrans %}View Details{% endblocktrans %}"/>
+      </div>
+    </div>
+</div>
+    
+
+ 
+
+{% endblock %}

@@ -1,0 +1,163 @@
+{% extends "portal/menu_views/base_menu.html" %}
+{% block ini %}
+    {% load thumbnail %}
+    {% load banners %}        
+{% endblock %}
+
+
+{% block body %}
+<body>
+
+    {% block top_form %}
+        {{ block.super }}
+    {% endblock %}
+
+<!-- horizontal advertisements -->
+<div class="container">
+  <div class="span-24 last contet_header">
+    <div class="span-24  last header_ads">
+      <img width="950"  src="{{MEDIA_URL}}dump_images/adv_950.png"
+    	   alt="950px advertisement"/>
+      <!--{% block banner1 %} {% banners "H" %} {% endblock %}-->        
+    </div>
+  </div>
+</div>
+<!-- end of horizontal advertisements -->
+
+<div class="wide_hormenu">
+  <div class="container">
+    <ul class="horizontal_menu">
+          <li class="first"><a href="{% url main_portal %}">Home</a></li>
+          <li class="second"><a href="{% url portal_sobre_MP %}">Sobre Machu Picchu</a></li>
+          <li class="third selected"><a href="{% url portal_galeria_vote %}">Galería de Imágenes</a></li>
+          <li class="fourth"><a href="{% url portal_ver_bases %}">Información y bases del concurso</a></li>
+          <li class="fifth"><a href="{% url portal_organizadores_auspiciadores %}">Organizadores y auspiciadores</a></li>
+          <li class="sixth"><a href="{% url portal_rrss %}">Responsabilidad Social</a></li>            
+    </ul>
+  </div>
+</div>
+
+<div class="gallery_top_wrapper">
+  <div class="container">
+    <div>
+      <div class="span-13 prepend-1 append-10 last home_logo"> 
+	<img alt="machu picchu" src="{{MEDIA_URL}}style_imgs/machupicchu_logo.png"/>
+	<h2>MACCHUPICCHU 100</h2>
+      </div>
+      <div class="span-23 prepend-1 last main_title">
+	<h2>Galería de Imágenes</h2>
+      </div>
+      
+      <div class="image_box_top span-24 last">
+	<div class="span-10">
+        {% if lista_fotos %}
+            <img src="{% thumbnail lista_fotos.0.foto 390x240 crop="smart" upscale %}" width=390x height=240px alt="{{lista_fotos.0.titulo}}" title="{{lista_fotos.0.titulo}}" />
+        {% else %}    
+            <img src="{{MEDIA_URL}}dump_images/gallery_1.png" width="390" height="240m"/>
+        {% endif %}
+	</div>
+	<div class="span-5 last gallery_image_info">
+	  {% if lista_fotos %}
+          <h3>Ciudadela de Machu Picchu</h3>              
+          <dl>
+	    <dt>Añadido por:</dt>
+	    <dd>{{lista_fotos.0.codigo_user.first_name}}</dd>
+	    <dt>Votos:</dt><dd>{{lista_fotos.0.fans.all|length}}</dd>
+	  </dl>
+          {% endif %}
+	</div>
+	
+	<div class="span-4 last gallery_category_menu">
+	  <h3>Categorías</h3>
+      <ul>
+        {% if lista_categorias %}
+            {% for categoria in lista_categorias %}
+                <li><a href="{% url portal_galeria_vote categoria.id %}">{{categoria}}</a></li>
+            {% endfor %}
+        {% else %}
+            <li>Aún no se han definido categorías</li>
+        {% endif %}
+        
+        
+<!--	<li class="selected first"><a href="#">Paisajes</a></li>
+	<li><a href="#">Personas</a></li>
+	<li><a href="#">Detalles</a></li>
+	<li><a href="#">Libre</a></li>
+	<li class="last"><a href="#">Las más antiguas</a></li>-->
+      </ul>	
+	</div>
+      </div>
+      <div>
+	
+      </div>
+
+    <!-- advertisements box -->
+      <div class="floating_advertisement">
+	<img  src="{{MEDIA_URL}}dump_images/adv_150_500.png" 
+	      alt="950px advertisement"/>
+        <!--{% block banner2 %} {% banners "V" %} {% endblock %}-->
+      </div>
+    <!-- end of advertisements box -->
+    </div>
+    
+  </div>
+</div>
+
+
+<div class="gallery_top_wrapper_middle">
+  <hr class="gallery_top_wrapper_spacer"/>
+  <div class="container">
+    <div class="span-5 prepend-5">
+      <h2>Fotos subidas</h2>
+    </div>
+    <div class="span-10 last middle_right">
+	{% if lista_fotos %}
+	    <img src="{% thumbnail lista_fotos.1.foto 190x130 crop="smart" upscale %}" width=190x height=130px alt="{{lista_fotos.1.titulo}}" title="{{lista_fotos.1.titulo}}" />
+	{% else %}
+	  <img src="{{MEDIA_URL}}dump_images/gallery_2.png" width="190" height="130"/>
+	{% endif %}
+	{% if lista_fotos %}
+	    <img class="second" src="{% thumbnail lista_fotos.2.foto 190x130 crop="smart" upscale %}" width=190x height=130px alt="{{lista_fotos.2.titulo}}" title="{{lista_fotos.2.titulo}}" />
+	{% else %}
+	  <img class="second" src="{{MEDIA_URL}}dump_images/gallery_2.png" width="190" height="130"/>
+	{% endif %}
+
+      <div class="clear"></div>
+    </div>
+    <div class="span-10 prepend-5 bottom_left last">
+	{% if lista_fotos %}
+	    <img src="{% thumbnail lista_fotos.3.foto 190x130 crop="smart" upscale %}" width=190x height=130px alt="{{lista_fotos.3.titulo}}" title="{{lista_fotos.3.titulo}}" />
+	{% else %}
+	  <img src="{{MEDIA_URL}}dump_images/gallery_2.png" width="190" height="130"/>
+	{% endif %}
+	{% if lista_fotos %}
+	    <img class="second" src="{% thumbnail lista_fotos.4.foto 190x130 crop="smart" upscale %}" width=190x height=130px alt="{{lista_fotos.4.titulo}}" title="{{lista_fotos.4.titulo}}" />
+	{% else %}
+	  <img class="second" src="{{MEDIA_URL}}dump_images/gallery_2.png" width="190" height="130"/>
+	{% endif %}
+    </div>
+    <div class="span-1 prepend-9 final_spacer">
+      <br/>
+      <br/>
+    </div>
+  </div>
+</div>
+
+<div class="gallery_pre_footer">
+  <div class="container">
+    <br/>
+    <br/>
+  </div>
+</div>
+
+<div class="wide_footer">
+  <div class="container">
+    <div class="span-24 last">
+      <p>copyrigth©2011 quimeraONLIFE</p>
+    </div>
+  </div>
+</div>
+
+    		
+  </body>
+{% endblock %}

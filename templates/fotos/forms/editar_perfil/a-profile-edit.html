@@ -1,0 +1,236 @@
+{% extends "portal/menu_views/base_menu.html"  %}
+{% load i18n %}
+{% load thumbnail %}
+{% block title %}
+  {% blocktrans %}User Profile - Edit{% endblocktrans %}
+{% endblock %}
+
+
+{% block left_menu %}
+<li>
+  <a href="{% url usuario_mis_fotos %}">{% blocktrans %}My Photos{% endblocktrans %}</a>
+</li>  
+<li>
+  <a href="{% url usuario_editar_perfil %}">{% blocktrans %}Edit My Profile{% endblocktrans %}</a>
+</li>
+<li>
+  <a href="{% url usuario_amigos %}">{% blocktrans %}My Friends{% endblocktrans %}</a>
+</li>
+<li>
+  <a href="{% url usuario_public_profile user.id %}">{% blocktrans %}My Public Profile{% endblocktrans %}</a>
+</li>  
+{% endblock %}
+
+{% block fb_like_top %}
+  {% include 'portal/tags/fb_like/fb_like_top_UserAccount.html' %}
+{% endblock %}
+      
+{% block center_content %}
+  <div class="span-14 last machu_picchu_peru">
+    <div class="span-14 last">
+      <div class="span-14 all_to_left link_all_green last">
+	<h1>{% blocktrans %}My Profile{% endblocktrans %}</h1>
+      </div>
+      <div class="span-14 profile_gray_headline">
+	{% blocktrans %}Edit{% endblocktrans %}
+      </div>
+      <div class="span-14 profile_content">
+	<form method="post" action="" enctype="multipart/form-data">{% csrf_token %}
+	<table class="edit_profile">
+	  {% if form.non_field_errors %}
+	  <tr>
+	    <th></th>
+	    <td>{{form.non_field_errors}}
+	    </td>
+	  </tr>
+	  {% endif %}
+	  {% if form.foto.errors or error_size %}
+	  <tr>
+	    <th></th>
+	    <td>
+	      {% if error_size and form.foto.errors %}
+		<ul class="errorlist">
+		    <li> {{error_size}} </li>
+		</ul>                        
+		<br/>{{form.foto.errors}}
+	      {% else %}
+		<ul class="errorlist">
+		    <li> {{error_size}} </li>
+		</ul>                        	      
+		{{form.foto.errors}}
+	      {% endif %}
+	    </td>
+	  </tr>
+	  {% endif %}
+	  <tr>
+	    <th>{% blocktrans %}Profile Image{% endblocktrans %}</th>
+	    <td>{{form.foto}}
+	    </td>
+	  </tr>
+	  {% if form.titulo.errors %}
+	  <tr>
+	    <th></th>
+	    <td>{{form.titulo.errors}}</td>
+	  </tr>
+	  {% endif %}
+	  <tr>
+	    <th>{% blocktrans %}Title{% endblocktrans %}</th>
+	    <td>{{form.titulo}}
+	    </td>
+	  </tr>
+	  {% if form.first_name.errors %}
+	  <tr>
+	    <th></th>
+	    <td>{{form.first_name.errors}}</td>
+	  </tr>
+	  {% endif %}
+	  <tr>
+	    <th>{% blocktrans %}First Name{% endblocktrans %}</th>
+	    <td>{{form.first_name}}
+	    </td>
+	  </tr>
+	  {% if form.last_name.errors %}
+	  <tr>
+	    <th></th>
+	    <td>{{form.last_name.errors}}</td>
+	  </tr>
+	  {% endif %}
+	  <tr>
+	    <th>{% blocktrans %}Last Name{% endblocktrans %}</th>
+	    <td>{{form.last_name}}
+	    </td>
+	  </tr>
+	  {% if form.email.errors %}
+	  <tr>
+	    <th></th>
+	    <td>{{form.email.errors}}</td>
+	  </tr>
+	  {% endif %}
+	  <tr>
+	    <th>{% blocktrans %}Email Address{% endblocktrans %}</th>
+	    <td>{{form.email}}
+		<div class="green">
+		{% blocktrans %}Your email will be your login user ID{% endblocktrans %}
+		</div>
+	    </td>
+	  </tr>
+	  {% if form.username.errors %}
+	  <tr>
+	    <th></th>
+	    <td>{{form.username.errors}}</td>
+	  </tr>
+	  {% endif %}
+	  <tr>
+	    <th>{% blocktrans %}Screen Name{% endblocktrans %}</th>
+	    <td>{{form.username}}
+		<div class="green">
+		  {% blocktrans %}Your screen name will appear with your photos and blog comments{% endblocktrans %}
+		</div>
+	    </td>
+	  </tr>		
+	  {% if form.fecha_nacimiento.errors %}
+	  <tr>
+	    <th></th>
+	    <td>{{form.fecha_nacimiento.errors}}</td>
+	  </tr>
+	  {% endif %}
+	  <tr>
+	    <th>{% blocktrans %}Date of Birth{% endblocktrans %}</th>
+	    <td>{{form.fecha_nacimiento}}
+		<div class="link_all_green">
+		<span class="green">(dd-mm-yyy)</span> <!--<a href="#">why we need this?</a>-->
+		</div>
+	    </td>
+	  </tr>
+	  {% if form.sexo.errors %}
+	  <tr>
+	    <th></th>
+	    <td>{{form.sexo.errors}}</td>
+	  </tr>
+	  {% endif %}
+	  <tr>
+	    <th>{% blocktrans %}Gender{% endblocktrans %}</th>
+	    <td>{{form.sexo}}
+	    <td>
+	  </tr>
+	  {% if form.pais.errors %}
+	  <tr>
+	    <th></th>
+	    <td>{{form.pais.errors}}</td>
+	  </tr>
+	  {% endif %}
+	  <tr>
+	    <th>{% blocktrans %}Country Resindence{% endblocktrans %}</th>
+	    <td>{{form.pais}}
+<!--	      <div class="link_all_green">
+	      <a href="#">why we need this?</a>
+	      </div>-->
+	    </td>
+	  </tr>
+	  {% if draw_department %}
+	    {% if form.departamento.errors %}
+	    <tr>
+	      <th></th>
+	      <td>{{form.departamento.errors}}</td>
+	    </tr>
+	    {% endif %}
+	    <tr>
+	      <th>{% blocktrans %}Department (Peru only){% endblocktrans %}</th>
+	      <td>{{form.departamento}}
+  <!--	      <div class="link_all_green">
+		<a href="#">why we need this?</a>
+		</div>-->
+	      </td>
+	    </tr>
+	  {% endif %}
+
+
+	  <tr>
+	    <th>{% blocktrans %}Language{% endblocktrans %}</th>
+	    <td>{{ form.idioma }}
+	    <td>
+	  </tr>
+	  {% if form.idioma.errors %}
+	  <tr>
+	    <th></th>
+	    <td>{{ form.idioma.errors }}</td>
+	  </tr>
+	  {% endif %}
+	  <tr>
+
+	  {% if form.password1.errors %}
+	  <tr>
+	    <th></th>
+	    <td>{{form.password1.errors}}</td>
+	  </tr>
+	  {% endif %}
+	  <tr>
+	    <th>{% blocktrans %}New Password{% endblocktrans %}</th>
+	    <td>{{form.password1}}
+	    </td>
+	  </tr>	  	
+	  {% if form.password2.errors %}
+	  <tr>
+	    <th></th>
+	    <td>{{form.password2.errors}}</td>
+	  </tr>
+	  {% endif %}
+	  <tr>
+	    <th>{% blocktrans %}Confirm New Password{% endblocktrans %}</th>
+	    <td>{{form.password2}}
+	    </td>
+	  </tr>	  	
+	  <tr>
+	    <th></th>
+	    <td><input type="submit" class="cute_green_button" value="{% blocktrans %}Save{% endblocktrans %}">
+	    </td>
+	  </tr>	  	
+	</table>
+	</form>
+      </div>
+
+
+    </div>	
+  </div>	  
+
+{% endblock %}

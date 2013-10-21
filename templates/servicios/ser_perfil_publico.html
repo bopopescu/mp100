@@ -1,0 +1,324 @@
+{% extends 'servicios/ser_base.html' %}
+
+{% load thumbnail %}
+{% load blocktags %}
+{% load i18n %}
+
+{% block ser_title %}{{ servicio.tipo_servicio }}: {{ servicio.nombre }}{% endblock %}
+
+{% block head %}
+    {{ block.super }}
+    <meta property="og:title" content="{{ servicio.nombre }}" />
+    <meta property="og:description" content="{{ servicio.descripcion }}" />
+    <meta property="og:image" content="{% thumbnail servicio.foto_principal "gallery" %}" />
+
+    <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}js/jquery.pikachoose/styles/bottom.css" />
+    <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}js/jquery.slider/css/redmond/jquery-ui-1.7.1.custom.css" />
+    <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}js/jquery.slider/css/ui.slider.extras.css" />
+    <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}js/jquery.jqmodal/jqModal.css" />
+
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.pikachoose/jquery.pikachoose.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.slider/jquery-ui-1.7.1.custom.min.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.slider/selectToUISlider.jQuery.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.jqmodal/jqModal.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/servicios/googlemaps.ubicacion.js"> </script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/servicios/ser_perfil_publico.js"></script>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var latitud = "{{ servicio.ubicacion.latitud }}";
+            var longitud = "{{ servicio.ubicacion.longitud }}";
+            loadPreviewMap("map_canvas", latitud, longitud);
+        })
+    </script>
+{% endblock %}
+
+{% block ser_content %}
+    <div class="span-20 last append-bottom">
+        {# Cabecera del servicio #}
+        <div class="span-20 last public_header">
+            <h1 class="span-13">{{ servicio.nombre }}</h1>
+            <div class="span-3 valoration">{% blocktrans %}Rating{% endblocktrans %} <span class="point_color">{{ servicio.puntuacion|floatformat:"0" }}</span></div>
+            <div class="span-3 last">
+                <a href="#opinion_link">{% blocktrans %}Write a review{% endblocktrans %}</a>
+            </div>
+        </div>
+
+        <div class="span-20 last links_header">
+            {% if servicio.website %}
+            <div class="span-3">
+                <a href="{{ servicio.website }}">{% blocktrans %}Website{% endblocktrans %}</a>
+            </div>
+            {% endif %}
+            {% if contacto_form %}
+            <div class="span-5">
+                <span class="contacto_link ser_link">{% blocktrans %}Contact{% endblocktrans %}</span>
+            </div>
+            {% endif %}
+            <div class="span-12 last">
+                <!-- AddThis Button BEGIN -->
+                <a class="addthis_button" href="http://www.addthis.com/bookmark.php?v=250&amp;pubid=ra-4da5c6bd7f9dcd59"><img src="http://s7.addthis.com/static/btn/v2/lg-share-en.gif" width="125" height="16" alt="Bookmark and Share" style="border:0"/></a>
+                <script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
+                <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4da5c6bd7f9dcd59"></script>
+                <!-- AddThis Button END -->
+            </div>
+        </div>
+
+        {# Columna izquierda #}
+        <div class="span-12">
+            {# Galería de fotos #}
+            <div class="span-12 last pikachoose services_box">
+                <h2>{% blocktrans %}Photo gallery{% endblocktrans %}</h2>
+                <div class="services_box_content">
+                    <ul id="pikaname" class="jcarousel-skin-pika">
+                    {% for foto in galeria %}
+                        <li>
+                            <img src="{% thumbnail foto.imagen "gallery" %}" title="{{ foto.nombre }}" />
+                            {% if foto.descripcion %}
+                            <span>{{ foto.descripcion }}</span>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="span-12 last services_shadow">
+                <div class="span-6 left"></div><div class="span-6 last right"></div>
+            </div>
+
+            {# Detalles del servicio #}
+            <div class="span-12 last services_box">
+                <h2>{% blocktrans %}Details{% endblocktrans %}</h2>
+                <div class="services_box_content">
+                    <ul class="service_details">
+                        <li>
+                            <span class="span_bold">{% blocktrans %}Type of service{% endblocktrans %}: </span>
+                            <img src="{% thumbnail servicio.tipo_servicio.icono "small" %}" />
+                            <span class="span_iconlabel">{{ servicio.tipo_servicio }}</span>
+                        </li>
+                        {% if servicio.subtipo_servicio %}
+                        <li>
+                            <span class="span_bold">{% blocktrans %}Subtype of service{% endblocktrans %}: </span>{{ servicio.subtipo_servicio }}
+                        </li>
+                        {% endif %}
+                        {% if servicio.descripcion %}
+                        <li>
+                            <span class="span_bold">{% blocktrans %}Description{% endblocktrans %}: </span>{{ servicio.descripcion }}
+                        </li>
+                        {% endif %}
+                        {% if servicio.telefono %}
+                        <li>
+                            <span class="span_bold">{% blocktrans %}Phone{% endblocktrans %}: </span>{{ servicio.telefono }}
+                        </li>
+                        {% endif %}
+                        {% if caracteristicas %}
+                        <li>
+                            <span class="span_bold">{% blocktrans %}Features{% endblocktrans %}</span>
+                            <div class="service_addons">
+                                <ul>
+                                {% for caracteristica in caracteristicas %}
+                                    <li>
+                                        <img src="{% thumbnail caracteristica.icono "small" %}" alt="{{ caracteristica.nombre }}">
+                                        <span class="span_iconlabel">{{ caracteristica.nombre }}</span>
+                                    </li>
+                                {% endfor %}
+                                </ul>
+                            </div>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+            <div class="span-12 last services_shadow">
+                <div class="span-6 left"></div><div class="span-6 last right"></div>
+            </div>
+
+            {# Opiniones de los usuarios #}
+            <div class="span-12 last services_box">
+                <h2>{% blocktrans %}Reviews{% endblocktrans %}</h2>
+                <div class="span-12 last services_box_content">
+                    {% if msg_enviado %}
+                    <span>{% blocktrans %}Your message has been sent to the{% endblocktrans %} {{ servicio.nombre }} {% blocktrans %}manager{% endblocktrans %}</span>
+                    {% endif %}
+                    {% if comentado %}
+                    <span>{% blocktrans %}Your opinion is pending moderation{% endblocktrans %}</span>
+                    {% endif %}
+                    {# Lista de opiniones #}
+                    <div class="span-12 last">
+                        <ul>
+                        {% for opinion in opiniones.object_list %}
+                            <li>
+                                <div class="span-12 last append-bottom ser_comment">
+                                    <div class="span-5">
+                                        <img class="border_photo" src="{% thumbnail opinion.usuario.foto "156x146" %}" alt="{{ opinion.usuario }}">
+                                    </div>
+                                    <div class="span-6 last">
+                                        <h3><a href="{{ opinion.usuario.get_absolute_url }}">{{ opinion.usuario }}</a> {% blocktrans %}said at{% endblocktrans %} {{ opinion.fecha|date }}:</h3>
+                                        <p>{{ opinion.texto }}</p>
+                                        <span id="val_opinion_{{ opinion.id }}" title="{% for fan in opinion.fans.all %}{{ fan.get_full_name }} {% endfor %}">{{ opinion.valoracion }}</span> {% blocktrans %}user{% endblocktrans %}{{ opinion.valoracion|pluralize }} {% blocktrans %}like this review{% endblocktrans %}.
+                                        {% if user.is_authenticated %}
+                                            {% if user != opinion.usuario.user %}
+                                                {% if user in opinion.fans.all %}
+                                                    <spam>{% blocktrans %}You like it{% endblocktrans %}</spam>
+                                                {% else %}
+                                                    <span class="puntuar ser_link" opinion="{{ opinion.id }}">{% blocktrans %}Like{% endblocktrans %}</span>
+                                                {% endif %}
+                                            {% endif %}
+                                        {% else %}
+                                        <span>{% blocktrans %}To rate a review you must{% endblocktrans %} <a class="ex3bTrigger" href="#">{% blocktrans %}Login{% endblocktrans %}</a></span>
+                                        {% endif %}
+                                        {% if opinion.respuesta %}
+                                            <div class="span-6 last prepend-top">
+                                                <span class="span_bold">{% blocktrans %}Manager's reply{% endblocktrans %}</span>
+                                                <p>{{ opinion.respuesta.texto }}</p>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                        </ul>
+
+                        {# Paginador de comentarios #}
+                        <div class="append-bottom">
+                            {% ser_paginator opiniones %}
+                        </div>
+                    </div>
+
+                    {# Formulario para dejar una opinión #}
+                    <div class="span-12 last opinion_form">
+                        <a name="opinion_link"></a>
+                        <h4>{% blocktrans %}Leave a review{% endblocktrans %}</h4>
+                        {% if user.is_authenticated and user.get_profile.titulo %}
+                        <form action="" method="post">
+                            <ul>
+                                {{ opinion_form.non_field_errors }}
+                                <li>
+                                    {{ opinion_form.texto.errors }}
+                                    {{ opinion_form.texto }}
+                                </li>
+                            </ul>
+                            {{ puntuacion_form.puntuacion.errors }}
+                            <div class="span-12 last">
+                                <div class="span-12 last">
+                                    {% blocktrans %}Rate this service{% endblocktrans %}:
+                                </div>
+                                <div id="puntuacion_widget" class="span-6 append-1 append-bottom prepend-top">
+                                    <div class="span-6">
+                                        Min: <span class="point_color">1</span>
+                                        <span class="right">
+                                            Max: <span class="point_color">5</span>
+                                        </span>
+                                    </div>
+                                    <div class="span-6 prepend-top">
+                                        {{ puntuacion_form.puntuacion }}
+                                    </div>
+                                </div>
+                                <div class="span-4 last">
+                                    <input type="submit" value="{% blocktrans %}Send review{% endblocktrans %}" name="opinion"/>
+                                </div>
+                            </div>
+                        </form>
+                        {% else %}
+                            <span>{% blocktrans %}To rate this service you must{% endblocktrans %} <a class="ex3bTrigger" href="#">{% blocktrans %}Login{% endblocktrans %}</a></span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="span-12 last services_shadow">
+                <div class="span-6 left"></div><div class="span-6 last right"></div>
+            </div>
+        </div>
+
+        {# Columna derecha #}
+        <div class="span-8 last">
+            {# Mapa del servicio #}
+            <div class="span-8 last services_box">
+                <h2>{% blocktrans %}Location{% endblocktrans %}</h2>
+                <div class="services_box_content">
+                    <div id="map_canvas" style="width:279px; height:260px"></div>
+                </div>
+            </div>
+            <div class="span-8 last services_shadow">
+                <div class="span-4 left"></div><div class="span-4 last right"></div>
+            </div>
+
+            {# Servicios destacados #}
+            <div class="span-8 last services_box">
+                <h2>Promoted services</h2>
+                <div class="services_box_content">
+                    <ul>
+                    {% for servicio in destacados %}
+                        <li>
+                            {% ser_preview_min servicio %}
+                        </li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="span-8 last services_shadow">
+                <div class="span-4 left"></div><div class="span-4 last right"></div>
+            </div>
+
+            {# Otros resultados #}
+            <div class="span-8 last services_box">
+                <h2>{% blocktrans %}Other results{% endblocktrans %}</h2>
+                <div class="services_box_content">
+                    <ul>
+                    {% for servicio in resultados %}
+                        <li>
+                            {% ser_preview_min servicio %}
+                        </li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="span-8 last services_shadow">
+                <div class="span-4 left"></div><div class="span-4 last right"></div>
+            </div>
+
+            {# Lista de fans #}
+            {% if fans %}
+            <div class="span-8 last services_box">
+                <h2>Fans</h2>
+                <div class="services_box_content service_fan">
+                    <ul>
+                    {% for fan in fans %}
+                        <li>
+                            {# TODO: Truncar los caracteres del nombre de usuario #}
+                            <div class="service_fan_details">
+                                <img class="border_photo" src="{% thumbnail fan.foto "60x60" %}" alt="{{ fan }}">
+                                <a href="{{ fan.get_absolute_url }}">{{ fan.user }}</a>
+                            </div>
+                        </li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="span-8 last services_shadow">
+                <div class="span-4 left"></div><div class="span-4 last right"></div>
+            </div>
+            {% endif %}
+        </div>
+
+        {# POPUPS #}
+        {# Formulario de contacto con el administrador de servicio: popup #}
+        {% if contacto_form %}
+            <div id="ser_contacto" class="jqmWindow services_box">
+                <h2>{% blocktrans %}Contact form{% endblocktrans %}</h2>
+                <div class="services_box_content popup_form">
+                    <form action="" method="post">
+                        <ul>
+                            {{ contacto_form.as_ul }}
+                        </ul>
+                        <div class="append-bottom right">
+                            <span class="closeClass ser_link">{% blocktrans %}Close{% endblocktrans %}</span> |
+                            <input type="submit" value="{% blocktrans %}Send{% endblocktrans %}" name="contacto">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

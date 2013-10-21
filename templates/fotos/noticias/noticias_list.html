@@ -1,0 +1,145 @@
+{% extends "fotos/noticias/base_profile.html"  %}
+
+{% block menu_top %}
+  <ul class="span-17 last prepend-6">
+    <li class="selected"><a href="{% url fotos_noticias 'notificaciones' %}">Noticias</a></li>
+    <li><a href="{% url fotos_buscar_usuarios %}">Buscar usuarios</a></li>
+    <li><a href="{% url fotos_buscar_fotos %}">Galeríade fotos</a></li>
+    <li><a href="{% url fotos_subir_fotos %}">Subir fotos</a></li>
+    <li><a href="{% url fotos_ver_solicitudes %}">Solicitudes</a></li>
+    <li class="last"><a href="{% url fotos_ayuda %}">Ayuda</a></li>
+  </ul>
+{% endblock %}
+
+{% block menu_left %}
+<ul class="menu_bar profile"> 
+  <li><a href="{% url main_user %}">Inicio</a></li>
+  <li><a href="{% url fotos_perfil_publico user.id %}">Perfil Público</a></li>
+  <li><a href="{% url editar_perfil %}">Editar Perfil</a></li>
+  <li><a href="{% url fotos_ver_fotos %}">Mis Fotos</a></li>
+  <li class="last"><a href="{% url fotos_amigos %}">Mis Amigos</a></li>
+</ul>
+{% endblock %}
+
+{% block body1 %}
+    {{block.super}} 
+    {% if tema == 'notificaciones' %}
+        {% if lista_noticias.object_list %}
+            {% for noticia in lista_noticias.object_list %}
+
+                <h2><a href="{{ noticia.get_absolute_url }}">{{noticia.titulo}}, {{noticia.fecha}}</a></h2>
+                <ul class="image_list main">
+                        
+                    <li>{{noticia.descripcion|truncatewords_html:"30"}}
+                    <p><a href="{{ noticia.get_absolute_url }}">Leer más</a></p>
+                    </li>
+                </ul>
+                <div class="clear"></div>
+            {% endfor %}
+            
+            <div class="pagination">
+                <span class="step-links">
+                    {% if lista_noticias.has_previous %}
+                        <a href="?page={{ lista_noticias.previous_page_number }}">Anterior</a>
+                    {% endif %}
+            
+                    <span class="current">
+                        P&aacute;gina {{ lista_noticias.number }} de {{ lista_noticias.paginator.num_pages }}.
+                    </span>
+            
+                    {% if lista_noticias.has_next %}
+                        <a href="?page={{ lista_noticias.next_page_number }}">Siguiente</a>
+                    {% endif %}
+                </span>
+            </div>        
+        {% else %}
+                <ul class="image_list main">
+                        <li>No hay noticias, pero pronto las habr&aacute;.</li>
+                </ul>
+        {% endif %}
+    {% endif %}
+
+    {% if tema == 'comentarios' %}
+        {% if lista_noticias.object_list %}
+
+                {% load thumbnail %}
+                {% for noticia in lista_noticias.object_list %}
+                  <div class="user_pic">
+                    <a href="{{ noticia.user.get_profile.get_absolute_url }}">
+                      <img src="{% thumbnail noticia.user.get_profile.foto "75x75"  %}" width="75" height="75" alt="{{ noticia.user.username }}" />
+                    </a>
+                    <p class="caption"><a href="#">{{ noticia.user.first_name }}</a></p>
+                  </div>
+                  <div class="comment-box">
+                    <spam>El {{ noticia.fecha }} comentó la foto <a href = "{{ noticia.foto.get_absolute_url }}">'{{ noticia.foto.titulo }}'</a>:</spam>
+                    <p>" {{ noticia.texto }} "</p>
+                  </div>
+                   
+                  <div class="clear"></div>
+                  <hr class="profile_separator feeds"/> 
+                {% endfor %}
+                   
+
+            <div class="pagination">
+                <span class="step-links">
+                    {% if lista_noticias.has_previous %}
+                        <a href="?page={{ lista_noticias.previous_page_number }}">Anterior</a>
+                    {% endif %}
+            
+                    <span class="current">
+                        P&aacute;gina {{ lista_noticias.number }} de {{ lista_noticias.paginator.num_pages }}.
+                    </span>
+            
+                    {% if lista_noticias.has_next %}
+                        <a href="?page={{ lista_noticias.next_page_number }}">Siguiente</a>
+                    {% endif %}
+                </span>
+            </div>        
+        {% else %}
+            <ul class="image_list main">                
+                <li>Tus amigos no ha realizado comentarios en fotos durante las &uacute;ltimas 24hrs.</li>
+            </ul>
+        {% endif %}
+    {% endif %}
+
+    {% if tema == 'fotos' %}
+        {% if lista_noticias.object_list %}
+
+            {% for noticia in lista_noticias.object_list %}
+                  <div class="user_pic">
+                    <a href="{% url fotos_navegar_foto noticia.codigo_user.username noticia.id %}">
+                      <img src="{% thumbnail noticia.foto "75x75"  %}" 
+			   width="75" height="75" alt="{{ noticia.titulo }}" />
+                    </a>
+                  </div>
+                  <div class="comment-box">
+                     <p>El {{ noticia.fecha }} {{noticia.codigo_user.first_name}} subió esta foto.</p>   
+                  </div>     
+                  <div class="clear"></div>
+                  <hr class="profile_separator feeds"/>                                   
+            {% endfor %}
+
+            <div class="pagination">
+                <span class="step-links">
+                    {% if lista_noticias.has_previous %}
+                        <a href="?page={{ lista_noticias.previous_page_number }}">Anterior</a>
+                    {% endif %}
+            
+                    <span class="current">
+                        P&aacute;gina {{ lista_noticias.number }} de {{ lista_noticias.paginator.num_pages }}.
+                    </span>
+            
+                    {% if lista_noticias.has_next %}
+                        <a href="?page={{ lista_noticias.next_page_number }}">Siguiente</a>
+                    {% endif %}
+                </span>
+            </div>        
+        {% else %}
+            <ul class="image_list main">        
+                <li>Tus amigos no han subido nuevas fotos durante las &uacute;ltimas 24hrs.</li>
+            </ul>
+        {% endif %}
+    {% endif %}    
+
+{% endblock %}
+    

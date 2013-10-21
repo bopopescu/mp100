@@ -1,0 +1,63 @@
+{% extends "portal/menu_views/base_menu.html"  %}
+{% load i18n %}
+{% load portal_tags %}
+{% load thumbnail %} 
+{% block title %}
+  {% blocktrans %}Voting Winners Prize{% endblocktrans %}
+{% endblock %}
+
+{% block head %}
+  {% include "portal/tags/sharethis/standard.html" %}
+{% endblock %}
+
+
+{% block center_content %}
+<div class="span-14 last breadcrumbs">
+    <label class="link_all_green">
+	<a href="{% url portal_winners %}">{% blocktrans %}Winners{% endblocktrans %} ></a>
+    </label>
+    <label class="link_all_green">
+	<a href="{% url portal_votingWinners %}">{% blocktrans %}Voting Winners{% endblocktrans %} ></a>
+    </label>
+    {% blocktrans %}Prize{% endblocktrans %}
+</div>
+<div class="span-14 last winners push_down_25">
+  <div class="span-9 last">
+    <h1>{% blocktrans %}Photo Contest{% endblocktrans %}</h1>
+    <h2>{% blocktrans %}I was in Machu Picchu{% endblocktrans %}</h2>
+    <h3>{% blocktrans %}A Photographic Wonder{% endblocktrans %}</h3>
+  </div>
+  <div class="span-9 last panoramic_photoprize_word">
+    <span>{% blocktrans %}Voting Winners{% endblocktrans %}</span><br/>
+    <span>{% blocktrans %}Prize{% endblocktrans %}</span>
+  </div>
+</div>
+
+<div class="span-16 last panoramic_photos_prize_image">
+{% get_current_language as LANGUAGE_CODE %}
+{% if LANGUAGE_CODE == 'en' %}
+    <img height="349px" width="643px" src="{{MEDIA_URL}}style_imgs/votingWinnersPrize_en.jpg">
+{% else %}
+    <img height="349px" width="643px" src="{{MEDIA_URL}}style_imgs/votingWinnersPrize_es.jpg">
+{% endif %}
+</div>
+
+<div class="span-14 last push_down_320 prize_panoramic">
+<p>
+{% blocktrans %}Vote for your 5 favorite photos each Voting Period. Get 5 chances to win a Sony Cyber-shot&reg; Digital Camera W520!  We'll be giving away 100 cameras  -- 10 lucky winners will be announced each Tuesday during  the contest.{% endblocktrans %}
+</p>
+<p>
+<strong>{% blocktrans %}Sony Cyber-shot ™-- Lightweight and Compact with 5x Zoom and Easy Operation{% endblocktrans %}</strong>
+</p>
+<p>
+{% blocktrans %}Shoot more life with the Sony Cyber-shot™ W520.   Capture landscapes with one touch using Sweep Panorama, get  that perfect portrait with Smile Shutter, snap wider scenes with  the 26mm wide angle  lens, get high quality photos with 14.1 megapixels, and automatically get clear shots with SteadyShot image stabilization and  iAuto  -- All  in a sleek  little design.{% endblocktrans %}
+</p>
+<ul>
+<li>{% blocktrans %}26mm wide  lens with 5x optical zoom{% endblocktrans %}</li>
+<li>{% blocktrans %}Capture breathtaking  images  in Sweep Panorama Mode{% endblocktrans %}</li>
+<li>{% blocktrans %}SteadyShot  image stabilization  reduces blur{% endblocktrans %}</li>
+<li>{% blocktrans %}iAuto mode automatically optimizes camera settings{% endblocktrans %}</li>
+<li>{% blocktrans %}Face Detection and Smile Shutter  technologies{% endblocktrans %}</li>
+</ul>
+</div>
+{% endblock %}

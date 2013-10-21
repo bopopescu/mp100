@@ -1,0 +1,39 @@
+{% extends "fotos/amigos/base_profile.html"  %}
+{% load i18n %}
+
+{% block menu_top%}
+    	<ul class="span-17 last prepend-6">
+    	  <li><a href="{% url fotos_noticias 'notificaciones' %}">{% blocktrans %}Noticias{% endblocktrans %}</a></li>
+    	  <li><a href="{% url fotos_buscar_usuarios %}">{% blocktrans %}Buscar usuarios{% endblocktrans %}</a></li>
+    	  <li><a href="{% url fotos_buscar_fotos %}">{% blocktrans %}Galería de fotos{% endblocktrans %}</a></li>
+    	  <li><a href="{% url fotos_subir_fotos %}">{% blocktrans %}Subir fotos{% endblocktrans %}</a></li>
+	  <li><a href="{% url fotos_ver_solicitudes %}">{% blocktrans %}Solicitudes{% endblocktrans %}</a></li>
+    	  <li class="selected"><a href="{% url fotos_ayuda %}">{% blocktrans %}Ayuda{% endblocktrans %}</a></li>
+    	</ul>    
+{% endblock %}
+
+{% block menu_left %}
+	  <ul class="menu_bar profile"> 
+	    <li><a href="{% url main_user %}">{% blocktrans %}Inicio{% endblocktrans %}</a></li>
+	    <li><a href="{% url fotos_perfil_publico user.id %}">{% blocktrans %}Perfil Público{% endblocktrans %}</a></li>
+	    <li><a href="{% url editar_perfil %}">{% blocktrans %}Editar Perfil{% endblocktrans %}</a></li>
+	    <li><a href="{% url fotos_ver_fotos %}">{% blocktrans %}Mis Fotos{% endblocktrans %}</a></li>
+	    <li><a href="{% url fotos_amigos %}">{% blocktrans %}Mis Amigos{% endblocktrans %}</a></li>
+	  </ul>    
+{% endblock %}
+
+{% block body1 %}
+    <hr class="profile_separator"/>
+    <h2>{% blocktrans %}Video Ayuda{% endblocktrans %} - 
+    {% load fotos_filters %}
+    {% for k,v in object_video.items %}
+         {{k}} </h2>
+        <ul class="image_list main">
+            <li>{{ v|youtube}}    </li>
+        </ul>
+        <div class="clear"></div>
+        <hr class="profile_separator feeds"/>          
+    {% endfor %}
+    
+{% endblock %}
+

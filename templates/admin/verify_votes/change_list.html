@@ -1,0 +1,135 @@
+{% extends "admin/base_site.html" %}
+{% load adminmedia admin_list i18n %}
+{% load endless %}
+{% block title %}Fotos ordendas por el numero de votos{% endblock %}
+
+{% block extrastyle %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" href="{% admin_media_prefix %}css/changelists.css" />
+  {% if cl.formset %}
+    <link rel="stylesheet" type="text/css" href="{% admin_media_prefix %}css/forms.css" />
+  {% endif %}
+  {% if cl.formset or action_form %}
+    {% url admin:jsi18n as jsi18nurl %}
+    <script type="text/javascript" src="{{ jsi18nurl|default:'../../jsi18n/' }}"></script>
+  {% endif %}
+  {{ media.css }}
+  {% if not actions_on_top and not actions_on_bottom %}
+    <style>
+      #changelist table thead th:first-child {width: inherit}
+    </style>
+  {% endif %}
+{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+{{ media.js }}
+{% if action_form %}{% if actions_on_top or actions_on_bottom %}
+<script type="text/javascript">
+(function($) {
+    $(document).ready(function($) {
+        $("tr input.action-select").actions();
+    });
+})(django.jQuery);
+</script>
+{% endif %}{% endif %}
+{% endblock %}
+
+{% block bodyclass %}change-list{% endblock %}
+
+{% if not is_popup %}
+  {% block breadcrumbs %}
+    <div class="breadcrumbs">
+      <a href="../">
+        {% trans "Home" %}
+      </a>
+       &rsaquo;
+         Fotos
+    </div>
+  {% endblock %}
+{% endif %}
+
+{% block coltype %}flex{% endblock %}
+
+{% block content %}
+  <h1>Haga clic sobre el título de una foto para ver el detalle de sus votos</h1>
+  <div id="content-main">
+    <div id="changelist" class="module filtered">
+      <div id="toolbar">
+        <form id="changelist-search" method="get" actions="">
+          <div>
+            <label for="searchbar">
+              <img alt="Search" src="http://s3.amazonaws.com/mp100pruebas/adminmedia/media/img/admin/icon_searchbox.png">
+            </label>
+            <input id="searchbar" type="text" value="" name="" size="40">
+            <input type="submit" value="Buscar">
+          </div>
+        </form>
+      </div>
+      <script type="text/javascript">
+      document.getElementById("searchbar").focus();
+      </script>
+      <div id="changelist-filter">
+        <h2>Filtro</h2>
+        <h3>Por paÃ­s</h3>
+        <ul>
+          <li class="Selected">
+            <a href="#">Todo</a>
+          </li>
+          <li>
+            <a href="#">items</a>
+          </li>
+        </ul>
+        <h3>Por departamento</h3>
+        <ul>
+          <li class="Selected">
+            <a href="#">Todo</a>
+          </li>
+          <li>
+            <a href="#">items</a>
+          </li>
+        </ul>        
+        <h3>Por categorÃ­a</h3>
+        <ul>
+          <li class="Selected">
+            <a href="#">Todo</a>
+          </li>
+          <li>
+            <a href="#">items</a>
+          </li>
+        </ul>
+      </div>
+      {% paginate 10 fotos_list %}
+
+      <form id="changelist-form" method="post" action="">
+        <table id="result_list" cellspacing="0">
+          <thead>
+            <tr>
+              <th>Título</th>
+              <th>Nombre de Usuario</th>
+              <th>Número de Votos</th>
+	      <th>Imágen</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for foto in fotos_list %}
+            <tr class="{% cycle 'row1' 'row2' %}">
+              <td><a href="{% url admin_show_all_votes foto.id  %}">{{foto.titulo}}</a></td>
+              <td>{{foto.codigo_user.username}}</td>
+              <td>{{foto.num_favoritos}}</td>
+	      <td>{{foto.vista_previa|safe}}</td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan=4>No hay fotos.</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+	<p class="paginator">
+	  {% show_pages  %}
+	</p>
+      </form>
+    </div>
+  </div>
+{% endblock %}

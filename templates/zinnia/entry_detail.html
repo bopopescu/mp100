@@ -1,0 +1,89 @@
+{% extends "zinnia/base.html" %}
+{% load i18n tagging_tags comments zinnia_tags thumbnail %}
+
+{% block title %}{{ object.title }}{% endblock %}
+
+{% block meta-description %}{% if object.excerpt %}{{ object.excerpt|striptags }}{% else %}{{ object.content|striptags|truncatewords:100 }}{% endif %}{% endblock %}
+
+{% block news_title %}
+{% endblock %}
+
+{% block link %}
+  {{ block.super }}
+  <link rel="alternate" type="application/rss+xml" title="{% trans "RSS Feed of discussions on" %} '{{ object.title }}'" href="{% url zinnia_entry_discussion_feed object.slug %}" />
+  <link rel="alternate" type="application/rss+xml" title="{% trans "RSS Feed of comments on" %} '{{ object.title }}'" href="{% url zinnia_entry_comment_feed object.slug %}" />
+  <link rel="alternate" type="application/rss+xml" title="{% trans "RSS Feed of pingbacks on" %} '{{ object.title }}'" href="{% url zinnia_entry_pingback_feed object.slug %}" />
+  <link rel="alternate" type="application/rss+xml" title="{% trans "RSS Feed of trackbacks on" %} '{{ object.title }}'" href="{% url zinnia_entry_trackback_feed object.slug %}" />
+{% endblock %}
+
+{% block content %}
+<div id="entry-{{ object.pk }}" class="hentry{% if object.featured %} featured{% endif %} span-14 last">
+  {% with object.html_content|safe as object_content %}
+  {% include "zinnia/_entry_detail.html" %}
+  {% endwith %}
+</div>
+<div class="span-14 last push_down_10">
+<hr />
+</div>
+<div id="comments" class="span-14 last">
+  {% with object.comments as comment_list %}
+  {% if comment_list.count %}
+  <ul id="comment-list" class="span-14 last">
+    {% for comment in comment_list %}
+    <li id="comment_{{ comment.pk }}" class="comment vcard {% cycle box1,box2 %}{% if comment.user in object.authors.all %} post-author{% endif %} span-15 last">
+      <div class="span-2">
+	<img src="{% thumbnail comment.user.userprofile.foto "60x60" %}"
+	     class="gravatar photo" alt="{{ comment.user_name }}"/>
+      </div>
+      <div class="comment-body span-13 last">
+	<div class="comment-author span-13 last">
+	  {% if comment.url %}
+	  <a href="{{ comment.url }}" class="fn url">{{ comment.user_name }}</a>
+	  {% else %}
+	  {{ comment.user_name }}
+	  {% endif %}
+	  {% trans "on" %} {{ comment.submit_date|date:"SHORT_DATETIME_FORMAT" }}
+	</div>
+	<div class="span-12 last">
+	  <cite>
+	    {{ comment.comment }}
+	  </cite>
+	</div>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+    {% if not object.comment_enabled %}
+  <p>{% trans "Comments are closed." %}</p>
+    {% endif %}
+  {% else %}
+    {% if object.comment_enabled %}
+  <p>{% trans "No comments yet." %}</p>
+    {% else %}
+  <p>{% trans "Comments are closed." %}</p>
+    {% endif %}
+  {% endif %}
+  {% endwith %}
+</div>
+<div class="span-14 last">
+<hr />
+</div>
+{% if user.is_authenticated %}
+{% if object.comment_enabled %}
+<div class="commentForm span-14 last">
+  {% render_comment_form for object %}
+</div>
+{% endif %}
+{% endif %}
+
+{% endblock %}
+
+{% block admin_tools %}
+{% if perms.zinnia.change_entry %}
+<li>
+  <a href="{% url admin:zinnia_entry_change object.pk %}" title="{% trans "Edit the entry" %}">
+    {% trans "Edit the entry" %}
+  </a>
+</li>
+{% endif %}
+{% endblock %}

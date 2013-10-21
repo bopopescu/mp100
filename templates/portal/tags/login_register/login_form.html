@@ -1,0 +1,52 @@
+{% load i18n %}
+
+<div class="side_bar login_bar" id="#homepage_login_bar">
+  <form  id="login_ajax_form" method="post" action="{% url validar_usuario %}" class="login-form">{% csrf_token %}
+    <table >
+      <tr height=25px>
+        <td colspan=3>
+          {% if error or form_login.errors %}
+              <ul class="errorlist all_to_right">
+                  <li>{% blocktrans %}Incorrect email address and/or password{% endblocktrans %}</li>
+              </ul>
+          {% endif %}
+          {{ form_login.non_field_errors }}
+        </td>
+      </tr>
+      <tr class="username">
+        <td><label for="id_email" class="grey">{% blocktrans %}Email{% endblocktrans %}:</label></td>
+        <td>
+          <input class="textbox special_gray" type="text" id="id_email" class="text" name="email"/>
+        </td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><label for="id_password" class="grey">{% blocktrans %}Password{% endblocktrans %}:</label></td>
+        <td>
+            <input class="textbox special_gray" type="password" id="id_password" class="text" name="password"/>
+        </td>
+        <td></td>
+      </tr>
+        <input type="hidden" name="redirect" value="{{ request.path }}" />
+      <tr>
+        <td></td>
+        <td>
+            <a href="#" class="green">{% blocktrans %}Forgot Password{% endblocktrans %}</a>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+        <input type="submit" class="button" value="{% blocktrans %}Login{% endblocktrans %}"/>
+        <a href="#" class="close_login"><input id="login-submit" type="button" class="button" value="{% blocktrans %}Cancel{% endblocktrans %}"></a>
+        </td>
+      </tr>
+    </table>
+  </form>
+  <div class="login-register">
+    <div class="separator"></div>
+    <h2>{% blocktrans %}First time visitor?{% endblocktrans %}</h2>
+    <h4>{% blocktrans %}Register to vote and submit photos{% endblocktrans %}</h4>
+    <a href="#" class="green-button">{% blocktrans %}Register{% endblocktrans %}</a>
+  </div>
+</div>

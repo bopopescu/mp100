@@ -1,0 +1,151 @@
+{% extends "portal/menu_views/base_menu.html"  %}
+{% load i18n %}
+{% load portal_tags %}
+{% load thumbnail endless %} 
+{% block title %}
+  {% blocktrans %}Panoramic Photos{% endblocktrans %}
+{% endblock %}
+
+{% block head %}
+  {% include "portal/tags/sharethis/standard.html" %}
+{% endblock %}
+
+{% block universia_adv_1 %}
+<!-- begin ad tag (tile=1) -->
+<script language="JavaScript" type="text/javascript">
+if (typeof ord=='undefined') {ord=Math.random()*10000000000000000;}
+document.write('<script language="JavaScript" src="http://ad.doubleclick.net/adj/pe.universia.machupicchu100/sony;tile=1;sz=975x90;ord=' + ord + '?" type="text/javascript"><\/script>');
+</script><noscript><a href="http://ad.doubleclick.net/jump/pe.universia.machupicchu100/sony;tile=1;sz=975x90;ord=123456789?" target="_blank"><img src="http://ad.doubleclick.net/ad/pe.universia.machupicchu100/sony;tile=1;sz=975x90;ord=123456789?" width="975" height="90" border="0" alt=""></a></noscript>
+<!-- End ad tag -->
+{% endblock %}
+
+{% block universia_adv_2 %}
+<!-- begin ad tag (tile=2) -->
+<script language="JavaScript" type="text/javascript">
+if (typeof ord=='undefined') {ord=Math.random()*10000000000000000;}
+document.write('<script language="JavaScript" src="http://ad.doubleclick.net/adj/pe.universia.machupicchu100/sony;tile=2;sz=120x600;ord=' + ord + '?" type="text/javascript"><\/script>');
+</script><noscript><a href="http://ad.doubleclick.net/jump/pe.universia.machupicchu100/sony;tile=2;sz=120x600;ord=123456789?" target="_blank"><img src="http://ad.doubleclick.net/ad/pe.universia.machupicchu100/sony;tile=2;sz=120x600;ord=123456789?" width="120" height="600" border="0" alt=""></a></noscript>
+<!-- End ad tag -->    
+{% endblock %}
+
+
+
+{% block center_content %}
+<div class="span-16 last breadcrumbs">
+    <label class="link_all_green">
+	<a href="{% url portal_winners %}">{% blocktrans %}Winners{% endblocktrans %} ></a>
+    </label>
+    <label class="link_all_green">
+	<a href="{% url portal_mp100_special_awards %}">{% blocktrans %}Machu Picchu 100 Special Awards{% endblocktrans %} ></a>
+    </label>
+    <label class="link_all_green">
+	<a href="{% url portal_panoramic_intro %}">{% blocktrans %}Panoramic Photography{% endblocktrans %} ></a>
+    </label>
+    {% blocktrans %}Panoramic Photo Entries{% endblocktrans %}
+</div>
+<div class="span-14 last winners push_down_25">
+  <div class="span-9 last">
+    <h1>{% blocktrans %}Photo Contest{% endblocktrans %}</h1>
+    <h2>{% blocktrans %}I was in Machu Picchu{% endblocktrans %}</h2>
+    <h3>{% blocktrans %}A Photographic Wonder{% endblocktrans %}</h3>
+  </div>
+  <div class="span-9 last special_award_word">
+    <h1>{% blocktrans %}Special Awards{% endblocktrans %}</h1>
+  </div>
+  <div class="span-3 sonyLogoPanoramic">
+    <img alt="Sony" src="{{MEDIA_URL}}images/sponsors/logo_sony_panoramic.jpg">
+  </div>
+</div>
+<div class="span-14 last winners_profesionalEntriesPositionGreenArea">
+    <span class="profesionalCategory_word">{% blocktrans %}Panoramic Photo Entries{% endblocktrans %}</span>
+    <div class="span-14 last winners_MP100_SA_bottom_green_box">    
+      {% blocktrans %}Enter  a  Panoramic  Photo  in  any  of  the Contest Categories  and  you will  be automatically entered  to win a a Sony α NEX-5 Digital Camera  featuring 3D Sweep Panorama™! A special panel of  judges will announce the best Panoramic Photo on August 26, 2011.{% endblocktrans %}
+      <div class="span-12 last all_to_right link_all_white">
+	<a class="panoramic_view_prize_link " href="{% url portal_panoramic_prize %}">{% blocktrans %}View Prize{% endblocktrans %}...</a>
+      </div>
+    </div>
+</div>
+<div class="span-14 last panoramic_photos_menu">
+    <span>{% blocktrans %}Gallery{% endblocktrans %}</span>
+</div>
+
+<div class="span-14 last ">
+  <div class="span-14 last pull_up_20">
+    <form class="" action="" method="get">{% csrf_token %}
+      <div class=" span-4 all_to_left fixed_height_20">
+	{{form.texto}}
+      </div>
+      <div class=" span-7 all_to_middle fixed_height_20">
+	<label for="id_categoria" class="special_gray">{% blocktrans %}Categories{% endblocktrans %}</label>
+	<!--{{form.categoria}}-->
+	<select id="id_categoria" class="styled special_gray" name="categoria">
+	  <option selected="selected" value=""> --------- </option>
+	{% get_current_language as LANGUAGE_CODE %}
+	{% if LANGUAGE_CODE == 'en' %}
+	  {% for categoria in lista_categorias %}
+	    <option value="{{categoria.id}}">{{categoria}}</option>
+	  {% endfor %}
+	{% else %}
+	  {% for categoria in lista_categorias %}
+	    <option value="{{categoria.id}}">{{categoria.nombre_espaniol}}</option>
+	  {% endfor %}	  
+	{% endif %}
+	</select>	      	
+      </div>
+      <div class=" span-3 all_to_right last fixed_height_20 push_down_6">
+	<input class="cute_green_button" type="submit" value="{% blocktrans %}Search{% endblocktrans %}">
+      </div>	    
+    </form>
+  </div>
+
+    <div class="span-14 last all_to_right pagination_links">
+    {% comment %}
+    {% if lista_fotos.object_list %}  
+      {% if lista_fotos.has_previous %}
+	<a href="?page={{ lista_fotos.previous_page_number }}">{% blocktrans %}previous{% endblocktrans %}</a>
+      {% endif %}
+      {% blocktrans with lista_fotos.number as n and lista_fotos.paginator.num_pages as np %}Page {{ n }} of {{ np }}{% endblocktrans %}.
+      {% if lista_fotos.has_next %}
+	<a href="?page={{ lista_fotos.next_page_number }}">{% blocktrans %}next{% endblocktrans %}</a>
+      {% endif %}
+    {% endif %}
+    {% endcomment %}
+    {% paginate lista_fotos %}
+    {% show_pages %} 
+    </div>
+    
+{% if lista_fotos %}       
+  <div class="span-14 last">
+    <ul class="image_list wide main">
+      {% for usuario in lista_fotos %}
+	  <li>
+	    <a class="resultados_search" href="{% url portal_photo_vote_panoramic usuario.codigo_user.id usuario.id %}">
+	      <img width=122px height=116px src="{% thumbnail usuario.foto '122x116' %}" alt="{{usuario.titulo}}" title="{% blocktrans %}Check it out{% endblocktrans %}"/>
+	    </a>			
+	  </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="span-14 last all_to_right pagination_links">	
+  {% comment %}
+  {% if lista_fotos.has_previous %}
+    <a href="?page={{ lista_fotos.previous_page_number }}">{% blocktrans %}previous{% endblocktrans %}</a>
+  {% endif %}
+  {% blocktrans with lista_fotos.number as n and lista_fotos.paginator.num_pages as np %}Page {{ n }} of {{ np }}{% endblocktrans %}.
+  {% if lista_fotos.has_next %}
+    <a href="?page={{ lista_fotos.next_page_number }}">{% blocktrans %}next{% endblocktrans %}</a>
+  {% endif %}
+  {% endcomment %}
+  {% show_pages %}
+  </div>	  	
+{% else %}
+  <div class="span-14 last">
+    {% blocktrans %}There are no results.{% endblocktrans %}
+  </div>
+{% endif %}    
+
+</div>
+
+
+{% endblock %}

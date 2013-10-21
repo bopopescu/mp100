@@ -1,0 +1,46 @@
+{% extends "portal/menu_views/base_menu.html"  %}
+{% load i18n %}
+{% load thumbnail %}
+{% block title %}
+  {% blocktrans %}User Profile{% endblocktrans %}
+{% endblock %}
+
+{% block left_menu %}
+<li>
+  <a href="{% url usuario_mis_fotos %}">{% blocktrans %}My Photos{% endblocktrans %}</a>
+</li>  
+<li>
+  <a href="{% url usuario_editar_perfil %}">{% blocktrans %}Edit My Profile{% endblocktrans %}</a>
+</li>
+<li>
+  <a href="{% url usuario_amigos %}">{% blocktrans %}My Friends{% endblocktrans %}</a>
+</li>
+<li>
+  <a href="{% url usuario_public_profile user.id %}">{% blocktrans %}My Public Profile{% endblocktrans %}</a>
+</li>  
+{% endblock %}
+
+
+{% block fb_like_top %}
+  {% include 'portal/tags/fb_like/fb_like_top_UserAccount.html' %}
+{% endblock %}
+      
+{% block center_content %}        
+  <div class="span-14 last machu_picchu_peru">
+    <div class="span-14 last">
+      <div class="span-14 all_to_left link_all_green last">
+	<h1>{% blocktrans %}My Profile{% endblocktrans %}</h1>
+      </div>
+      <div class="span-14 profile_gray_headline">
+	{% blocktrans %}Unnecessary Friend Request{% endblocktrans %}
+      </div>
+      <div class="span-14 profile_content prize_panoramic">
+	  {% blocktrans %}Sending your friend request was unnecessary because{% endblocktrans %}:
+	  <ul>
+	  <li>{% blocktrans %}There is an existing friend request{% endblocktrans %}</li>
+	  <li>{% blocktrans %}Or you are already friends{% endblocktrans %}.</li>
+	  </ul>
+      </div>
+    </div>	
+  </div>	  
+{% endblock %}      

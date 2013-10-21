@@ -1,0 +1,164 @@
+{% extends "portal/menu_views/galeria/base_galeria.html"  %}
+{% block ini %}
+    {% load thumbnail %}
+    {% load banners %}
+    {% load i18n %}
+{% endblock %}
+
+{% block body %}
+
+<body>
+
+    {% block top_form %}
+        {{ block.super }}
+    {% endblock %}
+
+<div class="wide_notices_header_bottom">
+  <div class="container"></div>
+</div>
+
+<div class="wide_main_title">
+  <div class="container">
+    <div class="span-24 last contet_header">
+      <div class="span-24  last header_ads">
+	<img width="950"  src="{{MEDIA_URL}}dump_images/adv_950.png" 
+	     alt="950px advertisement"/>
+	<!--{% block banner1 %} {% banners "H" %} {% endblock %}-->        
+      </div>
+      
+  <div class="wide_hormenu">
+    <div class="container">
+      <ul class="horizontal_menu">
+	    <li class="first"><a href="{% url main_portal %}">{% blocktrans %}Inicio{% endblocktrans %}</a></li>
+	    <li class="second"><a href="{% url portal_sobre_MP %}">{% blocktrans %}Sobre Machu Picchu{% endblocktrans %}</a></li>
+	    <li class="third selected"><a href="{% url portal_galeria_vote %}">{% blocktrans %}Galería de Imágenes{% endblocktrans %}</a></li>
+	    <li class="fourth"><a href="{% url portal_ver_bases %}">{% blocktrans %}Información y bases del concurso{% endblocktrans %}</a></li>
+	    <li class="fifth"><a href="{% url portal_organizadores_auspiciadores %}">{% blocktrans %}Organizadores y auspiciadores{% endblocktrans %}</a></li>
+	    <li class="sixth"><a href="{% url portal_rrss %}">{% blocktrans %}Responsabilidad social{% endblocktrans %}</a></li>            
+      </ul>
+    </div>
+  </div>      
+      
+      <div class="span-24 last content_box">
+	<h1>Machupicchu 100</h1>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="pre_title_h_bar">
+  <div class="container"></div>
+</div>
+
+<div class="post_contet_box_header">
+  <div class="container">
+    <h2>{% blocktrans %}Fotos{% endblocktrans %}</h2>
+  </div>
+</div>
+
+<div class="main_content">
+  <div class="container">
+    <div class="span-11 notice-content append-1">
+
+
+    {% block main_body %}
+      <div class="user_details">
+        <form action="" method=POST> {% csrf_token %}
+        <table>
+        {{form}}
+        <tr>
+            <th></th>
+            <td><input type="submit" value={% trans "Buscar" %} class="button" ></td>
+        </tr>
+        </table>
+        </form>
+      </div>
+                <div class="clear"></div>
+                <hr class="profile_separator"/>      
+        {% if lista_fotos.object_list %}
+            {% load thumbnail %}
+            {% for fotos in lista_fotos.object_list %}
+                <ul class="image_list wide main">
+                {% for foto in fotos %}
+                    <li>
+                        <a class="resultados_search" href="{% url portal_navegar_foto foto.codigo_user.id foto.id %}">
+                            <img src="{% thumbnail foto.foto 75x75 crop="smart" upscale %}" width=75px height=75px alt="{{foto.titulo}}" /></a>
+                        <p>
+                        </p>
+                    </li>
+                {% endfor %}
+                </ul>
+                <div class="clear"></div>
+                <hr class="profile_separator"/>
+            {% endfor %}
+
+            <div class="pagination">
+                <span class="step-links">
+                    {% if lista_fotos.has_previous %}
+                        <a href="?page={{ lista_fotos.previous_page_number }}">{% blocktrans %}anterior{% endblocktrans %}</a>
+                    {% endif %}
+            
+                    <span class="current">
+			{% blocktrans with  lista_fotos.number as fn and lista_fotos.paginator.num_pages as np %}Página {{ fn }} de {{ np }}{% endblocktrans %}
+                    </span>
+            
+                    {% if lista_fotos.has_next %}
+                        <a href="?page={{ lista_fotos.next_page_number }}">{% blocktrans %}siguiente{% endblocktrans %}</a>
+                    {% endif %}
+                </span>
+            </div>        
+        {% else %}
+            {% trans 'No se encontraron fotos.' %}
+        {% endif %}
+        
+    
+    {% endblock %}
+
+    
+    </div>
+
+    <div class="span-6 prepend-1 notice_menu">
+      <h3>{% blocktrans %}Categorías{% endblocktrans %}</h3>
+      <ul class="menu_bar">
+        {% if lista_categorias %}
+            {% for categoria in lista_categorias %}
+                <li><a href="{% url portal_galeria_vote categoria.id %}">{{categoria}}</a></li>
+            {% endfor %}
+        {% else %}
+            <li>{% blocktrans %}Aún no se han definido categorías{% endblocktrans %}</li>
+        {% endif %}
+	<li><a href="{% url portal_proxima_temporada %}">{% blocktrans %}Próxima Temporada{% endblocktrans %}</a></li>
+      </ul>
+      <div class="clear"></div>
+      <h3>{% blocktrans %}Concurso de Fotografia para aficionados{% endblocktrans %}</h3>
+      <a href="#">
+  	<img src="{{MEDIA_URL}}dump_images/machu-picchu-center.jpg" alt="machu picchu" 
+	     width="210"/>
+      </a>
+      <h2>{% blocktrans %}YO ESTUVE... {% endblocktrans %}</h2>
+      <h2>{% blocktrans %}EN MACHU PICCHU{% endblocktrans %}</h2>
+      <br/>
+    </div>
+
+    <div class="span-4 prepend-1 last vertical_adds">
+      <img alt="advertisement" src="{{MEDIA_URL}}dump_images/adv_150_500.png"/>
+      <!--{% block banner2 %} {% banners "V" %} {% endblock %}-->
+    </div>
+  </div>
+</div>
+<div class="wide_footer">
+  <div class="container">
+    <div class="span-24 last">
+      <p>copyrigth©2011 quimeraONLIFE</p>
+    </div>
+  </div>
+</div>
+ 
+</body>
+{% endblock %}
+
+
+
+
+

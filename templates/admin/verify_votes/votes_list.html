@@ -1,0 +1,140 @@
+{% extends "admin/base_site.html" %}
+{% load adminmedia admin_list i18n %}
+{% load endless %}
+{% block title %}Lista de votos{% endblock %}
+
+{% block extrastyle %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" href="{% admin_media_prefix %}css/changelists.css" />
+  {% if cl.formset %}
+    <link rel="stylesheet" type="text/css" href="{% admin_media_prefix %}css/forms.css" />
+  {% endif %}
+  {% if cl.formset or action_form %}
+    {% url admin:jsi18n as jsi18nurl %}
+    <script type="text/javascript" src="{{ jsi18nurl|default:'../../jsi18n/' }}"></script>
+  {% endif %}
+  {{ media.css }}
+  {% if not actions_on_top and not actions_on_bottom %}
+    <style>
+      #changelist table thead th:first-child {width: inherit}
+    </style>
+  {% endif %}
+{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+{{ media.js }}
+{% if action_form %}{% if actions_on_top or actions_on_bottom %}
+<script type="text/javascript">
+(function($) {
+    $(document).ready(function($) {
+        $("tr input.action-select").actions();
+    });
+})(django.jQuery);
+</script>
+{% endif %}{% endif %}
+{% endblock %}
+
+{% block bodyclass %}change-list{% endblock %}
+
+{% if not is_popup %}
+  {% block breadcrumbs %}
+    <div class="breadcrumbs">
+      <a href="../../">
+        {% trans "Home" %}
+      </a>
+       &rsaquo; 
+       <a href="../">
+         Fotos 
+      </a>
+       &rsaquo;
+         Votos
+    </div>
+  {% endblock %}
+{% endif %}
+
+{% block coltype %}flex{% endblock %}
+
+{% block content %}
+  <h1>Lista de usuarios que votaron por la foto</h1>
+  <p><strong>Verifique que no existen votos fraudulentos en esta foto. En caso encuentre algun fraude, presione el botón 'Descalificar' para sacar al usuario y a todas sus fotos del concurso.</strong></p>
+  <p>En el campo de búsqueda puede escribir fragmentos o datos completos del:</p>
+    <ul>
+      <li>Nombre de usuario</li>
+      <li>Correo</li>
+      <li>Nombres</li>
+      <li>Apellidos</li>
+      <li>Sexo</li>
+    </ul>
+  <p>También puede filtrar por país utilizando la lista ubicada al lado derecho  
+  </p>
+  <div id="content-main">
+    <div id="changelist" class="module filtered">
+      <div id="toolbar">
+        <form id="changelist-search" method="POST" actions="verify_votes/{{foto_id}}/">{% csrf_token %}
+          <div>
+            <label for="searchbar">
+              <img alt="Search" src="http://s3.amazonaws.com/mp100pruebas/adminmedia/media/img/admin/icon_searchbox.png">
+            </label>
+            <input id="searchbar" type="text" value="" name="pattern" size="40">
+            <input type="submit" value="Buscar">
+          </div>
+        </form>
+      </div>
+      <script type="text/javascript">
+      document.getElementById("searchbar").focus();
+      </script>
+      <div id="changelist-filter">
+        <h2>Filtro</h2>
+        <h3>Por País</h3>
+        <ul>
+	  <li>
+	    <a href="{% url admin_show_all_votes foto_id  %}">Todos</a>
+	  </li>
+	{% for country in countries_list  %}
+          <li>
+            <a href="{% url admin_show_all_votes foto_id country.numcode %}">{{country}}</a>
+          </li>
+	{% endfor  %}
+        </ul>        
+      </div>
+      {% paginate 100 profiles_list %}
+
+      <form id="changelist-form" method="POST" action="{% url admin_disqualify_user %}">{% csrf_token  %}
+        <table id="result_list" cellspacing="0">
+          <thead>
+            <tr>
+              <th>Nombre de Usuario</th>
+	      <th>Correo</th>
+              <th>Nombres</th>
+              <th>Apellidos</th>
+	      <th>Fecha Nacimiento</th>
+	      <th>Sexo</th>
+	      <th>País</th>
+	      <th>Departamento</th>
+	      <th>Fotos Subidas</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for profile in profiles_list %}
+            <tr class="{% cycle 'row1' 'row2' %}">
+	    {% for dato in profile  %}
+              <td>{{dato}}</td>
+	    {% endfor  %}
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan=9>No hay resultados.</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+	<p class="paginator">
+	  {% show_pages  %}
+	  <input type="hidden" value="{{foto_id}}" name="foto_id">
+	  <input class="default" type="submit" value="Descalificar" name="Save">
+	</p>
+      </form>
+    </div>
+  </div>
+{% endblock %}

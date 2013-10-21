@@ -1,0 +1,577 @@
+<mockup version="1.0" skin="sketch" measuredW="1339" measuredH="935" mockupW="1223" mockupH="910">
+  <controls>
+    <control controlID="996" controlTypeID="com.balsamiq.mockups::FieldSet" x="116" y="36" w="724" h="899" measuredW="200" measuredH="170" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Datos%20de%20la%20reserva</text>
+      </controlProperties>
+    </control>
+    <control controlID="997" controlTypeID="com.balsamiq.mockups::SubTitle" x="138" y="55" w="-1" h="-1" measuredW="114" measuredH="33" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Servicio%20X</text>
+      </controlProperties>
+    </control>
+    <control controlID="998" controlTypeID="com.balsamiq.mockups::SubTitle" x="145" y="735" w="-1" h="-1" measuredW="182" measuredH="33" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Datos%20del%20cliente</text>
+      </controlProperties>
+    </control>
+    <control controlID="999" controlTypeID="com.balsamiq.mockups::LinkBar" x="622" y="777" w="-1" h="-1" measuredW="174" measuredH="21" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Registrarme%2C%20Iniciar%20sesi%F3n</text>
+      </controlProperties>
+    </control>
+    <control controlID="1000" controlTypeID="com.balsamiq.mockups::Label" x="148" y="778" w="-1" h="-1" measuredW="448" measuredH="21" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Para%20hacer%20una%20reservaci%F3n%20necesitas%20estar%20registrado%20y%20haber%20iniciado%20sesi%F3n</text>
+      </controlProperties>
+    </control>
+    <control controlID="1001" controlTypeID="com.balsamiq.mockups::HCurly" x="145" y="798" w="666" h="80" measuredW="200" measuredH="80" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="1002" controlTypeID="com.balsamiq.mockups::StickyNote" x="231" y="826" w="477" h="67" measuredW="109" measuredH="123" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Datos%20del%20cliente%2C%20los%20botones%20de%20abajo%20s%F3lo%20se%20activan%20al%20iniciar%20sesi%F3n</text>
+      </controlProperties>
+    </control>
+    <control controlID="1003" controlTypeID="com.balsamiq.mockups::Button" x="726" y="893" w="-1" h="-1" measuredW="79" measuredH="27" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Reservar</text>
+      </controlProperties>
+    </control>
+    <control controlID="1004" controlTypeID="com.balsamiq.mockups::Label" x="575" y="89" w="-1" h="-1" measuredW="113" measuredH="21" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>2848996</color>
+        <text>Agregar%20habitaci%F3n</text>
+      </controlProperties>
+    </control>
+    <control controlID="1005" controlTypeID="com.balsamiq.mockups::Icon" x="551" y="87" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>0</color>
+        <icon>CircledPlusIcon%7Csmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="1006" controlTypeID="com.balsamiq.mockups::Label" x="754" y="89" w="-1" h="-1" measuredW="42" measuredH="21" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>2848996</color>
+        <text>Borrar</text>
+      </controlProperties>
+    </control>
+    <control controlID="1007" controlTypeID="com.balsamiq.mockups::Icon" x="726" y="87" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>0</color>
+        <icon>TrashIcon%7Csmall</icon>
+      </controlProperties>
+    </control>
+    <control controlID="1008" controlTypeID="com.balsamiq.mockups::CallOut" x="682" y="84" w="35" h="30" measuredW="39" measuredH="40" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>A</text>
+      </controlProperties>
+    </control>
+    <control controlID="1009" controlTypeID="com.balsamiq.mockups::CallOut" x="849" y="483" w="37" h="32" measuredW="38" measuredH="37" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>B</text>
+      </controlProperties>
+    </control>
+    <control controlID="1010" controlTypeID="com.balsamiq.mockups::FieldSet" x="862" y="515" w="340" h="253" measuredW="200" measuredH="170" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Servicios%20especiales</text>
+      </controlProperties>
+    </control>
+    <control controlID="1011" controlTypeID="com.balsamiq.mockups::FieldSet" x="862" y="31" w="477" h="450" measuredW="200" measuredH="170" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Reservar%20habitaci%F3n</text>
+      </controlProperties>
+    </control>
+    <control controlID="1012" controlTypeID="com.balsamiq.mockups::CallOut" x="840" y="25" w="35" h="30" measuredW="39" measuredH="39" zOrder="16" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>A</text>
+      </controlProperties>
+    </control>
+    <control controlID="1013" controlTypeID="__group__" x="886" y="50" w="424" h="203" measuredW="424" measuredH="203" zOrder="17" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::Label" x="0" y="0" w="-1" h="-1" measuredW="143" measuredH="24" zOrder="0" locked="false" isInGroup="1013">
+          <controlProperties>
+            <bold>true</bold>
+            <size>16</size>
+            <text>Tipo%20de%20habitaci%F3n</text>
+          </controlProperties>
+        </control>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::Image" x="0" y="29" w="111" h="79" measuredW="77" measuredH="79" zOrder="1" locked="false" isInGroup="1013"/>
+        <control controlID="2" controlTypeID="com.balsamiq.mockups::Label" x="126" y="33" w="-1" h="-1" measuredW="72" measuredH="21" zOrder="2" locked="false" isInGroup="1013">
+          <controlProperties>
+            <text>Descripci%F3n</text>
+          </controlProperties>
+        </control>
+        <control controlID="3" controlTypeID="com.balsamiq.mockups::Label" x="320" y="33" w="-1" h="-1" measuredW="104" measuredH="21" zOrder="3" locked="false" isInGroup="1013">
+          <controlProperties>
+            <bold>true</bold>
+            <text>Nro%20de%20personas</text>
+          </controlProperties>
+        </control>
+        <control controlID="4" controlTypeID="com.balsamiq.mockups::Label" x="358" y="130" w="55" h="23" measuredW="53" measuredH="24" zOrder="4" locked="false" isInGroup="1013">
+          <controlProperties>
+            <bold>true</bold>
+            <color>13576743</color>
+            <size>16</size>
+            <text>Precio</text>
+          </controlProperties>
+        </control>
+        <control controlID="5" controlTypeID="com.balsamiq.mockups::CheckBoxGroup" x="15" y="121" w="-1" h="-1" measuredW="120" measuredH="42" zOrder="5" locked="false" isInGroup="1013">
+          <controlProperties>
+            <text>%5Bx%5D%20caracter%EDstica%201%0A%5Bx%5D%20caracter%EDstica%202</text>
+          </controlProperties>
+        </control>
+        <control controlID="6" controlTypeID="com.balsamiq.mockups::Label" x="126" y="58" w="296" h="58" measuredW="846" measuredH="21" zOrder="6" locked="false" isInGroup="1013">
+          <controlProperties>
+            <text>Descripci%F3n%20Descripci%F3n%20Descripci%F3n%20Descripci%F3n%20Descripci%F3n%20Descripci%F3n%20Descripci%F3n%20Descripci%F3n%20Descripci%F3n%20Descripci%F3n%20Descripci%F3n%20Descripci%F3n%20</text>
+          </controlProperties>
+        </control>
+        <control controlID="7" controlTypeID="com.balsamiq.mockups::HRule" x="0" y="198" w="424" h="-1" measuredW="100" measuredH="5" zOrder="7" locked="false" isInGroup="1013"/>
+        <control controlID="8" controlTypeID="com.balsamiq.mockups::Button" x="349" y="160" w="-1" h="-1" measuredW="71" measuredH="27" zOrder="8" locked="false" isInGroup="1013">
+          <controlProperties>
+            <text>Agregar</text>
+          </controlProperties>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="1014" controlTypeID="__group__" x="886" y="258" w="424" h="203" measuredW="424" measuredH="203" zOrder="18" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::Label" x="0" y="0" w="-1" h="-1" measuredW="143" measuredH="24" zOrder="0" locked="false" isInGroup="1014">
+          <controlProperties>
+            <bold>true</bold>
+            <size>16</size>
+            <text>Tipo%20de%20habitaci%F3n</text>
+          </controlProperties>
+        </control>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::Image" x="0" y="29" w="111" h="79" measuredW="77" measuredH="79" zOrder="1" locked="false" isInGroup="1014"/>
+        <control controlID="2" controlTypeID="com.balsamiq.mockups::Label" x="126" y="33" w="-1" h="-1" measuredW="72" measuredH="21" zOrder="2" locked="false" isInGroup="1014">
+          <controlProperties>
+            <text>Descripci%F3n</text>
+          </controlProperties>
+        </control>
+        <control controlID="3" controlTypeID="com.balsamiq.mockups::Label" x="320" y="33" w="-1" h="-1" measuredW="104" measuredH="21" zOrder="3" locked="false" isInGroup="1014">
+          <controlProperties>
+            <bold>true</bold>
+            <text>Nro%20de%20personas</text>
+          </controlProperties>
+        </control>
+        <control controlID="4" controlTypeID="com.balsamiq.mockups::Label" x="358" y="130" w="55" h="23" measuredW="53" measuredH="24" zOrder="4" locked="false" isInGroup="1014">
+          <controlProperties>
+            <bold>true</bold>
+            <color>13576743</color>
+            <size>16</size>
+            <text>Precio</text>
+          </controlProperties>
+        </control>
+        <control controlID="5" controlTypeID="com.balsamiq.mockups::CheckBoxGroup" x="15" y="121" w="-1" h="-1" measuredW="120" measuredH="42" zOrder="5" locked="false" isInGroup="1014">
+          <controlProperties>
+            <text>%5Bx%5D%20caracter%EDstica%201%0A%5Bx%5D%20caracter%EDstica%202</text>
+          </controlProperties>
+        </control>
+        <control controlID="6" controlTypeID="com.balsamiq.mockups::Label" x="126" y="58" w="296" h="58" measuredW="846" measuredH="21" zOrder="6" locked="false" isInGroup="1014">
+          <controlProperties>
+            <text>Descripci%F3n%20Descripci%F3n%20Descripci%F3n%20Descripci%F3n%20Descripci%F3n%20Descripci%F3n%20Descripci%F3n%20Descripci%F3n%20Descripci%F3n%20Descripci%F3n%20Descripci%F3n%20Descripci%F3n%20</text>
+          </controlProperties>
+        </control>
+        <control controlID="7" controlTypeID="com.balsamiq.mockups::HRule" x="0" y="198" w="424" h="-1" measuredW="100" measuredH="5" zOrder="7" locked="false" isInGroup="1014"/>
+        <control controlID="8" controlTypeID="com.balsamiq.mockups::Button" x="349" y="160" w="-1" h="-1" measuredW="71" measuredH="27" zOrder="8" locked="false" isInGroup="1014">
+          <controlProperties>
+            <text>Agregar</text>
+          </controlProperties>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="1015" controlTypeID="__group__" x="875" y="549" w="299" h="89" measuredW="299" measuredH="89" zOrder="19" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::Label" x="85" y="1" w="-1" h="-1" measuredW="52" measuredH="21" zOrder="0" locked="false" isInGroup="1015">
+          <controlProperties>
+            <text>Nombre</text>
+          </controlProperties>
+        </control>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::Label" x="85" y="22" w="-1" h="-1" measuredW="72" measuredH="21" zOrder="1" locked="false" isInGroup="1015">
+          <controlProperties>
+            <text>Descripci%F3n</text>
+          </controlProperties>
+        </control>
+        <control controlID="2" controlTypeID="com.balsamiq.mockups::Image" x="26" y="0" w="52" h="41" measuredW="77" measuredH="79" zOrder="2" locked="false" isInGroup="1015"/>
+        <control controlID="3" controlTypeID="com.balsamiq.mockups::Label" x="236" y="8" w="-1" h="-1" measuredW="53" measuredH="24" zOrder="3" locked="false" isInGroup="1015">
+          <controlProperties>
+            <bold>true</bold>
+            <color>13576743</color>
+            <size>16</size>
+            <text>Precio</text>
+          </controlProperties>
+        </control>
+        <control controlID="4" controlTypeID="com.balsamiq.mockups::CheckBox" x="0" y="9" w="-1" h="-1" measuredW="26" measuredH="22" zOrder="4" locked="false" isInGroup="1015">
+          <controlProperties>
+            <text/>
+          </controlProperties>
+        </control>
+        <control controlID="5" controlTypeID="com.balsamiq.mockups::HRule" x="0" y="84" w="299" h="-1" measuredW="100" measuredH="5" zOrder="5" locked="false" isInGroup="1015"/>
+        <control controlID="6" controlTypeID="com.balsamiq.mockups::Button" x="228" y="54" w="-1" h="-1" measuredW="71" measuredH="27" zOrder="6" locked="false" isInGroup="1015">
+          <controlProperties>
+            <text>Agregar</text>
+          </controlProperties>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="1016" controlTypeID="__group__" x="875" y="653" w="299" h="89" measuredW="299" measuredH="89" zOrder="20" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::Label" x="85" y="1" w="-1" h="-1" measuredW="52" measuredH="21" zOrder="0" locked="false" isInGroup="1016">
+          <controlProperties>
+            <text>Nombre</text>
+          </controlProperties>
+        </control>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::Label" x="85" y="22" w="-1" h="-1" measuredW="72" measuredH="21" zOrder="1" locked="false" isInGroup="1016">
+          <controlProperties>
+            <text>Descripci%F3n</text>
+          </controlProperties>
+        </control>
+        <control controlID="2" controlTypeID="com.balsamiq.mockups::Image" x="26" y="0" w="52" h="41" measuredW="77" measuredH="79" zOrder="2" locked="false" isInGroup="1016"/>
+        <control controlID="3" controlTypeID="com.balsamiq.mockups::Label" x="236" y="8" w="-1" h="-1" measuredW="53" measuredH="24" zOrder="3" locked="false" isInGroup="1016">
+          <controlProperties>
+            <bold>true</bold>
+            <color>13576743</color>
+            <size>16</size>
+            <text>Precio</text>
+          </controlProperties>
+        </control>
+        <control controlID="4" controlTypeID="com.balsamiq.mockups::CheckBox" x="0" y="9" w="-1" h="-1" measuredW="26" measuredH="22" zOrder="4" locked="false" isInGroup="1016">
+          <controlProperties>
+            <text/>
+          </controlProperties>
+        </control>
+        <control controlID="5" controlTypeID="com.balsamiq.mockups::HRule" x="0" y="84" w="299" h="-1" measuredW="100" measuredH="5" zOrder="5" locked="false" isInGroup="1016"/>
+        <control controlID="6" controlTypeID="com.balsamiq.mockups::Button" x="228" y="54" w="-1" h="-1" measuredW="71" measuredH="27" zOrder="6" locked="false" isInGroup="1016">
+          <controlProperties>
+            <text>Agregar</text>
+          </controlProperties>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="1017" controlTypeID="com.balsamiq.mockups::Link" x="544" y="895" w="-1" h="-1" measuredW="173" measuredH="21" zOrder="21" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Guardar%20borrador%20de%20reserva</text>
+      </controlProperties>
+    </control>
+    <control controlID="1018" controlTypeID="com.balsamiq.mockups::Label" x="648" y="689" w="81" h="23" measuredW="87" measuredH="24" zOrder="22" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <size>16</size>
+        <text>Costo%20total</text>
+      </controlProperties>
+    </control>
+    <control controlID="1019" controlTypeID="com.balsamiq.mockups::Label" x="738" y="688" w="54" h="23" measuredW="53" measuredH="24" zOrder="23" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>13576743</color>
+        <size>16</size>
+        <text>Precio</text>
+      </controlProperties>
+    </control>
+    <control controlID="1020" controlTypeID="__group__" x="145" y="124" w="651" h="266" measuredW="651" measuredH="266" zOrder="24" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::Image" x="31" y="0" w="135" h="90" measuredW="77" measuredH="79" zOrder="0" locked="false" isInGroup="1020">
+          <controlProperties>
+            <text>Foto%20de%20la%20habitacion</text>
+          </controlProperties>
+        </control>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::Label" x="181" y="4" w="-1" h="-1" measuredW="110" measuredH="21" zOrder="1" locked="false" isInGroup="1020">
+          <controlProperties>
+            <text>Tipo%20de%20habitacion</text>
+          </controlProperties>
+        </control>
+        <control controlID="2" controlTypeID="com.balsamiq.mockups::Calendar" x="538" y="4" w="113" h="82" measuredW="96" measuredH="96" zOrder="2" locked="false" isInGroup="1020"/>
+        <control controlID="3" controlTypeID="com.balsamiq.mockups::Label" x="406" y="1" w="-1" h="-1" measuredW="117" measuredH="21" zOrder="3" locked="false" isInGroup="1020">
+          <controlProperties>
+            <text>Fechas%20de%20reserva</text>
+          </controlProperties>
+        </control>
+        <control controlID="4" controlTypeID="com.balsamiq.mockups::Link" x="181" y="62" w="-1" h="-1" measuredW="136" measuredH="18" zOrder="4" locked="false" isInGroup="1020">
+          <controlProperties>
+            <size>11</size>
+            <text>Condiciones%20de%20la%20reserva</text>
+          </controlProperties>
+        </control>
+        <control controlID="5" controlTypeID="com.balsamiq.mockups::Label" x="184" y="32" w="-1" h="-1" measuredW="102" measuredH="21" zOrder="5" locked="false" isInGroup="1020">
+          <controlProperties>
+            <text>Nro%20de%20personas</text>
+          </controlProperties>
+        </control>
+        <control controlID="6" controlTypeID="com.balsamiq.mockups::Label" x="596" y="100" w="-1" h="-1" measuredW="53" measuredH="24" zOrder="6" locked="false" isInGroup="1020">
+          <controlProperties>
+            <color>13576743</color>
+            <size>16</size>
+            <text>Precio</text>
+          </controlProperties>
+        </control>
+        <control controlID="7" controlTypeID="com.balsamiq.mockups::Label" x="445" y="102" w="-1" h="-1" measuredW="136" measuredH="21" zOrder="7" locked="false" isInGroup="1020">
+          <controlProperties>
+            <text>Precio%20de%20la%20habitaci%F3n</text>
+          </controlProperties>
+        </control>
+        <control controlID="8" controlTypeID="com.balsamiq.mockups::CheckBox" x="0" y="34" w="26" h="22" measuredW="26" measuredH="22" zOrder="8" locked="false" isInGroup="1020">
+          <controlProperties>
+            <state>disabledSelected</state>
+            <text/>
+          </controlProperties>
+        </control>
+        <control controlID="9" controlTypeID="com.balsamiq.mockups::FieldSet" x="20" y="134" w="628" h="132" measuredW="200" measuredH="170" zOrder="9" locked="false" isInGroup="1020">
+          <controlProperties>
+            <text>Servicios%20especiales</text>
+          </controlProperties>
+        </control>
+        <control controlID="10" controlTypeID="com.balsamiq.mockups::Image" x="79" y="189" w="41" h="31" measuredW="77" measuredH="79" zOrder="10" locked="false" isInGroup="1020">
+          <controlProperties>
+            <text/>
+          </controlProperties>
+        </control>
+        <control controlID="11" controlTypeID="com.balsamiq.mockups::Label" x="133" y="194" w="115" h="19" measuredW="52" measuredH="21" zOrder="11" locked="false" isInGroup="1020">
+          <controlProperties>
+            <text>Nombre</text>
+          </controlProperties>
+        </control>
+        <control controlID="12" controlTypeID="com.balsamiq.mockups::Label" x="235" y="193" w="82" h="20" measuredW="72" measuredH="21" zOrder="12" locked="false" isInGroup="1020">
+          <controlProperties>
+            <text>Descripci%F3n</text>
+          </controlProperties>
+        </control>
+        <control controlID="13" controlTypeID="com.balsamiq.mockups::Label" x="578" y="192" w="54" h="23" measuredW="53" measuredH="24" zOrder="13" locked="false" isInGroup="1020">
+          <controlProperties>
+            <color>13576743</color>
+            <size>16</size>
+            <text>Precio</text>
+          </controlProperties>
+        </control>
+        <control controlID="14" controlTypeID="com.balsamiq.mockups::Image" x="79" y="220" w="41" h="31" measuredW="77" measuredH="79" zOrder="14" locked="false" isInGroup="1020">
+          <controlProperties>
+            <text/>
+          </controlProperties>
+        </control>
+        <control controlID="15" controlTypeID="com.balsamiq.mockups::Label" x="135" y="225" w="115" h="19" measuredW="52" measuredH="21" zOrder="15" locked="false" isInGroup="1020">
+          <controlProperties>
+            <text>Nombre</text>
+          </controlProperties>
+        </control>
+        <control controlID="16" controlTypeID="com.balsamiq.mockups::Label" x="235" y="224" w="82" h="20" measuredW="72" measuredH="21" zOrder="16" locked="false" isInGroup="1020">
+          <controlProperties>
+            <text>Descripci%F3n</text>
+          </controlProperties>
+        </control>
+        <control controlID="17" controlTypeID="com.balsamiq.mockups::Label" x="578" y="223" w="54" h="23" measuredW="53" measuredH="24" zOrder="17" locked="false" isInGroup="1020">
+          <controlProperties>
+            <color>13576743</color>
+            <size>16</size>
+            <text>Precio</text>
+          </controlProperties>
+        </control>
+        <control controlID="18" controlTypeID="com.balsamiq.mockups::Label" x="390" y="155" w="143" h="20" measuredW="153" measuredH="21" zOrder="18" locked="false" isInGroup="1020">
+          <controlProperties>
+            <color>2848996</color>
+            <text>Agregar%20servicio%20especial</text>
+          </controlProperties>
+        </control>
+        <control controlID="19" controlTypeID="com.balsamiq.mockups::Icon" x="368" y="153" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="19" locked="false" isInGroup="1020">
+          <controlProperties>
+            <color>0</color>
+            <icon>CircledPlusIcon%7Csmall</icon>
+          </controlProperties>
+        </control>
+        <control controlID="20" controlTypeID="com.balsamiq.mockups::Label" x="593" y="154" w="45" h="20" measuredW="42" measuredH="21" zOrder="20" locked="false" isInGroup="1020">
+          <controlProperties>
+            <color>2848996</color>
+            <text>Borrar</text>
+          </controlProperties>
+        </control>
+        <control controlID="21" controlTypeID="com.balsamiq.mockups::Icon" x="570" y="153" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="21" locked="false" isInGroup="1020">
+          <controlProperties>
+            <color>0</color>
+            <icon>TrashIcon%7Csmall</icon>
+          </controlProperties>
+        </control>
+        <control controlID="22" controlTypeID="com.balsamiq.mockups::CheckBox" x="41" y="193" w="25" h="21" measuredW="26" measuredH="22" zOrder="22" locked="false" isInGroup="1020">
+          <controlProperties>
+            <text/>
+          </controlProperties>
+        </control>
+        <control controlID="23" controlTypeID="com.balsamiq.mockups::CheckBox" x="41" y="224" w="25" h="21" measuredW="26" measuredH="22" zOrder="23" locked="false" isInGroup="1020">
+          <controlProperties>
+            <text/>
+          </controlProperties>
+        </control>
+        <control controlID="24" controlTypeID="com.balsamiq.mockups::CallOut" x="533" y="149" w="34" h="31" measuredW="38" measuredH="37" zOrder="24" locked="false" isInGroup="1020">
+          <controlProperties>
+            <text>B</text>
+          </controlProperties>
+        </control>
+        <control controlID="25" controlTypeID="com.balsamiq.mockups::Label" x="418" y="193" w="152" h="20" measuredW="164" measuredH="21" zOrder="25" locked="false" isInGroup="1020">
+          <controlProperties>
+            <text>Precio%20del%20servicio%20especial</text>
+          </controlProperties>
+        </control>
+        <control controlID="26" controlTypeID="com.balsamiq.mockups::Label" x="418" y="224" w="152" h="20" measuredW="164" measuredH="21" zOrder="26" locked="false" isInGroup="1020">
+          <controlProperties>
+            <text>Precio%20del%20servicio%20especial</text>
+          </controlProperties>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="1021" controlTypeID="__group__" x="145" y="405" w="651" h="266" measuredW="651" measuredH="266" zOrder="25" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::Image" x="31" y="0" w="135" h="90" measuredW="77" measuredH="79" zOrder="0" locked="false" isInGroup="1021">
+          <controlProperties>
+            <text>Foto%20de%20la%20habitacion</text>
+          </controlProperties>
+        </control>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::Label" x="181" y="4" w="-1" h="-1" measuredW="110" measuredH="21" zOrder="1" locked="false" isInGroup="1021">
+          <controlProperties>
+            <text>Tipo%20de%20habitacion</text>
+          </controlProperties>
+        </control>
+        <control controlID="2" controlTypeID="com.balsamiq.mockups::Calendar" x="538" y="4" w="113" h="82" measuredW="96" measuredH="96" zOrder="2" locked="false" isInGroup="1021"/>
+        <control controlID="3" controlTypeID="com.balsamiq.mockups::Label" x="406" y="1" w="-1" h="-1" measuredW="117" measuredH="21" zOrder="3" locked="false" isInGroup="1021">
+          <controlProperties>
+            <text>Fechas%20de%20reserva</text>
+          </controlProperties>
+        </control>
+        <control controlID="4" controlTypeID="com.balsamiq.mockups::Link" x="181" y="62" w="-1" h="-1" measuredW="136" measuredH="18" zOrder="4" locked="false" isInGroup="1021">
+          <controlProperties>
+            <size>11</size>
+            <text>Condiciones%20de%20la%20reserva</text>
+          </controlProperties>
+        </control>
+        <control controlID="5" controlTypeID="com.balsamiq.mockups::Label" x="184" y="32" w="-1" h="-1" measuredW="102" measuredH="21" zOrder="5" locked="false" isInGroup="1021">
+          <controlProperties>
+            <text>Nro%20de%20personas</text>
+          </controlProperties>
+        </control>
+        <control controlID="6" controlTypeID="com.balsamiq.mockups::Label" x="596" y="100" w="-1" h="-1" measuredW="53" measuredH="24" zOrder="6" locked="false" isInGroup="1021">
+          <controlProperties>
+            <color>13576743</color>
+            <size>16</size>
+            <text>Precio</text>
+          </controlProperties>
+        </control>
+        <control controlID="7" controlTypeID="com.balsamiq.mockups::Label" x="445" y="102" w="-1" h="-1" measuredW="136" measuredH="21" zOrder="7" locked="false" isInGroup="1021">
+          <controlProperties>
+            <text>Precio%20de%20la%20habitaci%F3n</text>
+          </controlProperties>
+        </control>
+        <control controlID="8" controlTypeID="com.balsamiq.mockups::CheckBox" x="0" y="34" w="26" h="22" measuredW="26" measuredH="22" zOrder="8" locked="false" isInGroup="1021">
+          <controlProperties>
+            <state>disabled</state>
+            <text/>
+          </controlProperties>
+        </control>
+        <control controlID="9" controlTypeID="com.balsamiq.mockups::FieldSet" x="20" y="134" w="628" h="132" measuredW="200" measuredH="170" zOrder="9" locked="false" isInGroup="1021">
+          <controlProperties>
+            <text>Servicios%20especiales</text>
+          </controlProperties>
+        </control>
+        <control controlID="10" controlTypeID="com.balsamiq.mockups::Image" x="79" y="189" w="41" h="31" measuredW="77" measuredH="79" zOrder="10" locked="false" isInGroup="1021">
+          <controlProperties>
+            <text/>
+          </controlProperties>
+        </control>
+        <control controlID="11" controlTypeID="com.balsamiq.mockups::Label" x="133" y="194" w="115" h="19" measuredW="52" measuredH="21" zOrder="11" locked="false" isInGroup="1021">
+          <controlProperties>
+            <text>Nombre</text>
+          </controlProperties>
+        </control>
+        <control controlID="12" controlTypeID="com.balsamiq.mockups::Label" x="235" y="193" w="82" h="20" measuredW="72" measuredH="21" zOrder="12" locked="false" isInGroup="1021">
+          <controlProperties>
+            <text>Descripci%F3n</text>
+          </controlProperties>
+        </control>
+        <control controlID="13" controlTypeID="com.balsamiq.mockups::Label" x="578" y="192" w="54" h="23" measuredW="53" measuredH="24" zOrder="13" locked="false" isInGroup="1021">
+          <controlProperties>
+            <color>13576743</color>
+            <size>16</size>
+            <text>Precio</text>
+          </controlProperties>
+        </control>
+        <control controlID="14" controlTypeID="com.balsamiq.mockups::Image" x="79" y="220" w="41" h="31" measuredW="77" measuredH="79" zOrder="14" locked="false" isInGroup="1021">
+          <controlProperties>
+            <text/>
+          </controlProperties>
+        </control>
+        <control controlID="15" controlTypeID="com.balsamiq.mockups::Label" x="135" y="225" w="115" h="19" measuredW="52" measuredH="21" zOrder="15" locked="false" isInGroup="1021">
+          <controlProperties>
+            <text>Nombre</text>
+          </controlProperties>
+        </control>
+        <control controlID="16" controlTypeID="com.balsamiq.mockups::Label" x="235" y="224" w="82" h="20" measuredW="72" measuredH="21" zOrder="16" locked="false" isInGroup="1021">
+          <controlProperties>
+            <text>Descripci%F3n</text>
+          </controlProperties>
+        </control>
+        <control controlID="17" controlTypeID="com.balsamiq.mockups::Label" x="578" y="223" w="54" h="23" measuredW="53" measuredH="24" zOrder="17" locked="false" isInGroup="1021">
+          <controlProperties>
+            <color>13576743</color>
+            <size>16</size>
+            <text>Precio</text>
+          </controlProperties>
+        </control>
+        <control controlID="18" controlTypeID="com.balsamiq.mockups::Label" x="390" y="155" w="143" h="20" measuredW="153" measuredH="21" zOrder="18" locked="false" isInGroup="1021">
+          <controlProperties>
+            <color>2848996</color>
+            <text>Agregar%20servicio%20especial</text>
+          </controlProperties>
+        </control>
+        <control controlID="19" controlTypeID="com.balsamiq.mockups::Icon" x="368" y="153" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="19" locked="false" isInGroup="1021">
+          <controlProperties>
+            <color>0</color>
+            <icon>CircledPlusIcon%7Csmall</icon>
+          </controlProperties>
+        </control>
+        <control controlID="20" controlTypeID="com.balsamiq.mockups::Label" x="593" y="154" w="45" h="20" measuredW="42" measuredH="21" zOrder="20" locked="false" isInGroup="1021">
+          <controlProperties>
+            <color>2848996</color>
+            <text>Borrar</text>
+          </controlProperties>
+        </control>
+        <control controlID="21" controlTypeID="com.balsamiq.mockups::Icon" x="570" y="153" w="-1" h="-1" measuredW="24" measuredH="24" zOrder="21" locked="false" isInGroup="1021">
+          <controlProperties>
+            <color>0</color>
+            <icon>TrashIcon%7Csmall</icon>
+          </controlProperties>
+        </control>
+        <control controlID="22" controlTypeID="com.balsamiq.mockups::CheckBox" x="41" y="193" w="25" h="21" measuredW="26" measuredH="22" zOrder="22" locked="false" isInGroup="1021">
+          <controlProperties>
+            <text/>
+          </controlProperties>
+        </control>
+        <control controlID="23" controlTypeID="com.balsamiq.mockups::CheckBox" x="41" y="224" w="25" h="21" measuredW="26" measuredH="22" zOrder="23" locked="false" isInGroup="1021">
+          <controlProperties>
+            <text/>
+          </controlProperties>
+        </control>
+        <control controlID="24" controlTypeID="com.balsamiq.mockups::CallOut" x="533" y="149" w="34" h="31" measuredW="38" measuredH="40" zOrder="24" locked="false" isInGroup="1021">
+          <controlProperties>
+            <text>B</text>
+          </controlProperties>
+        </control>
+        <control controlID="25" controlTypeID="com.balsamiq.mockups::Label" x="418" y="193" w="152" h="20" measuredW="164" measuredH="21" zOrder="25" locked="false" isInGroup="1021">
+          <controlProperties>
+            <text>Precio%20del%20servicio%20especial</text>
+          </controlProperties>
+        </control>
+        <control controlID="26" controlTypeID="com.balsamiq.mockups::Label" x="418" y="224" w="152" h="20" measuredW="164" measuredH="21" zOrder="26" locked="false" isInGroup="1021">
+          <controlProperties>
+            <text>Precio%20del%20servicio%20especial</text>
+          </controlProperties>
+        </control>
+        <control controlID="27" controlTypeID="com.balsamiq.mockups::RoundButton" x="120" y="29" w="326" h="32" measuredW="32" measuredH="32" zOrder="27" locked="false" isInGroup="1021">
+          <controlProperties>
+            <backgroundAlpha>0.75</backgroundAlpha>
+            <borderColor>13576743</borderColor>
+            <color>15374745</color>
+            <shape>rectangle</shape>
+            <text>No%20disponible%20en%20las%20fechas%20elegidas</text>
+          </controlProperties>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+  </controls>
+</mockup>

@@ -1,0 +1,120 @@
+{% extends "portal/menu_views/base_menu.html"  %}
+{% load i18n %}
+{% load portal_tags %}
+{% load thumbnail %} 
+{% block title %}
+    {% blocktrans %}Contest Details{% endblocktrans %}    
+{% endblock %}
+
+{% block head %}
+  {% include "portal/tags/sharethis/standard.html" %}  
+{% endblock %}
+
+{% block wall_menu %}
+<div class="wall_menu wall_menu_sponsors span-24 last">
+{% endblock %}
+
+{% block center_content %}
+<div class="span-13 last breadcrumbs">
+    <label class="link_all_green"><a href="{% url portal_sponsors %}">{% blocktrans %}Organizers & Sponsors{% endblocktrans %} ></a></label>
+    {% blocktrans %}Contest Details{% endblocktrans %}
+</div>
+
+	<div class="span-14 last sponsors_organizers">
+	  <div class="span-14 last">
+	    <h1>{% blocktrans %}Contest Details{% endblocktrans %}</h1>
+	  </div>
+
+          {% get_actual_and_next_temporadas actual_temp next_temp %}
+          {% if next_temp or actual_temp %}
+	  <div class="span-14 last push_down_30">
+	    <div class="span-2 contest_details_big_numbers smooth_green">
+	      <h6>1</h6>
+	    </div>
+    	    <div class="prepend-1 span-11 last">
+            <h2>{% blocktrans %}What's Happening Now:{% endblocktrans %}</h2>            
+            {% if next_temp %}
+                {% blocktrans %}We're collecting entries for{% endblocktrans %} {% blocktrans %}Voting Period{% endblocktrans %} {{ next_temp.get_order_number }}.
+            {% endif %}
+            {% if actual_temp %}
+                {% blocktrans %}Vote now for your favorites in{% endblocktrans %} {% blocktrans %}Voting Period{% endblocktrans %} {{actual_temp.get_order_number}}
+            {% endif %}	      
+	    </div>	    
+	  </div>
+          {% endif %}
+	
+	  <div class="span-14 last push_down_30">
+	    <div class="span-2 contest_details_big_numbers smooth_green">
+	      <h6>{% if next_temp or actual_temp %}2{% else %}1{% endif %}</h6>
+	    </div>
+    	    <div class="prepend-1 span-11 last">
+              <h2>{% blocktrans %}How to Participate{% endblocktrans %}</h2>
+              <ol>
+                <li><strong>{% blocktrans %}Submit your photo{% endblocktrans %}</strong><br/>
+	      {% blocktrans %}Sign in or register and upload your photos of Machu Picchu. You
+	      may enter up to 5 each week.{% endblocktrans %}
+                </li>
+                <li><strong>{% blocktrans %}Vote for your favorites{% endblocktrans %}</strong><br/>
+	      {% blocktrans %}Even if you're never visited Machu Picchu, makue sure your voice is heard.
+	      Vote for up to 5 photos each week. You could even win a prize if the photos
+	      you choose win.{% endblocktrans %}
+                </li>
+                <li><strong>{% blocktrans %}Sign in each week{% endblocktrans %}</strong><br/>
+	      {% blocktrans %}Don't forget to come back each week. You may submit and vote for 5 photos
+	      each week.{% endblocktrans %}
+                </li>
+              </ol>
+	    </div>	    
+	  </div>	
+	
+	  <div class="span-14 last push_down_30">
+	    <div class="span-2 contest_details_big_numbers smooth_green">
+	      <h6>{% if next_temp or actual_temp %}3{% else %}2{% endif %}</h6>
+	    </div>
+    	    <div class="prepend-1 span-11 last">
+                <h2>{% blocktrans %}A Wonder of a Prize... a Wonder of a Trip{% endblocktrans %}</h2>
+                <strong>{% blocktrans %}Grand Prize Winner{% endblocktrans %}</strong><br/>
+                {% blocktrans %}One lucky winner will win{% endblocktrans %}
+                <ul>
+                  <li>{% blocktrans %}11-day/10-night luxury tour for 2 to Machu Picchu and Cusco, as well as Lima, Arequipa, and Colca Valley{% endblocktrans %}.</li>
+                  <li>{% blocktrans %}Accommodations at the Orient-Express hotel chain{% endblocktrans %}.</li> 
+                  <li>{% blocktrans %}Journey to Machu Picchu in the luxurious Hiram Bingham train by PeruRail{% endblocktrans %}.</li>
+                  <li>{% blocktrans %}Travel purse of $2000{% endblocktrans %}.</li>
+                </ul>	      
+                <strong>{% blocktrans %}Photo Category Winners{% endblocktrans %}</strong><br/>
+                {% blocktrans %}6 category finalists will win{% endblocktrans %}:
+                <ul>
+                  <li>{% blocktrans %}6-day/5-night trip for 2 to Cusco, Machu Picchu and Lima{% endblocktrans %}.</li>
+                  <li>{% blocktrans %}Accommodations in high-end hotels in Lima and Cusco{% endblocktrans %}.</li> 
+                  <li>{% blocktrans %}Visit Machu Picchu in the Vistadome train by PeruRail{% endblocktrans %}.</li> 
+                  <li>{% blocktrans %}Travel purse of $1,500{% endblocktrans %}.</li>
+                </ul>
+                <strong>{% blocktrans %}Keep voting and win!{% endblocktrans %}</strong><br/>
+                <ul>
+                  <li>{% blocktrans %}At the end of each Voting Period, we will hold a drawing for 10 Sony Cyber-shot&reg; digital cameras! Each vote earns you an entry in the drawing.{% endblocktrans %}</li> 
+                </ul>
+                <strong><em>{% blocktrans %}Machu Picchu 100 Special Mentions{% endblocktrans %}</strong></em><br/>
+                {% blocktrans %}A panel of Professional Photographer Judges will elect and award honorable mentions to the best photo best photo in the following special photo genres:{% endblocktrans %}
+                <ul>
+                  <li>{% blocktrans %}Professional Photography{% endblocktrans %}</li> 
+                  <li>{% blocktrans %}Panoramic Photographs{% endblocktrans %}</li> 
+                </ul>                 
+	    </div>	    
+	  </div>
+	
+	  <div class="span-14 last push_down_30">
+	    <div class="span-2 contest_details_big_numbers smooth_green">
+	      <h6>{% if next_temp or actual_temp %}4{% else %}3{% endif %}</h6>
+	    </div>
+    	    <div class="prepend-1 span-11 last">
+            <h2>{% blocktrans %}Have a Question?{% endblocktrans %}</h2>            
+                <ul>
+                  <li class="link_all_green">{% blocktrans %}See our{% endblocktrans %} <a class="no_decoration" href="{% url portal_faqs %}">{% blocktrans %}FAQ's{% endblocktrans %}</a></li>
+                  <li class="link_all_green">{% blocktrans %}See the{% endblocktrans %} <a class="no_decoration" href="{% url portal_bases %}">{% blocktrans %}Official Rules{% endblocktrans %}</a></li>
+                </ul>          
+	    </div>	    
+	  </div>        
+        
+	</div>	  
+
+{% endblock %}

@@ -1,0 +1,239 @@
+{% extends 'fotos/navegar_foto_publico/base_perfil.html' %}
+{% load i18n %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/jquery.lightbox-0.5.css" media="screen" />
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.lightbox-0.5.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            // Puntuar la foto
+            $("#me_gusta").click(function(){
+                json_url = "{% url json_me_gusta foto.id %}";
+                $.getJSON(json_url, function(rpta) {
+                    if(rpta.maximo){
+                        $("#me_gusta").before("<spam>{% blocktrans %}Ya utilizaste tus 5 votos por esta temporada{% endblocktrans %}</spam>");
+                        $("#me_gusta").remove();                        
+                    }
+                    else{
+                        $("#me_gusta").before("<spam>{% blocktrans %}Esta foto te gusta{% endblocktrans %}</spam>");
+                        $("#me_gusta").remove();
+                        $(".fans").html(rpta.fans); 
+                    }
+                });
+            });
+            
+            // Agregar la foto a los favoritos
+            $("#add_favoritos").click(function(){
+                json_url = "{% url json_add_favoritos foto.id %}";
+                $.getJSON(json_url, function(rpta) {
+                    if(rpta.response){
+                        $("#add_favoritos").before("<spam>{% blocktrans %}Esta foto está en tus favoritos{% endblocktrans %}</spam>");
+                        $("#add_favoritos").remove();
+                    }
+                    else{
+                        $("#add_favoritos").before("<spam>{% blocktrans %}Ya elegiste tus 5 favoritos de esta temporada{% endblocktrans %}</spam>");
+                        $("#add_favoritos").remove();                        
+                    }
+                });
+            });
+            //muestra y esconde el form para compartir fotos por correo
+            $("#compartir").click(function(event){
+                event.preventDefault();
+                $('#form_compartir').toggle("slow");
+            });
+            //muestra y esconde los comentarios de la foto
+            $("#ver_comentarios").click(function(event){
+                event.preventDefault();
+                $('#comentarios').toggle("slow");
+            });
+            
+            $(".compartir-url").click(function(){
+                $(this).focus();
+                $(this).select();
+            });
+            
+        });
+        $(function() {
+                $('a.lightbox').lightBox({
+                    imageLoading:			'{{MEDIA_URL}}images/jquery-lightbox-0.5/lightbox-ico-loading.gif',		
+                    imageBtnPrev:			'{{MEDIA_URL}}images/jquery-lightbox-0.5/lightbox-btn-prev.gif',			
+                    imageBtnNext:			'{{MEDIA_URL}}images/jquery-lightbox-0.5/lightbox-btn-next.gif',			
+                    imageBtnClose:			'{{MEDIA_URL}}images/jquery-lightbox-0.5/lightbox-btn-close.gif',		
+                    imageBlank:				'{{MEDIA_URL}}images/jquery-lightbox-0.5/lightbox-blank.gif',			
+                    
+                }); 
+        });        
+    </script>
+{% endblock %}
+
+{% block menu_left %}
+<li><a href="{% url fotos_perfil_publico usuario.id %}">{% blocktrans %}Perfil{% endblocktrans %}</a></li>
+<li class="selected"><a href="{% url fotos_ver_fotos_public usuario.id %}">{% blocktrans %}Fotos{% endblocktrans %}</a></li>
+<li class="last"><a href="{% url fotos_ver_amigos_public usuario.id %}">{% blocktrans %}Amigos{% endblocktrans %}</a></li>
+{% endblock %}
+
+{% block body1 %}
+
+    <hr class="profile_separator"/>
+    <h2>{% blocktrans %}Fotos{% endblocktrans %}</h2>
+    <p class="h2_extra">{% blocktrans %}a{% endblocktrans %} <spam class="fans">{% if user in fans %} {{ fans|length }} {% else %} ? {% endif %}</spam> {% blocktrans %}persona{% endblocktrans %}{{fans|pluralize}} {% blocktrans %}le{% endblocktrans %}{{fans|pluralize}} {% blocktrans %}gusta esta foto{% endblocktrans %} 
+        {% if user.is_authenticated %}
+            {% if user in fans %}
+            <spam>{% blocktrans %}Esta foto te gusta{% endblocktrans %}</spam>
+            {% else %}
+                {% if not self_user %}
+                    <a id="me_gusta" class="submit">{% blocktrans %}Votar{% endblocktrans %}</a>
+                {% endif %}
+            {% endif %}
+        {% endif %}    
+    </p>
+    <div class="image_detail">
+      <a href="#" class="anterior">
+        <!--<img src="{{MEDIA_URL}}style_imgs/prev_image_arrow.png"/>-->
+      </a>
+      <div class="main_frame">
+        {% load thumbnail %}
+        <!--<img src="{{MEDIA_URL}}dump_images/machu-picchu.jpg" width="360"/>-->
+        <a href="{{ MEDIA_URL }}{{ foto.foto}}" class="lightbox" 
+	   title="{{ foto.titulo }}">
+          <img src="{% thumbnail foto.foto "360x360" %}" width="360" 
+	       height="360" alt="{{ foto.titulo }}" /></a>
+</a>
+      </div>
+      <a href="#" class="siguiente">
+        <!--<img src="{{MEDIA_URL}}style_imgs/next_image_arrow.png"/>-->
+      </a>
+      <div class="clear"></div>
+    </div>    
+    
+    <table class="image_information">
+    <tr>
+      <td><label>{% blocktrans %}Título{% endblocktrans %}:</label> {{foto.titulo}}</td>
+      <td class="rightcol">
+                <div class="favoritos">
+                {% if user.is_authenticated %}
+                    {% if es_favorito %}
+                    <spam>{% blocktrans %}Esta foto está en tus favoritos{% endblocktrans %}</spam>
+                    {% else %}
+                    <a id="add_favoritos" class="submit" href="#">{% blocktrans %}Agregar a favoritos{% endblocktrans %}</a>
+                    {% endif %}
+                {% else %}
+                    <!--<spam>Para agregar esta foto a tus favoritos necesitas iniciar sesión</spam>-->
+                {% endif %}
+                </div>
+      </td>
+    </tr>
+    <tr>
+      <td><label>{% blocktrans %}Comentarios{% endblocktrans %}</label> {{comentarios|length}}</td>
+      <td class="rightcol">
+        <label>{% blocktrans %}URL de la foto{% endblocktrans %}:</label> 
+        <input class="compartir-url" type="text" value="http://{{domain}}{% url fotos_navegar_foto_publico foto.codigo_user.id foto.id %}"
+               readonly="readonly"/></td>
+    </tr>
+    <tr>
+      <td><label>{% blocktrans %}Votos{% endblocktrans %}:</label> <spam class="fans">{% if user in fans %} {{ fans|length }} {% else %} ? {% endif %}</spam> </td>
+      <td class="rightcol">
+        <label>{% blocktrans %}Insertar URL{% endblocktrans %}:</label> 
+        <input class="compartir-url" type="text" value="<a href='http://{{domain}}{% url fotos_navegar_foto_publico foto.codigo_user.id foto.id %}'> <img width=200px src='{{foto.foto.url}}'/> </a>" 
+               readonly="readonly"/></td>
+    </tr>
+    <tr>
+      <td><label>{% blocktrans %}Vistas{% endblocktrans %}:</label> {{ foto.vistas }}</td>
+      <td class="rightcol">
+        <script type="text/javascript" src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
+        <fb:like href="http://mp100.alwaysdata.net/" align='right' layout="button_count" show_faces="true" width=120px action="recommend" font="arial" colorscheme="dark"></fb:like>
+      </td>
+    </tr>
+    <tr>
+      <td><label>{% blocktrans %}Favorito{% endblocktrans %}:</label><spam id="n_favoritos"> {{total_favoritos}}</spam</td>
+      <td class="rightcol">
+        {% if user.is_authenticated %}
+            <a id="compartir" class="submit">{% blocktrans %}Compartir esta foto por correo{% endblocktrans %}:</a>
+        {% endif %}
+      </td>
+    </tr>
+    </table>
+
+    <form id="form_compartir" method="post" action="" style="display:none;"/>
+	<table class="image_information">               
+           <tr>
+                <td>
+                {{compartir_form.email.label_tag}}
+                    {{ compartir_form.email }}
+                    {{ compartir_form.email.errors }}
+                </td>
+            </tr>
+            <tr>
+                <td>{{compartir_form.asunto.label_tag}}
+                    {{ compartir_form.asunto }}
+                    {{ compartir_form.asunto.errors }}
+                </td>
+            </tr>
+            <tr>
+                <td><input type="submit" class="button" value="{% blocktrans %}Compartir{% endblocktrans %}" /></td>
+            </tr>
+        </table>
+    </form>
+    
+    {% if is_comentado %}
+	    <p>{% blocktrans %}Tu comentario ha sido enviado, está pendiente de moderación.{% endblocktrans %} </p>
+	{% endif %}
+
+    <!--<div class="comentarios">-->
+        <!-- Formulario para dejar un comentario -->
+        {% if user.is_authenticated %}
+
+        <form action="" method="post">      
+	    <table class="image_information">
+	      <tr>
+		<td><label>{% blocktrans %}Agregar un comentario{% endblocktrans %}:</label></td>
+		<td class="rightcol">
+		  <a herf="#" class="submit" id="ver_comentarios">{% blocktrans %}Ver Comentarios{% endblocktrans %}</a></td>
+	      </tr>
+	      <tr>
+		<td colspan="2">
+		  {{form.texto}}
+		</td>
+	      </tr>
+	      <tr>
+		<td>
+		  <input class="button" type="submit" 
+			 value="{% blocktrans %}Enviar comentario{% endblocktrans %}"/>
+		</td>
+		<td></td>
+	      </tr>
+	    </table>
+	   
+        </form>
+        {% else %}
+        <!--<spam>Para dejar tu comentario debes iniciar sesión</spam>-->
+        {% endif %}
+
+
+        <div id="comentarios" >
+            <hr class="profile_separator"/>
+            <h2>{% blocktrans %}Comentarios{% endblocktrans %}</h2>
+            <!--<spam>{{ comentarios|length }} comentario{{ comentarios|pluralize }} en esta foto.</spam>-->
+            {% if comentarios %}
+                {% for comentario in comentarios %}
+                  <div class="user_pic">
+                    <a href="#">
+                      <img src="{% thumbnail comentario.user.get_profile.foto "75x75" %}" width="75" height="75" alt="{{ comentario.user.username }}" />
+                    </a>
+                    <p class="caption"><a href="#">{{ comentario.user.first_name }}</a></p>
+                  </div>    
+                  <div class="comment-box">
+                    {{ comentario.texto }}
+                  </div>
+                   
+                  <div class="clear"></div>
+                  <hr class="profile_separator feeds"/>                        
+                {% endfor %}
+            {% else %}
+                <ul class="image_list wide main">
+                    <li>{% blocktrans %}Esta foto todavía no tiene comentarios.{% endblocktrans %}</li>
+                </ul>                
+            {% endif %}
+        </div>
+
+{% endblock %}

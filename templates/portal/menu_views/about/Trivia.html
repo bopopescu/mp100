@@ -1,0 +1,103 @@
+{% extends "portal/menu_views/base_menu.html" %}
+{% load i18n %}
+
+
+{% block title %} 
+  {% blocktrans %}Trivia{% endblocktrans %}
+{% endblock %}
+
+{% block head %}
+    <link href='{{MEDIA_URL}}css/jquiz.css' type='text/css' rel='stylesheet' />
+    <script type="text/javascript"">
+        var word1 = "{% blocktrans %}You got {% endblocktrans %}";
+        var word2 = "{% blocktrans %} out of {% endblocktrans %}";
+        var word3 = "{% blocktrans %} correct!{% endblocktrans %}";
+        var word4 = "{% blocktrans %}INCORRECT{% endblocktrans %}";
+        var word5 = "{% blocktrans %}CORRECT{% endblocktrans %}";
+    </script>
+    
+    <script type="text/javascript" src="{{MEDIA_URL}}js/jquiz.js"></script>
+{% endblock %}
+
+
+{% block center_content %}
+
+<div class="span-13 last breadcrumbs">
+    <label class="link_all_green"><a href="{% url portal_about_history %}">{% blocktrans %}Machu Picchu & Peru{% endblocktrans %} ></a></label>
+    {% blocktrans %}Machu Picchu{% endblocktrans %}
+</div>
+
+
+<div class="span-14 last winners_menu" id="about_bar">
+  <ul>
+    <li class="light">
+      <a href="{% url portal_about_history %}">{% blocktrans %}Machu Picchu{% endblocktrans %}</a>
+    </li>
+    <li class="light"><a href="{% url portal_about_history 2 %}">{% blocktrans %}Peru{% endblocktrans %}</a></li>
+    <li class="selected"><a href="{% url portal_about_history 3 %}">{% blocktrans %}Trivia{% endblocktrans %}</a></li>
+    <li class="light"><a href="{% url portal_about_history 4 %}">{% blocktrans %}Videos{% endblocktrans %}</a></li>
+  </ul>
+</div>
+<br/>
+<!--<ul class="about-top-menu">
+  <li><a href="#">{% blocktrans %}Incan Empire{% endblocktrans %}</a></li>
+  <li><a href="#">{% blocktrans %}Spanish Conquerors{% endblocktrans %}</a></li>
+  <li><a href="#">{% blocktrans %}Discovery{% endblocktrans %}</a></li>
+  <li><a href="#">{% blocktrans %}New 7 wonders{% endblocktrans %}</a></li>
+</ul>-->
+
+<!--<div class="span-14 last about-content relative_push_down_10">-->
+    <div id="jquizremarks">
+      <p id="jquiztotal">&nbsp;</p>
+    </div>
+    
+    <ol id="jquiz">    
+      <li>
+        <p>{% blocktrans %}When was Machu Picchu built?{% endblocktrans %}</p>
+        <ul>
+          <li>1310</li>
+          <li class="correct">1450</li>
+          <li>1511</li>
+          <li>1600</li>
+          <li>1911</li>  
+        </ul>
+        <div class="explanation hidden">
+          <p>{% blocktrans %}Machu Picchu was built around 1450, at the height of the Inca Empire. It was abandoned just over 100 years later, in 1572, as a belated result of the Spanish Conquest.{% endblocktrans %}</p>
+        </div>
+      </li>
+      <li>
+        <p>{% blocktrans %}Machu Picchu is often referred to as {% endblocktrans %}<em>{% blocktrans %}the Lost City of the Inca{% endblocktrans %}s</em>.</p>
+        <ul>
+          <li class="correct">{% blocktrans %}True{% endblocktrans %}</li>
+          <li>{% blocktrans %}False{% endblocktrans %}</li>
+        </ul>
+        <div class="explanation hidden">
+          <p>{% blocktrans %}The Incas started building Machu Picchu around AD 1400 but abandoned it as an official site for the Inca rulers a century later at the time of the Spanish Conquest. Although known locally, it was unknown to the outside world until 1911, when American historian Hiram Bingham brought Machu Picchu to international attention. Since then, Machu Picchu has become an icon of the Inca Empire and a popular destination for tourists.{% endblocktrans %}</p>
+        </div>
+      </li>
+      <li>
+        <p>{% blocktrans %}Machu Picchu's architecture included design details that helped protect it's building from collapsing in earthquakes.{% endblocktrans %}</p>
+        <ul>
+          <li class="correct">{% blocktrans %}True{% endblocktrans %}</li>
+          <li>{% blocktrans %}False{% endblocktrans %}</li>  
+        </ul>
+        <div class="explanation hidden">
+          <p>{% blocktrans %}The architectural use of trapezoidal shapes protected Machu Picchu from the seismic movements, which are common in the region. Doors and windows are trapezoidal and tilt inward from bottom to top; corners usually are rounded; inside corners often incline slightly into the rooms; and "L"-shaped blocks often were used to tie outside corners of the structure together. These walls do not rise straight from bottom to top but are offset slightly from row to row.{% endblocktrans %}</p>
+        </div>
+      </li>
+      <li>
+        <p>{% blocktrans %}Machu Picchu was built for military purposes.{% endblocktrans %}</p>
+        <ul>
+          <li>{% blocktrans %}True{% endblocktrans %}</li>
+          <li class="correct">{% blocktrans %}False{% endblocktrans %}</li>
+        </ul>
+        <div class="explanation hidden">
+          <p>{% blocktrans %}Although not built for military purposes, Machu Picchu does have a very defendable location. The city of Machu Picchu is most often referred to as "citadel", which makes us think of a fortress, which Machu Picchu is not. Its isolation and the way it was planned and constructed clearly reflects a civilian use. In fact, according to archeologists, Machu Picchu was likely a religious sanctuary of the Incas. Many believe that it was kept secret from the most of the Incan population.{% endblocktrans %}</p>
+        </div>
+      </li>
+    </ol>
+<!--</div>-->
+
+{% endblock %}
+
+

@@ -1,0 +1,57 @@
+{% extends 'servicios/ser_base.html' %}
+
+{% load i18n %}
+
+{% block head %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}js/jquery.jqmodal/jqModal.css" />
+
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.jqmodal/jqModal.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/servicios/ser_perfil_privado_base.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            {% if cambio_form.is_bound and not cambio_form.is_valid %}
+                $("#cambio_password").jqmShow();
+            {% endif %}
+        })
+    </script>
+{% endblock %}
+
+{% block ser_content %}
+    <div class="span-20 last append-bottom">
+        {# Menu principal del administrador de servicio #}
+        <div class="span-20 last public_header">
+            <h1 class="span-11">{% blocktrans %}Welcome manager of{% endblocktrans %} {{ servicio.tipo_servicio }} {{ servicio.nombre }}</h1>
+            <div class="span-3">
+                <span class="ser_link cambio_password_link">{% blocktrans %}Change password{% endblocktrans %}</span>
+            </div>
+            <div class="span-2">
+            {% block opciones %}
+                <a href="{{ servicio.get_absolute_url }}">{% blocktrans %}See profile{% endblocktrans %}</a>
+            {% endblock %}
+            </div>
+            <div class="span-3">
+                <a href="{% url ser_cerrar_sesion %}">{% blocktrans %}Logout{% endblocktrans %}</a>
+            </div>
+        </div>
+
+        {% block body_ext %}{% endblock %}
+    </div>
+
+    {# POPUPS #}
+    {# Formulario para el cambio de contraseña: popup #}
+    <div id="cambio_password" class="jqmWindow services_box">
+        <h2>{% blocktrans %}Change password{% endblocktrans %}</h2>
+        <div class="push-1 services_box_content register_form">
+            <form action="" method="post">
+                <ul>
+                    {{ cambio_form.as_ul }}
+                </ul>
+                <div class="right">
+                    <span class="closeClass ser_link">{% blocktrans %}Close{% endblocktrans %}</span> |
+                    <input type="submit" value="{% blocktrans %}Save{% endblocktrans %}" name="cambio" />
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends "fotos/ver_votos/base_profile.html"  %}
+
+{% block body1 %}
+    <hr class="profile_separator"/>
+    <h2>Mis votos</h2>
+    {% if lista_fotos.object_list %}
+        {% load thumbnail %}
+        {% for fotos in lista_fotos.object_list %}
+            <ul class="image_list wide main">
+            {% for foto in fotos %}
+                <li>
+                    <a class="resultados_search" href="{% url fotos_navegar_foto foto.codigo_user.username foto.id %}">
+                        <img src="{% thumbnail foto.foto 75x75 crop="smart" upscale %}" width=75px height=75px alt="foto" title="Ver foto" /></a>
+                        <p>
+                            {{foto.titulo}}<br/>
+                            Por:<br/>
+                            {{foto.codigo_user.first_name}}
+                        </p>
+                </li>
+            {% endfor %}
+            </ul>
+            <div class="clear"></div>
+            <hr class="profile_separator"/>  
+        {% endfor %}
+        <ul class="image_list wide main">
+            <li>
+            <div class="pagination">
+                <span class="step-links">
+                    {% if lista_fotos.has_previous %}
+                        <a href="?page={{ lista_fotos.previous_page_number }}">previous</a>
+                    {% endif %}
+            
+                    <span class="current">
+                        P&aacute;gina {{ lista_fotos.number }} de {{ lista_fotos.paginator.num_pages }}.
+                    </span>
+            
+                    {% if lista_fotos.has_next %}
+                        <a href="?page={{ lista_fotos.next_page_number }}">next</a>
+                    {% endif %}
+                </span>
+            </div>
+            </li>
+        </ul>
+    {% else %}
+        <ul class="image_list wide main">
+            <li>No se encontraron resultados.</li>
+        </ul>
+    {% endif %}
+
+{% endblock %}

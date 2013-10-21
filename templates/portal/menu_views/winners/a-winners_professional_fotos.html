@@ -1,0 +1,113 @@
+{% extends "portal/menu_views/base_menu.html"  %}
+{% load i18n %}
+{% load portal_tags %}
+{% load thumbnail endless %} 
+{% block title %}
+  {% blocktrans %}Professional Photos{% endblocktrans %}
+{% endblock %}
+
+{% block head %}
+  {% include "portal/tags/sharethis/standard.html" %}
+{% endblock %}
+
+
+{% block center_content %}
+<div class="span-16 last breadcrumbs">
+    <label class="link_all_green">
+	<a href="{% url portal_winners %}">{% blocktrans %}Winners{% endblocktrans %} ></a>
+    </label>
+    <label class="link_all_green">
+	<a href="{% url portal_mp100_special_awards %}">{% blocktrans %}Machu Picchu 100 Special Awards{% endblocktrans %} ></a>
+    </label>
+    <label class="link_all_green">
+	<a href="{% url portal_professional_intro %}">{% blocktrans %}Professional Photography{% endblocktrans %} ></a>
+    </label>
+    {% blocktrans %}Professional Photo Entries{% endblocktrans %}
+</div>
+<div class="span-14 last winners push_down_25">
+  <div class="span-9 last">
+    <h1>{% blocktrans %}Photo Contest{% endblocktrans %}</h1>
+    <h2>{% blocktrans %}I was in Machu Picchu{% endblocktrans %}</h2>
+    <h3>{% blocktrans %}A Photographic Wonder{% endblocktrans %}</h3>
+  </div>
+  <div class="span-9 last special_award_word">
+    <h1>{% blocktrans %}Special Awards{% endblocktrans %}</h1>
+  </div>
+</div>
+<div class="span-14 last winners_profesionalEntriesPositionGreenArea">
+    <span class="profesionalCategory_word">{% blocktrans %}Professional Photo Entries{% endblocktrans %}</span>
+    <div class="span-14 winners_MP100_SA_bottom_green_box">    
+    {% blocktrans %}Winner  to  be  announced  on August  26,  2011!   A  panel  of  professional photographers  will  select  the  best  Professional  Photograph  of  Machu Picchu entry among  the below entries.{% endblocktrans %}
+    </div>
+</div>
+<div class="span-14 last gallery_menu">
+    <span>{% blocktrans %}Gallery{% endblocktrans %}</span>
+</div>
+
+<div class="span-14 last ">
+  <div class="span-14 last pull_up_20">
+    <form class="" action="" method="get">{% csrf_token %}
+      <div class=" span-4 all_to_left fixed_height_20">
+	{{form.texto}}
+      </div>
+      <div class=" span-7 all_to_middle fixed_height_20">
+	<!--<label for="id_categoria" class="special_gray">Categories</label>-->
+	<!--{{form.categoria}}-->
+      </div>
+      <div class=" span-3 all_to_right last fixed_height_20 push_down_6">
+	<input class="cute_green_button" type="submit" value="{% blocktrans %}Search{% endblocktrans %}">
+      </div>	    
+    </form>
+  </div>
+
+    <div class="span-14 last all_to_right pagination_links">
+    {% comment %}
+    {% if lista_fotos.object_list %}  
+      {% if lista_fotos.has_previous %}
+	<a href="?page={{ lista_fotos.previous_page_number }}">{% blocktrans %}previous{% endblocktrans %}</a>
+      {% endif %}
+      {% blocktrans with lista_fotos.number as n and lista_fotos.paginator.num_pages as np %}Page {{ n }} of {{ np }}{% endblocktrans %}.
+      {% if lista_fotos.has_next %}
+	<a href="?page={{ lista_fotos.next_page_number }}">{% blocktrans %}next{% endblocktrans %}</a>
+      {% endif %}
+    {% endif %}
+    {% endcomment %}
+    {% paginate lista_fotos %}
+    {% show_pages %}    
+    </div>
+    
+{% if lista_fotos %}       
+  <div class="span-14 last">
+    <ul class="image_list wide main">
+      {% for usuario in lista_fotos %}
+	  <li>
+	    <a class="resultados_search" href="{% url portal_photo_vote_professional usuario.codigo_user.id usuario.id %}">
+	      <img width=122px height=116px src="{% thumbnail usuario.foto '122x116' %}" alt="{{usuario.titulo}}" title="{% blocktrans %}Check it out{% endblocktrans %}"/>
+	    </a>			
+	  </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="span-14 last all_to_right pagination_links">
+  {% comment %}
+  {% if lista_fotos.has_previous %}
+    <a href="?page={{ lista_fotos.previous_page_number }}">{% blocktrans %}previous{% endblocktrans %}</a>
+  {% endif %}
+  {% blocktrans with lista_fotos.number as n and lista_fotos.paginator.num_pages as np %}Page {{ n }} of {{ np }}{% endblocktrans %}.
+  {% if lista_fotos.has_next %}
+    <a href="?page={{ lista_fotos.next_page_number }}">{% blocktrans %}next{% endblocktrans %}</a>
+  {% endif %}
+  {% endcomment %}
+  {% show_pages %}
+  </div>	  	
+{% else %}
+  <div class="span-14 last">
+    {% blocktrans %}There are no results.{% endblocktrans %}
+  </div>
+{% endif %}    
+
+</div>
+
+
+{% endblock %}

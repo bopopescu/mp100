@@ -1,0 +1,113 @@
+{% extends "portal/menu_views/noticias/base_noticias.html"  %}
+{% block ini %}
+    {% load thumbnail %}
+    {% load banners %}
+    {% load i18n %}
+{% endblock %}
+
+{% block body %}
+
+<body>  
+    {% block top_form %}
+        {{ block.super }}
+    {% endblock %}
+
+<div class="wide_notices_header_bottom">
+  <div class="container"></div>
+</div>
+
+<div class="wide_main_title">
+  <div class="container">
+    <div class="span-24 last contet_header">
+      <div class="span-24  last header_ads">
+	<img width="950"  src="{{MEDIA_URL}}dump_images/adv_950.png" 
+	     alt="950px advertisement"/>
+	<!--{% block banner1 %} {% banners "H" %} {% endblock %}-->        
+      </div>
+      <div class="span-24 last content_box">
+	<h1>Machupicchu 100</h1>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="pre_title_h_bar">
+  <div class="container"></div>
+</div>
+
+<div class="post_contet_box_header">
+  <div class="container">
+    <h2>{% blocktrans %}Noticias{% endblocktrans %}</h2>
+  </div>
+</div>
+
+<div class="main_content">
+  <div class="container">
+    <div class="span-11 notice-content append-1">
+      {% for object in object_list %}
+	  <p>
+	      <h3>{{object.titulo}}</h3>
+	      {% blocktrans %}Publicado el{% endblocktrans %}: {{object.fecha}}<br/>
+	      {{object.descripcion|truncatewords_html:"30"}}
+	  </p>
+	  <p class="view_more"><a href="{% url portal_noticia_detail object.id %}"> {% blocktrans %}Leer mas{% endblocktrans %} </a> </p>
+	  <hr class="notice_separator">
+      {% endfor %}
+      
+      <br/>
+  
+      {% if is_paginated %}
+	  <div class="pagination">
+	      <span class="step-links">
+		  {% if page_obj.has_previous %}
+		      <a href="?page={{ page_obj.previous_page_number }}">{% blocktrans %}anterior{% endblocktrans %}</a>
+		  {% endif %}
+      
+		  <span class="current">
+		      {% blocktrans with page_obj.number as pn and paginator.num_pages as np %}Página {{ pn }} de {{ np }}{% endblocktrans %}.
+		  </span>
+      
+		  {% if page_obj.has_next %}
+		      <a href="?page={{ page_obj.next_page_number }}">{% blocktrans %}siguiente{% endblocktrans %}</a>
+		  {% endif %}
+	      </span>
+	  </div>
+      {% endif %}    
+    
+    </div>
+
+    <div class="span-6 prepend-1 notice_menu">
+      <ul class="menu_bar">
+          <li class="first"><a href="{% url main_portal %}">{% blocktrans %}Inicio{% endblocktrans %}</a></li>
+          <li class="second"><a href="{% url portal_sobre_MP %}">{% blocktrans %}Sobre Machu Picchu{% endblocktrans %}</a></li>
+          <li class="third"><a href="{% url portal_galeria_vote %}">{% blocktrans %}Galería de Imágenes{% endblocktrans %}</a></li>
+          <li class="fourth"><a href="{% url portal_ver_bases %}">{% blocktrans %}Información y bases del concurso{% endblocktrans %}</a></li>
+          <li class="fifth"><a href="{% url portal_organizadores_auspiciadores %}">{% blocktrans %}Organizadores y auspiciadores{% endblocktrans %}</a></li>
+          <li class="sixth"><a href="{% url portal_rrss %}">{% blocktrans %}Responsabilidad Social{% endblocktrans %}</a></li>            
+      </ul>
+      <div class="clear"></div>
+      <h3>{% blocktrans %}Concurso de Fotografia para aficionados{% endblocktrans %}</h3>
+      <a href="#">
+  	<img src="{{MEDIA_URL}}dump_images/machu-picchu-center.jpg" alt="machu picchu" 
+	     width="210"/>
+      </a>
+      <h2>{% blocktrans %}YO ESTUVE...{% endblocktrans %} </h2>
+      <h2>{% blocktrans %}EN MACHU PICCHU{% endblocktrans %}</h2>
+      <br/>
+    </div>
+
+    <div class="span-4 prepend-1 last vertical_adds">
+      <img alt="advertisement" src="{{MEDIA_URL}}dump_images/adv_150_500.png"/>
+      <!--{% block banner2 %} {% banners "V" %} {% endblock %}-->
+    </div>
+  </div>
+</div>
+<div class="wide_footer">
+  <div class="container">
+    <div class="span-24 last">
+      <p>copyrigth©2011 quimeraONLIFE</p>
+    </div>
+  </div>
+</div>
+ 
+</body>
+{% endblock %}

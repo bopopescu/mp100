@@ -1,0 +1,33 @@
+{% load i18n %}
+<table border=0 width=100% style=" padding: 10px 0px 10px 0px; background-color:black; " >
+	<tr>
+		<td align= "center" background=http://bcnloft.com/edgar/background.gif >
+			<table background=http://bcnloft.com/edgar/header.gif height=356 style=" padding: 50px 50px 10px 50px; text-align: center; background-color:#FFFFFF;"  width=600px border=0 >
+			<tr>
+			<td>
+			<table height=280 style=" padding: 0px; margin: 0px; text-align: center; background-color:white; "  width=495px border=0 >
+				<tr>
+					<td height=30%>
+					<p style="letter-spacing: 0.2em;">
+						<strong>"{% blocktrans %}Yo estuve en Machu Picchu{% endblocktrans %}"</strong><br/>
+						{{user.first_name}} {{user.last_name}} {% blocktrans %}te dice :{% endblocktrans %}
+					</p>
+					</td>
+				</tr>
+				<tr>
+					<td height=50%>
+					<p > {{text_content}}</p>
+					</td>
+				</tr>
+				<tr>
+					<td height=20%>
+					<p> <small> Copyright &copy; 2011 {% blocktrans %}Yo estuve en Machu Picchu - Todos los derechos reservados{% endblocktrans %} </small></p>
+					</td>
+				</tr>
+			</table>
+			</td>
+			</tr>
+			</table>
+		</td>
+	</tr>
+</table>

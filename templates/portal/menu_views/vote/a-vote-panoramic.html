@@ -1,0 +1,113 @@
+{% extends "portal/menu_views/base_menu.html"  %}
+{% load i18n %}
+{% load portal_tags %}
+{% load thumbnail %} 
+{% block title %}
+      {{ block.super }} - {% blocktrans %}Vote{% endblocktrans %}
+{% endblock %}
+
+{% block head %}
+  {% include "portal/tags/sharethis/standard.html" %}
+{% endblock %}
+
+{% block wall_menu %}
+<div class="wall_menu wall_menu_vote span-24 last">
+{% endblock %}
+
+{% block center_content %}      
+  <div class="span-14 last">
+    <form class="" action="" method="post">{% csrf_token %}
+      <div class=" span-4 all_to_left fixed_height_20">
+	{{form.texto}}
+      </div>
+      <div class=" span-7 all_to_middle fixed_height_20">
+	<label for="id_categoria" class="special_gray">{% blocktrans %}Categories{% endblocktrans %}</label>
+	<!--{{form.categoria}}-->
+	<select id="id_categoria" class="styled special_gray" name="categoria">
+	  <option selected="selected" value=""> --------- </option>
+	{% get_current_language as LANGUAGE_CODE %}
+	{% if LANGUAGE_CODE == 'en' %}
+	  {% for categoria in lista_categorias %}
+	    <option value="{{categoria.id}}">{{categoria}}</option>
+	  {% endfor %}
+	{% else %}
+	  {% for categoria in lista_categorias %}
+	    <option value="{{categoria.id}}">{{categoria.nombre_espaniol}}</option>
+	  {% endfor %}	  
+	{% endif %}
+	</select>	      	
+      </div>
+      <div class=" span-3 all_to_right last fixed_height_20 push_down_6">
+	<input class="cute_green_button" type="submit" value="{% blocktrans %}Search{% endblocktrans %}">
+      </div>	    
+    </form>
+  </div>
+  
+  <div class="span-14 last countDown">
+    <h3 class="green">{% blocktrans %}Panoramic Photos{% endblocktrans %}</h3>
+    {% get_actual_and_next_temporadas actual_temp next_temp %}
+    {% if actual_temp %}
+      {% if user.is_authenticated %}
+	<h3>{% blocktrans %}Select{% endblocktrans %} {{user.get_profile.remaining_votes}}
+	{% blocktrans %}photos before{% endblocktrans %} {{actual_temp.fecha_fin}}</h3>
+      {% else %}
+	<h3>{{actual_temp.titulo}}</h3>
+      {% endif %}
+    {% endif %}
+  </div>
+
+  <div class="span-14 last">
+<!--    <div class="span-7 append-2">
+      <label class="green">
+      {% if user.is_authenticated %}
+	{% blocktrans %}You have{% endblocktrans %} {{user.get_profile.remaining_votes}} {% blocktrans %}vote{% endblocktrans %}{{user.get_profile.remaining_votes|pluralize}} {% blocktrans %}remaining{% endblocktrans %}
+      {% else %}
+	{% blocktrans %}You must be logged in to vote{% endblocktrans %}
+      {% endif %}
+      </label>
+    </div>
+-->
+    <div class="span-14 last all_to_right pagination_links">
+    {% if lista_fotos.object_list %}  
+      {% if lista_fotos.has_previous %}
+	<a href="?page={{ lista_fotos.previous_page_number }}">{% blocktrans %}previous{% endblocktrans %}</a>
+      {% endif %}
+      {% blocktrans with lista_fotos.number as n and lista_fotos.paginator.num_pages as np %}Page {{ n }} of {{ np }}{% endblocktrans %}.
+      {% if lista_fotos.has_next %}
+	<a href="?page={{ lista_fotos.next_page_number }}">{% blocktrans %}next{% endblocktrans %}</a>
+      {% endif %}
+    {% endif %}
+    </div>	  
+  </div>
+
+{% if lista_fotos.object_list %}       
+  {% for usuarios in lista_fotos.object_list %}
+  <div class="span-14 last">
+    <ul class="image_list wide main">
+      {% for usuario in usuarios %}
+	  <li>
+	    <a class="resultados_search" href="{% url portal_photo_vote_panoramic usuario.codigo_user.id usuario.id %}">
+	      <img width=122px height=116px src="{% thumbnail usuario.foto '122x116' %}" alt="{{usuario.titulo}}" title="{% blocktrans %}Check it out{% endblocktrans %}"/>
+	    </a>			
+	  </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endfor %}
+
+  <div class="span-14 last all_to_right pagination_links">	
+  {% if lista_fotos.has_previous %}
+    <a href="?page={{ lista_fotos.previous_page_number }}">{% blocktrans %}previous{% endblocktrans %}</a>
+  {% endif %}
+  {% blocktrans with lista_fotos.number as n and lista_fotos.paginator.num_pages as np %}Page {{ n }} of {{ np }}{% endblocktrans %}.
+  {% if lista_fotos.has_next %}
+    <a href="?page={{ lista_fotos.next_page_number }}">{% blocktrans %}next{% endblocktrans %}</a>
+  {% endif %}
+  </div>	  	
+{% else %}
+  <div class="span-14 last">
+    {% blocktrans %}There are no results.{% endblocktrans %}
+  </div>
+{% endif %}
+
+{% endblock %}

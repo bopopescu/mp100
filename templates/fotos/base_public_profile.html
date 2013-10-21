@@ -1,0 +1,294 @@
+{% load banners %}
+{% load querytags %}
+{% load thumbnail %}
+{% load i18n %}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!-- Framework CSS -->
+    <link rel="stylesheet" href="{{MEDIA_URL}}blueprint/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="{{MEDIA_URL}}blueprint/print.css" type="text/css" media="print"/>
+    <link rel="stylesheet" href="{{MEDIA_URL}}css/main.css" type="text/css" media="screen"/>
+
+    <!--[if lt IE 8]><link rel="stylesheet" href="{{MEDIA_URL}}blueprint/ie.css" type="text/css" media="screen, projection"/><![endif]-->
+
+    <!--[if IE]><link rel="stylesheet" href="{{MEDIA_URL}}css/ie_general.css" type="text/css" media="screen, projection"/><![endif]-->
+    <!--[if IE 6]>
+    <link rel="stylesheet" href="{{MEDIA_URL}}css/ie6.css" type="text/css" media="screen, projection"/><![endif]-->
+    <link rel="Stylesheet" type="text/css" href="{{ MEDIA_URL }}css/fotos_style.css"/>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/common/jquery-1.4.2.min.js"></script>
+    
+      <title>
+	  {% block title %}
+		{% if page_title %}
+		      {{ page_title }} -
+		{% endif %}
+		{{ site_name }}
+	  {% endblock %}
+      </title>
+      {% block head %}
+      {% endblock %}
+      
+      <script type="text/javascript">	    
+        $(document).ready(function() {
+	
+	        // Manejo de banners horizontales (cabecera)            
+            var i = 1;
+            
+	        $('.banner_H ul li:nth-child(1) .item-banner').fadeIn('slow');
+	        
+	        {% get_ban_time "H" %};
+
+	        // Rotación de banners
+	        setInterval(function(){
+		        antiguo = '.banner_H ul li:nth-child(' + i + ') .item-banner';
+		        if(i == num_ban_H)
+			        i = 0;				
+		        $(antiguo).fadeOut('slow', function(){
+			        i++;
+			        nuevo = '.banner_H ul li:nth-child(' + i + ') .item-banner';
+			        $(nuevo).fadeIn('slow');
+		        });
+	        }, time_H[i - 1]);
+	        
+	        $(".banner-link").click(function(){
+	            json_url = "/json_click_banner/" + $(this).attr("id");	            
+	            url = $(this).attr("link");
+                $.getJSON(json_url, function(rpta) {
+                    if(rpta.response) {
+                        window.open(url);
+                    }
+                });
+	        });
+		
+	        //sistema de comentarios
+	        $("#com-enviar").click(function(){
+	            var usuario_id = {{ usuario.id }};
+	            var perfil_url = "{% url fotos_perfil_publico usuario.id %}";
+	            var texto = $('#com-perfil').val();
+	            var json_url = "/user/json_comentar_perfil/" + usuario_id + "/" + texto;
+                $.getJSON(json_url, function(data) {
+		    $('.comentarios-perfil').prepend("<div class='comment'><a href='" + perfil_url + "'><img alt='{{user.first_name}}' width='50' height='50' src='{% thumbnail user.get_profile.foto "50x50"  %}'/></a><p>" + texto + "</p><div class='clear'></div></div>");
+                    //$('.comentarios-perfil').prepend("<div class='comment'><a href='" + perfil_url + "'><img src='/media/" + data.avatar + "' width='50' ></a><p>" + texto + "</p><div class='clear'></div></div>");
+                    $('#com-perfil').val("");
+                });
+	        });
+		//muestra los comentarios del perfil
+		    $('.ver_mas_comments').toggle(
+			function () {
+			   $('.comentarios-perfil').css({'overflow': 'visible'});   
+			},
+			function () {
+			   $('.comentarios-perfil').css({'overflow': 'hidden'});   
+			}			
+		    );			
+	    
+        });
+    </script>
+      <script type="text/javascript">
+      
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-20948534-5']);
+	_gaq.push(['_trackPageview']);
+      
+	(function() {
+	  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+      
+      </script>      
+  </head>
+  <body>
+
+    <div class="container">
+      <div class="span-24 last contet_header">
+    	<div class="span-24  last header_ads">
+    	  <img width="950"  src="{{MEDIA_URL}}dump_images/adv_950.png"
+    	       alt="950px advertisement"/>
+    	       {% banners "H" %}
+    	</div>
+      </div>
+    </div>
+    
+    <div class="wide_notices">
+      <div class="container">
+    	<div class="span-24 last header_bar">
+    	  <div class="span-16  search_form">
+    	    <input id="username"  class="textbox" type="text"/>
+    	    <input type="submit" value="{% blocktrans %}Buscar{% endblocktrans %}" class="submit"/>
+    	  </div>
+    	  <div class="span-7 prepend-1 last search_box">
+	    {% if user.is_authenticated %}
+    	    <a href="{% url logout_view %}" title="logout" class="submit">{% blocktrans %}Cerrar Sesión{% endblocktrans %}</a>
+	    {% endif %}
+    	    <a href="{{url_redes_sociales.Flickr}}" title="flickr" target="_blank">
+    	      <img src="{{MEDIA_URL}}style_imgs/flickr.png" alt="flickr"/></a>
+    	    <a href="{{url_redes_sociales.Facebook}}" title="facebook" target="_blank">
+    	      <img src="{{MEDIA_URL}}style_imgs/facebook.png" alt="facebook"/></a>
+    	    <a href="{{url_redes_sociales.Twitter}}" title="twitter" target="_blank">
+    	      <img src="{{MEDIA_URL}}style_imgs/twitter.png" alt="twitter"/></a>
+    	    <a href="{% url rss_feeds %}" title="RSS FEEDS" target="_blank">
+    	      <img class="last_icon" src="{{MEDIA_URL}}images/feeds/feed.png" 
+		   alt="myspace"/>
+    	    </a>
+    	  </div>
+    	</div>
+      </div>
+    </div>
+    
+
+    <div class="wide_notices_header_bottom">
+      <div class="container"></div>
+    </div>
+
+    <div class="wide_main_title">
+      <div class="container">
+    	<div class="span-8 prepend-11 last content_box_profile">
+    	  <h1>Machupicchu 100</h1>
+    	</div>
+      </div>
+    </div>
+
+    
+    <div class="wide_notices_header_bottom_profile">
+      <div class="container"></div>
+    </div>
+
+    <div class="wide_notices_header_bottom_profile_menu profile_menu">
+      <div class="container">
+	<div class="span-14 prepend-10">
+    	  <ul id="menu_profile">
+	    {% block menu_top %}
+		  {% if user.is_authenticated %}
+	    
+		  <!--<li><a class="submit" href="#">Agregar a mis amigos +</a>-->
+		  <li>
+		  <form action="/user/solicitar/" method=POST> {% csrf_token %}
+			<input type="hidden" value="{{usuario.id}}" id="id_amigo" name="amigo">
+			<input type="submit" class="green_submit" value="{% blocktrans %}Agregar a mis amigos{% endblocktrans %} +" alt="AddToFriends" title="{% blocktrans %}Enviar solicitud de amistad{% endblocktrans %}" >
+		  </form>
+		  </li>
+		  <li class="last"><a class="submit" href="{% url fotos_enviar_mensaje usuario.id  %}">{% blocktrans %}Enviar Mensaje{% endblocktrans %}</a></li>
+		  <li><a href="{% url main_user %}" title="{% blocktrans %}Volver{% endblocktrans %}" class="submit">{% blocktrans %}Volver a mi cuenta{% endblocktrans %}</a></li>
+		  {% endif %}
+	    {% endblock %}
+    	  </ul>
+	</div>
+      </div>
+    </div>
+
+    <div class="main_content_profile">
+
+      <div class="container">
+	<div class="span-6">
+	  <a href="#">
+	    <!--{% load thumbnail %}-->
+	    <img class="avatar" src="{% thumbnail avatar "156x146"  %}"
+		 width="156" height="146" alt="Avatar" />
+	  </a>
+	  <div class="clear"></div>
+	  <h3 class="username">{% block user_name %} {{usuario.first_name}}<br/> {{usuario.last_name}} {% endblock %}</h3>
+	  <div class="clear"></div>
+	  <ul class="menu_bar profile">
+	    {% block menu_left %}
+	    <li class="selected"><a href="{% url fotos_perfil_publico usuario.id %}">{% blocktrans %}Perfil{% endblocktrans %}</a></li>
+	    <li><a href="{% url fotos_ver_fotos_public usuario.id %}">{% blocktrans %}Fotos{% endblocktrans %}</a></li>
+	    <li class="last"><a href="{% url fotos_ver_amigos_public usuario.id %}">{% blocktrans %}Amigos{% endblocktrans %}</a></li>
+	    {% endblock %}
+	  </ul>
+	  
+	  <div class="clear"></div>
+	  <div class="feeds">
+	    {% load fotos_tags %}
+	    <!--{% load thumbnail %}-->
+	    {% get_some_friends_fotos usuario 4 as friend_fotos %}	    
+	    <h3>{% blocktrans %}Amigos{% endblocktrans %}</h3>
+	    <p class="more"><a href="{% url fotos_ver_amigos_public usuario.id %}">{% blocktrans %}Todos{% endblocktrans %}</a></p>
+	    <ul class="image_list">
+	    {% if friend_fotos %}
+	      {% if friend_fotos.0 %}
+	      <li>
+		<a href="{% url fotos_perfil_publico friend_fotos.0.user.id %}">
+		  <img alt="{{friend_fotos.0.user.first_name}}" width="75" height="75" src="{% thumbnail friend_fotos.0.foto 75x75 sharpen %}"/>
+		</a>
+	      </li>
+	      {% endif %}
+	      {% if friend_fotos.1 %}
+	      <li>
+		<a href="{% url fotos_perfil_publico friend_fotos.1.user.id %}">
+		  <img alt="{{friend_fotos.1.user.first_name}}" width="75" height="75" src="{% thumbnail friend_fotos.1.foto 75x75 sharpen %}"/>
+		</a>
+	      </li>
+	      {% endif %}
+	      {% if friend_fotos.2 %}	      
+	      <li>
+		<a href="{% url fotos_perfil_publico friend_fotos.2.user.id %}">
+		  <img alt="{{friend_fotos.2.user.first_name}}" width="75" height="75" src="{% thumbnail friend_fotos.2.foto 75x75 sharpen %}"/>
+		</a>
+	      </li>
+	      {% endif %}
+	      {% if friend_fotos.3 %}	      
+	      <li>
+		<a href="{% url fotos_perfil_publico friend_fotos.3.user.id %}">
+		  <img alt="{{friend_fotos.3.user.first_name}}" width="75" height="75" src="{% thumbnail friend_fotos.3.foto 75x75 sharpen %}"/>
+		</a>
+	      </li>
+	      {% endif %}
+	    {% else %}
+	      {% blocktrans %}Aún no tienes amigos.{% endblocktrans %}
+	    {% endif %}
+	    </ul>
+
+	    <div class="clear"></div>
+	    <br/>
+	    <h3>{% blocktrans %}Comentarios{% endblocktrans %}</h3>
+	    <p class="more"><a class="ver_mas_comments" href="#">{% blocktrans %}Todos{% endblocktrans %}</a></p>	    
+	    {% if user.is_authenticated %}
+	        <input type="text" class="textbox input_comentar-perfil" id="com-perfil" />
+	        <!--<button class="submit" id="com-enviar" >Enviar</button>-->
+		<input type="submit" class="button" id="com-enviar" value="{% blocktrans %}Enviar{% endblocktrans %}" />
+            {% endif %}
+	    {% get_comentarios_perfil usuario.id %}	    
+	    <hr class="feeds_separator"/>
+	    <div class="more_feeds">
+	      <a class="ver_mas_comments" href="#">{% blocktrans %}Ver más ...{% endblocktrans %}</a><br/>
+	      <a class="ver_mas_comments" href="#"><img src="{{MEDIA_URL}}style_imgs/arrow_down.png"/></a>
+	    </div>
+
+	    <div class="clear v5"></div>
+	  </div>
+	  <!-- end of feeds -->
+
+	</div>
+	<!-- end of span-6 -->
+	
+	<div class="span-13 prepend-1 main_profile">
+        {% block body1 %}        {% endblock %}
+	</div>
+	<!-- end of span-13 -->
+	
+	<div class="span-4 last vertical_adds profile vertical_adds_profile">
+        {% block publicidad %}
+	  <img alt="advertisement" src="{{MEDIA_URL}}dump_images/adv_150_500.png"/>
+    {% banners "V" %}
+        {% endblock %}
+	</div>
+
+      </div>
+      <!-- end of container -->
+    </div>
+    
+
+    <div class="wide_footer_profile wide_footer">
+      <div class="container">
+	<div class="span-24 last">
+	  <p>copyrigth©2011 quimeraONLIFE</p>
+	</div>
+      </div>
+    </div>
+
+  </body>
+</html>

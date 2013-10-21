@@ -1,0 +1,85 @@
+{% extends "fotos/amigos/base_profile.html"  %}
+{% load i18n %}
+{% block menu_left %}
+
+	  <ul class="menu_bar profile"> 
+	    <li><a href="{% url main_user %}">{% blocktrans %}Inicio{% endblocktrans %}</a></li>
+	    <li><a href="{% url fotos_perfil_publico user.id %}">{% blocktrans %}Perfil Público{% endblocktrans %}</a></li>
+	    <li><a href="{% url editar_perfil %}">{% blocktrans %}Editar Perfil{% endblocktrans %}</a></li>
+	    <li><a href="{% url fotos_ver_fotos %}">{% blocktrans %}Mis Fotos{% endblocktrans %}</a></li>
+	    <li class="selected" ><a href="{% url fotos_amigos %}">{% blocktrans %}Mis Amigos{% endblocktrans %}</a></li>
+	  </ul>
+        
+{% endblock %}
+
+
+{% block body1 %}
+
+        <hr class="profile_separator"/>
+        <h2 class="friends">{% blocktrans %}Buscar{% endblocktrans %}</h2>
+    <div class="user_details">
+    <form action="" method=POST> {% csrf_token %}
+	<ul class="image_list main">
+        <li>
+        <table>
+        {{ form.as_table }}
+        <tr>
+            <th>
+            </th>
+            <td><input type="submit" class="button" value="{% blocktrans %}Buscar{% endblocktrans %}" >
+            </td>
+        </tr>
+        </table>
+        </li>
+        </ul>
+    </form>
+    </div>
+        <!--<div class="clear"></div>-->
+
+        <hr class="profile_separator"/>
+        <h2 class="friends">{% blocktrans %}Lista de Amigos{% endblocktrans %}</h2>
+    {% if lista_amigos.object_list %}
+        {% load thumbnail %}
+        {% for amigos in lista_amigos.object_list %}
+            <ul class="image_list wide main">
+            {% for amigo in amigos %}
+                <li>
+                        <a class="resultados_search" href="{{amigo.get_absolute_url}}"><img src="{% thumbnail amigo.foto 75x75 sharpen %}" width=75px height=75px alt="Avatar" title="{% blocktrans %}Ver perfil{% endblocktrans %}" /></a>
+                            <form class="inside_user_image" action="/user/eliminar_amigo/" method=POST> {% csrf_token %}
+                                <input type="hidden" value="{{amigo.user.id}}" id="id_amigo" name="amigo">
+                                <input id="delete_button" type="submit" value="" alt="{% blocktrans %}Borrar amigo{% endblocktrans %}" title="{% blocktrans %}Borrar amigo{% endblocktrans %}" >
+                            </form>
+                        <!--{{amigo.user.username}} -->
+                        <p class="caption">
+                        {{amigo.user.first_name}}<br/> {{amigo.user.last_name}} 
+                        </p>
+                </li>
+            {% endfor %}
+            </ul>
+	    <div class="clear"></div>
+	    <hr class="profile_separator"/>            
+        {% endfor %}
+
+
+        <div class="pagination">
+            <span class="step-links">
+                {% if lista_amigos.has_previous %}
+                    <a href="?page={{ lista_amigos.previous_page_number }}">{% blocktrans %}anterior{% endblocktrans %}</a>
+                {% endif %}
+        
+                <span class="current">
+                    {% blocktrans with lista_amigos.number as n and lista_amigos.paginator.num_pages as np %}Página {{ n }} de {{ np }}{% endblocktrans %}.
+                </span>
+        
+                {% if lista_amigos.has_next %}
+                    <a href="?page={{ lista_amigos.next_page_number }}">{% blocktrans %}siguiente{% endblocktrans %}</a>
+                {% endif %}
+            </span>
+        </div>        
+    {% else %}
+	<ul class="image_list main">
+                <li>{% blocktrans %}No se encontraron resultados.{% endblocktrans %}</li>
+        </ul>
+    {% endif %}
+
+{% endblock %}

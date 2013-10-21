@@ -1,0 +1,140 @@
+{% extends "fotos/perfil/base_perfil.html"  %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/jquery.lightbox-0.5.css" media="screen" />
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.lightbox-0.5.js"></script>
+    <script type="text/javascript">
+        $(function() {
+                $('a.lightbox_mis_fotos').lightBox({
+                    imageLoading:			'{{MEDIA_URL}}images/jquery-lightbox-0.5/lightbox-ico-loading.gif',		
+                    imageBtnPrev:			'{{MEDIA_URL}}images/jquery-lightbox-0.5/lightbox-btn-prev.gif',			
+                    imageBtnNext:			'{{MEDIA_URL}}images/jquery-lightbox-0.5/lightbox-btn-next.gif',			
+                    imageBtnClose:			'{{MEDIA_URL}}images/jquery-lightbox-0.5/lightbox-btn-close.gif',		
+                    imageBlank:				'{{MEDIA_URL}}images/jquery-lightbox-0.5/lightbox-blank.gif',			
+                });
+                $('a.lightbox_ultimos_envios').lightBox({
+                    imageLoading:			'{{MEDIA_URL}}images/jquery-lightbox-0.5/lightbox-ico-loading.gif',		
+                    imageBtnPrev:			'{{MEDIA_URL}}images/jquery-lightbox-0.5/lightbox-btn-prev.gif',			
+                    imageBtnNext:			'{{MEDIA_URL}}images/jquery-lightbox-0.5/lightbox-btn-next.gif',			
+                    imageBtnClose:			'{{MEDIA_URL}}images/jquery-lightbox-0.5/lightbox-btn-close.gif',		
+                    imageBlank:				'{{MEDIA_URL}}images/jquery-lightbox-0.5/lightbox-blank.gif',			
+                });
+                $('a.lightbox_mis_votos').lightBox({
+                    imageLoading:			'{{MEDIA_URL}}images/jquery-lightbox-0.5/lightbox-ico-loading.gif',		
+                    imageBtnPrev:			'{{MEDIA_URL}}images/jquery-lightbox-0.5/lightbox-btn-prev.gif',			
+                    imageBtnNext:			'{{MEDIA_URL}}images/jquery-lightbox-0.5/lightbox-btn-next.gif',			
+                    imageBtnClose:			'{{MEDIA_URL}}images/jquery-lightbox-0.5/lightbox-btn-close.gif',		
+                    imageBlank:				'{{MEDIA_URL}}images/jquery-lightbox-0.5/lightbox-blank.gif',			
+                });                              
+        });        
+    </script>
+{% endblock %}
+
+{% block body1 %} 
+<div id="countDown"><!--mio-->
+<div class="user_details">
+    <dl>
+        <input type="hidden" id="id_inicio_temporada" name="inicio_temporada" value="{{inicio_temporada|date:"m/d/Y h:i A"}}">
+        <input type="hidden" id="id_fin_temporada" name="fin_temporada" value="{{fin_temporada|date:"m/d/Y h:i A"}}">
+        <script type="text/javascript">
+            var inicio_temporada = new Date(document.getElementById("id_inicio_temporada").value);
+            var fin_temporada = new Date(document.getElementById("id_fin_temporada").value);
+            var hoy = new Date()
+            if (hoy < inicio_temporada){
+                var TargetDate = document.getElementById("id_inicio_temporada").value;
+                var DisplayFormat = "<dt>Próxima votación en:</dt> <dd> %%D%%d %%H%%h %%M%%m %%S%%s</dd>";
+                var FinishMessage = "<dt>Ya inició esta temporada!</dt>";
+            }
+            else {
+                var TargetDate = document.getElementById("id_fin_temporada").value;
+                var DisplayFormat = "<dt>La votación termina en:</dt> <dd> %%D%%d %%H%%h %%M%%m %%S%%s</dd>";
+                var FinishMessage = "<dt></dt>";
+            }
+            var BackColor = "white";
+            var ForeColor = "white";
+            var CountActive = true;
+            var CountStepper = -1;
+            var LeadingZero = true;
+        </script>
+        <p><script language='JavaScript' src='{{MEDIA_URL}}js/countdown.js'></script></p>
+    </dl>
+    <div class="clear"></div>
+    <br/>
+</div>    
+</div><!--mio-->
+
+  
+    {% load fotos_tags %}
+    {% get_some_user_fotos user 4 as usuario_fotos 1 1 %}
+    <hr class="profile_separator"/>
+    <h2>Mis Fotos</h2>
+    <ul class="image_list main">    
+        {% if usuario_fotos %}            
+            {% for foto in usuario_fotos %}
+                {% load thumbnail %}                
+                <li><a href="{{ MEDIA_URL }}{{ foto.foto}}" class="lightbox_mis_fotos" title="{{ foto.titulo }}">
+                    <img src="{% thumbnail foto.foto "75x75" %}" width="75"
+			 height="75" alt="{{foto.titulo}}" /></a></li>                
+            {% endfor %}
+        {% else %}
+            <li>Este usuario aún no ha subido ninguna foto.</li>
+        {% endif %}
+    </ul>
+    <div class="clear"></div>
+    <p class="more_profile"><a href="{% url fotos_ver_fotos %}">Ver más...</a></p>
+
+
+    {% get_my_votes user 4 as usuario_votes %}
+    <hr class="profile_separator"/>
+    <h2>Mis Votos</h2>
+    <ul class="image_list main">    
+        {% if usuario_votes %}            
+            {% for foto in usuario_votes %}
+                {% load thumbnail %}
+                <li><a href="{{ MEDIA_URL }}{{ foto.foto}}" class="lightbox_mis_votos" title="{{ foto.titulo }}">
+                    <img src="{% thumbnail foto.foto 75x75 %}" width=75px height=75px alt="{{foto.titulo}}" /></a></li>
+            {% endfor %}
+        {% else %}
+            <li>Aún no has votado por ninguna foto.</li>
+        {% endif %}
+    </ul>
+    <div class="clear"></div>
+    <p class="more_profile"><a href="{% url fotos_ver_votos %}">Ver más...</a></p>
+    
+    
+    {% get_some_user_fotos user 4 as usuario_fotos -1 1 %}
+    <hr class="profile_separator"/>
+    <h2>Ultimos Envios</h2>
+    <ul class="image_list main">
+        {% if usuario_fotos %}            
+            {% for foto in usuario_fotos %}
+                {% load thumbnail %}
+                <li><a href="{{ MEDIA_URL }}{{ foto.foto}}" class="lightbox_ultimos_envios" title="{{ foto.titulo }}">
+                    <img src="{% thumbnail foto.foto "75x75" %}" width=75px height=75px alt="{{foto.titulo}}" /></a></li>
+            {% endfor %}
+        {% else %}
+            <li>Este usuario aún no ha subido ninguna foto.</li>
+        {% endif %}
+    </ul>
+    <div class="clear"></div>
+    <p class="more_profile"><a href="{% url fotos_ver_fotos %}">Ver más...</a></p>
+    
+    
+    {% get_ganadores_temporadas 4 as ganadores_last_temp %}
+    <hr class="profile_separator"/>
+    <h2>Ganadores de la Temporada</h2>
+    <ul class="image_list main">
+        {% if ganadores_last_temp %}            
+            {% for usuario in ganadores_last_temp %}
+                {% load thumbnail %}
+                <li><a href="{{ usuario.get_profile.get_absolute_url}}" title="{{ usuario.first_name }}{{ usuario.last_name }} ">
+                    <img src="{% thumbnail usuario.get_profile.foto "75x75"  %}" width=75px height=75px alt="{{ usuario.first_name }}{{ usuario.last_name }}" /></a></li>
+            {% endfor %}
+        {% else %}
+            <li>Todavía no hay ningún ganador.</li>
+        {% endif %}
+    </ul>
+    <div class="clear"></div>
+    <p class="more_profile"><a href="{% url fotos_ver_ganadores %}">Ver más...</a></p>
+    
+{% endblock %}

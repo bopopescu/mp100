@@ -1,0 +1,62 @@
+    {% load fotos_tags %}
+    {% load thumbnail %}
+    {% load querytags %}
+    {% get_some_friends_fotos usuario 4 as friend_fotos %}
+    <table>
+        <tr>
+            <td>
+                <a href="{% url fotos_ver_amigos_public usuario.id %}">Amigos</a>
+            </td>
+        </tr>
+        <tr>
+        {% if friend_fotos %}
+            {% if friend_fotos.0 %}
+                <td>
+                    <a href="{% url fotos_perfil_publico friend_fotos.0.user.id %}">
+                        <img src="{% thumbnail friend_fotos.0.foto 70x70 sharpen %}" width=70px height=70px alt="{{friend_fotos.0.user.first_name}}" />
+                    </a>
+                </td>
+            {% endif %}
+            {% if friend_fotos.1 %}
+                <td>
+                    <a href="{% url fotos_perfil_publico friend_fotos.1.user.id %}">
+                        <img src="{% thumbnail friend_fotos.1.foto 70x70 sharpen %}" width=70px height=70px alt="{{friend_fotos.1.user.first_name}}" />
+                    </a>
+                </td>            
+            {% endif %}
+            {% if friend_fotos.2 %}
+            <tr>
+                <td>
+                    <a href="{% url fotos_perfil_publico friend_fotos.2.user.id %}">
+                        <img src="{% thumbnail friend_fotos.2.foto 70x70 sharpen %}" width=70px height=70px alt="{{friend_fotos.2.user.first_name}}" />
+                    </a>
+                </td>
+                {% if friend_fotos.3 %}
+                    <td>
+                        <a href="{% url fotos_perfil_publico friend_fotos.3.user.id %}">
+                            <img src="{% thumbnail friend_fotos.3.foto 70x70 sharpen %}" width=70px height=70px alt="{{friend_fotos.3.user.first_name}}" />
+                        </a>
+                    </td>
+                {% endif %}
+            </tr>
+            {% endif %}
+        {% else %}
+            <td>Este usuario aún no tiene amigos.</td>
+        {% endif %}
+        </tr>
+        <tr>
+            <td>
+                <h4>Comentarios</h4>
+                {% get_comentarios_perfil usuario.id %}
+                
+                {% if user.is_authenticated %}
+                <h5>Deja tu comentario</h5>
+                <input type="text" id="com-perfil" />
+                <button id="com-enviar">Dejar comentario</button>
+                {% else %}
+                <p>Debes haber iniciado sesión para dejar un comentario</p>
+                {% endif %}
+            </td>
+        </tr>
+    </table>    
+

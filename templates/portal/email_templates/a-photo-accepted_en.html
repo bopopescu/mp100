@@ -1,0 +1,72 @@
+{% load portal_tags %}
+
+<table border=0 width=100% style=" padding: 10px 0px 10px 0px; " >
+	<tr>
+		<td align= "center">
+		  <table style="border: 1px solid #d9d9db; border-collapse:collapse;">
+		    <tr>
+			<td>
+			<table height=356 style="text-align: let; background-color:#FFFFFF; color:#333; border-collapse:collapse; font-family: arial sans-serif;"  width=600px border=0 >
+				<tr>
+					<td colspan=2>
+					  <img width="600px" height="61px" border="0" src="http://mp100.s3.amazonaws.com/images/emails/cabeceras_en.jpg" usemap="#enlaces_cabecera" alt="Photo Contest I was in Machu Picchu" />
+					  <map name="enlaces_cabecera">
+					    <area shape="rect" coords="14,0,82,61" href="http://machu-picchu100.com/"  target="_blank">
+					    <area shape="rect" coords="463,11,5577,45" href="http://www.quimerahg.com/"  target="_blank">
+					  </map>
+					</td>
+				</tr>
+				<tr>
+				  <td colspan=2>
+				    <table width=600px border=0 style="border-collapse:collapse; font-family: arial sans-serif;">
+					<td width="560px" style="padding:20px; ">
+					    {% get_actual_and_next_temporadas actual_temp next_temp %}
+					    <p>{{user_firstname}},</p>
+					    <p style="color:#899F3E; font-weight: bold;">Thank you for joining us in celebrating the experience that is Machu Picchu.</p>
+					    <p><strong>Your photo, {{photo_title}}, has been accepted for the upcoming Voting Period {{next_temp.id}}.</strong></p>
+					    <p style="color:#899F3E; font-weight: bold;">As a reminder</p>
+					    <ul>
+						<li>Voting begins on {{next_temp.fecha_inicio|date:"D, j M Y h:i:s a"}} GMT -005 (Lima).</li>
+						<li>Share your photo and remind your friends to vote via Facebook, Twitter, Email or ShareThis directly from the photo's page.</li>
+						<li>Keep track of your photos and the number of votes received in the current Voting Period from the 'My Profile' link on machu-picchu100.com.</li>
+						<li>Have more pictures of Machu Picchu? You may enter up to 5 photos each Voting Period.</li>
+						<li>You may also vote for 5 photos each voting period.</li>
+					    </ul>
+					    <p>Good luck in the contest!</p>
+					</td>
+				    </table>
+				  </td>
+				</tr>
+				<tr>
+				  <td colspan=2>
+				    <table style="background-color: #839327; color:#fff; font-size: 11px; text-align: center; border-collapse:collapse; font-family: arial sans-serif;" width=600px border=0>
+				      <tr><td>2011 QuimeraOnlife - &copy; Copyright</td></tr>
+				    </table>
+				  </td>
+				</tr>
+			</table>
+			</td>
+		    </tr>
+		  </table>
+		  <table width=600px border=0 style="border-collapse:collapse; font-size: 12px; color:#a3a5a9; font-family: arial sans-serif;">
+		    <tr>
+		        <td width=60px>
+			  <table width=60px border=0 style="border-collapse:collapse; font-size: 12px; color:#a3a5a9; font-family: arial sans-serif;">
+			  <tr><td colspan=2>Find us:</td></tr>
+			  <tr>
+			    <td><a href="http://www.facebook.com/machupicchu100photocontest" target="_blank"><img border="0" src="http://mp100.s3.amazonaws.com/images/emails/email_facebook.jpg" alt="F"></a></td>
+			    <td><a href="http://twitter.com/#!/Machu_Picchu100" target="_blank"><img border="0" src="http://mp100.s3.amazonaws.com/images/emails/email_twitter.jpg" alt="T"></a></td>
+			  </tr>
+			  </table>
+		        </td>
+		        <td>
+			  You are subscribed as 
+			  <span style="color:#0000ef; text-decoration: underline; ">{{email}}</span>.
+			  You are receiving this message because you have elected to receive communications about the Photo Contest 'I Was In Machu Picchu'. If you no longer with to receive communications about the Photo Contest, please
+			  <a href="{{mydomain}}/stop_comunications/{{encryptedUsername}}/" target="_blank">click here</a>.
+		        </td>
+		    </tr>
+		  </table>
+		</td>
+	</tr>
+</table>

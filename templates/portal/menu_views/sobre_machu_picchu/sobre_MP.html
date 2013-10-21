@@ -1,0 +1,84 @@
+{% extends "portal/menu_views/base_menu.html" %}
+{% load i18n %}
+
+<!--{% load thumbnail %}
+{% load banners %}-->
+
+{% block body %}
+  <body class="about">
+    {% block top_form %}
+        {{ block.super }}
+    {% endblock %}
+    
+    <div class="clear"></div>
+    <!-- main container -->
+    <div class="container">
+      
+      <!-- horizontal advertisements -->
+      <div class="span-24  last header_ads about">
+	<img width="950"  src="{{MEDIA_URL}}dump_images/adv_950.png" 
+	     alt="950px advertisement"/>
+      <!--{% block banner1 %} {% banners "H" %} {% endblock %}-->        
+      </div>
+      <!-- end of horizontal advertisements -->
+
+      <!-- grey box -->
+      <div class="span-6 notice_menu">
+	<h3>{% blocktrans %}Concurso de Fotografia para aficionados{% endblocktrans %}</h3>
+	<a href="#">
+  	  <img src="{{MEDIA_URL}}dump_images/machu-picchu-center.jpg" alt="machu picchu" 
+	       width="190"/>
+	</a>
+	<h2>{% blocktrans %}YO ESTUVE...{% endblocktrans %} </h2>
+	<h2>{% blocktrans %}EN MACHU PICCHU{% endblocktrans %}</h2>
+	<br/>
+	<ul class="menu_bar about">
+          <li class="first"><a href="{% url main_portal %}">{% blocktrans %}Inicio{% endblocktrans %}</a></li>
+          <li class="second selected"><a href="{% url portal_sobre_MP %}">{% blocktrans %}Sobre Machu Picchu{% endblocktrans %}</a></li>
+          <li class="third"><a href="{% url portal_galeria_vote %}">{% blocktrans %}Galería de Imágenes{% endblocktrans %}</a></li>
+          <li class="fourth"><a href="{% url portal_ver_bases %}">{% blocktrans %}Información y bases del concurso{% endblocktrans %}</a></li>
+          <li class="fifth"><a href="{% url portal_organizadores_auspiciadores %}">{% blocktrans %}Organizadores y auspiciadores{% endblocktrans %}</a></li>
+          <li class="sixth"><a href="{% url portal_rrss %}">{% blocktrans %}Responsabilidad Social{% endblocktrans %}</a></li>            
+	</ul>
+	<div class="clear"></div>
+      </div>
+      <!-- end of grey box -->
+      
+
+      <!-- white box -->
+      <div class="span-13  prepend-1 content_box content_box_about">
+	<h1>Machupicchu 100</h1>
+	<h2>{% blocktrans %}Sobre Macchu Picchu{% endblocktrans %}</h2>
+	{% blocktrans %}
+	<p>
+	Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean at augue mauris, sit amet malesuada augue. Integer eget sem vestibulum turpis mollis consectetur. Etiam commodo laoreet convallis. Integer condimentum, quam at porttitor luctus, orci mi consectetur nisl, et mollis metus felis sit amet elit. Phasellus faucibus mollis urna gravida faucibus. Fusce eget vestibulum dui. Phasellus tincidunt dignissim tellus, vel dignissim sem egestas vel. Proin auctor, neque sed interdum placerat, leo urna pulvinar nibh, non sagittis ligula ante vehicula massa. Nunc faucibus faucibus lectus, a aliquet dolor porttitor in. Duis tempus pulvinar velit vel interdum. Sed adipiscing vehicula nunc rhoncus congue. Maecenas sodales tincidunt tellus, et tempus ante imperdiet vitae. Vivamus tristique arcu vel turpis mollis sagittis. Suspendisse nunc nisl, sodales sed sodales vel, venenatis sed massa. Maecenas mauris nunc, laoreet at tincidunt ut, elementum vitae tellus. Integer id dui est. Donec convallis accumsan justo vel vulputate.
+	</p>
+	<p>
+Donec sodales tincidunt dui, quis vulputate justo fringilla id. In lacinia eleifend odio, eget egestas ante dignissim sed. Nam et rhoncus nisl. Etiam condimentum, eros et ultricies hendrerit, velit nulla dignissim mi, quis eleifend mauris sem eget est. Phasellus ullamcorper sodales massa sit amet tristique. Pellentesque sed augue sit amet odio accumsan congue. Donec facilisis, lorem at porta accumsan, quam justo posuere erat, ac volutpat odio justo id nibh. Nam aliquet, nunc ac sagittis facilisis, felis felis posuere libero, elementum tincidunt elit mauris et tellus. Phasellus massa nisi, aliquam nec consequat vitae, consectetur vitae felis. Etiam congue enim quis ligula auctor sed aliquet tortor semper. Fusce ornare laoreet lectus, sit amet molestie magna auctor ac.
+	</p>
+	<p>
+Suspendisse libero lorem, lacinia nec pretium pellentesque, ultricies eget dolor. Donec id mi sem. Nunc sed nunc turpis. Integer a tellus justo. Pellentesque pretium dui eget enim euismod viverra. Donec nec nunc non justo interdum viverra eu ut odio. Nulla porta leo ac dolor tempus eget semper lectus elementum. Nam fringilla pulvinar erat nec euismod. Nunc ac justo sed nunc imperdiet ullamcorper quis at tellus. Mauris sodales accumsan dolor, ut euismod dolor blandit sit amet. Maecenas posuere dui in est tristique ut scelerisque turpis semper. Maecenas in ligula sollicitudin lacus ornare aliquet.
+	</p>
+	<p>
+Vestibulum cursus neque eu diam bibendum lacinia. Suspendisse egestas interdum diam sed suscipit. Phasellus facilisis accumsan suscipit. Sed mollis justo a arcu pharetra non scelerisque leo pulvinar. Mauris sed lacus sit amet elit ornare consequat a et ligula. Sed nec odio condimentum nisl facilisis faucibus. Curabitur ac lorem sit amet libero laoreet tincidunt. Nullam ut est lacus, quis vestibulum magna. Vivamus iaculis magna eu elit tempus ac rutrum tellus molestie. Aliquam et ultricies dolor. Morbi a ligula vitae lacus lacinia dictum. Quisque tincidunt aliquet mattis. Aliquam erat volutpat. Curabitur venenatis enim mauris. Curabitur eleifend placerat aliquam. Nulla eget risus nec nisl convallis imperdiet. 
+	</p>
+	{% endblocktrans %}
+      </div>
+      <!-- end of white box -->
+
+      <!-- advertisements box -->
+      <div class="span-4  last vertical_adds about vertical_adds_about">
+	<img alt="advertisement" src="{{MEDIA_URL}}dump_images/adv_150_500.png"/>
+        <!--{% block banner2 %} {% banners "V" %} {% endblock %}-->
+      </div>
+      <!-- end of advertisements box -->
+
+
+    </div>
+    <!-- end of main container -->
+    <div class="container container_footer">
+      <p class="span-5 last footer_about">copyrigth©2011 quimeraONLIFE</p>
+    </div>
+
+  </body>
+{% endblock %}

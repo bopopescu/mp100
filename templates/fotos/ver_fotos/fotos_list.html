@@ -1,0 +1,91 @@
+{% extends "fotos/ver_fotos/base_profile.html"  %}
+
+{% block menu_left %}
+
+	  <ul class="menu_bar profile"> 
+	    <li><a href="{% url main_user %}">Inicio</a></li>
+	    <li><a href="{% url fotos_perfil_publico user.id %}">Perfil Público</a></li>
+	    <li><a href="{% url editar_perfil %}">Editar Perfil</a></li>
+	    <li class="selected"><a href="{% url fotos_ver_fotos %}">Mis Fotos</a></li>
+	    <li class="last"><a href="{% url fotos_amigos %}">Mis Amigos</a></li>
+	  </ul>
+        
+{% endblock %}
+
+{% block body1 %}
+
+    <hr class="profile_separator"/>
+    <h2>Buscar</h2>    
+
+    <div class="user_details">
+    <ul class="image_list main">
+        <li>    
+        <form action="" method=POST> {% csrf_token %}
+            <table>
+              <tr>
+                <th><label>{{form.texto.label}}</label> </th>
+                <td>{{form.texto}}</td>
+                <td></td>
+              </tr>
+              <tr>
+                <th></th>
+                <td><input type="submit" class="button" value="Buscar"/></td>
+              </tr>
+            </table>
+        </form>
+        </li>
+    </ul>
+    </div>
+    
+    <hr class="profile_separator"/>
+    <h2>Mis Fotos</h2>    
+    {% if lista_fotos.object_list %}
+        {% load thumbnail %}
+        {% for fotos in lista_fotos.object_list %}
+            <ul class="image_list wide main">
+            {% for foto in fotos %}
+                <li>
+                    <a class="resultados_search" href="{% url fotos_navegar_foto foto.codigo_user.username foto.id 1 %}">
+                        <img src="{% thumbnail foto.foto 75x75 crop="smart" upscale %}" width=75px height=75px alt="foto" title="Ver foto" /></a>
+                                    <form class="inside_user_image" action="/user/borrar_foto/" method=POST> {% csrf_token %}
+                                        <input type="hidden" value="{{foto.id}}" id="id_foto_id" name="foto_id">
+                                        {% if not foto.ganadora_temporada %}
+                                        <input id="photo_delete_button" type="submit" value="" alt="Borrar" title="Borrar foto" >
+                                        {% endif %}
+                                    </form>
+                                <p>
+                                {{foto.titulo}}
+                                </p>
+                </li>
+            {% endfor %}
+            </ul>
+            <div class="clear"></div>
+            <hr class="profile_separator"/>  
+        {% endfor %}
+
+        <ul class="image_list wide main">
+            <li>
+            <div class="pagination">
+                <span class="step-links">
+                    {% if lista_fotos.has_previous %}
+                        <a href="?page={{ lista_fotos.previous_page_number }}">Anterior</a>
+                    {% endif %}
+            
+                    <span class="current">
+                        P&aacute;gina {{ lista_fotos.number }} de {{ lista_fotos.paginator.num_pages }}.
+                    </span>
+            
+                    {% if lista_fotos.has_next %}
+                        <a href="?page={{ lista_fotos.next_page_number }}">Siguiente</a>
+                    {% endif %}
+                </span>
+            </div>
+            </li>
+        </ul>
+    {% else %}
+        <ul class="image_list wide main">
+            <li>No se encontraron resultados.</li>
+        </ul>
+    {% endif %}
+
+{% endblock %}

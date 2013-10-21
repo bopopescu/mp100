@@ -1,0 +1,228 @@
+{% extends "portal/menu_views/base_menu.html" %}
+{% load i18n %}
+
+
+{% block title %} 
+  {% blocktrans %}Machu Picchu{% endblocktrans %}
+{% endblock %}
+
+{% block head %}
+<script language="javascript" type="text/javascript">
+var expDays = 400;
+var exp = new Date(); 
+exp.setTime(exp.getTime() + (expDays*24*60*60*1000));
+/*function getCookieVal (offset) {  
+	var endstr = document.cookie.indexOf (";", offset);  
+	if (endstr == -1) { endstr = document.cookie.length; }
+	return unescape(document.cookie.substring(offset, endstr));
+}
+function GetCookie (name) {  
+	var arg = name + "=";  
+	var alen = arg.length;  
+	var clen = document.cookie.length;  
+	var i = 0;  
+	while (i < clen) {    
+		var j = i + alen;    
+		if (document.cookie.substring(i, j) == arg) return getCookieVal (j);    
+		i = document.cookie.indexOf(" ", i) + 1;    
+		if (i == 0) break;   
+	}  
+	return null;
+}
+function SetCookie (name, value) {  
+	var argv = SetCookie.arguments;  
+	var argc = SetCookie.arguments.length;  
+	var expires = (argc > 2) ? argv[2] : null;  
+	var path = (argc > 3) ? argv[3] : null;  
+	var domain = (argc > 4) ? argv[4] : null;  
+	var secure = (argc > 5) ? argv[5] : false;  
+	document.cookie = name + "=" + escape (value) + 
+	((expires == null) ? "" : ("; expires=" + expires.toGMTString())) + 
+	((path == null) ? "" : ("; path=" + path)) +  
+	((domain == null) ? "" : ("; domain=" + domain)) +    
+	((secure == true) ? "; secure" : "");
+}*/
+/*function SetCookie(c_name,value,expiredays)
+{
+var exdate=new Date();
+exdate.setDate(exdate.getDate()+expiredays);
+document.cookie=c_name+ "=" +escape(value)+
+((expiredays==null) ? "" : ";expires="+exdate.toGMTString());
+}
+function GetCookie(c_name)
+{
+if (document.cookie.length>0)
+  {
+  c_start=document.cookie.indexOf(c_name + "=");
+  if (c_start!=-1)
+    { 
+    c_start=c_start + c_name.length+1; 
+    c_end=document.cookie.indexOf(";",c_start);
+    if (c_end==-1) c_end=document.cookie.length;
+    return unescape(document.cookie.substring(c_start,c_end));
+    } 
+  }
+return null; //"";
+}*/
+
+var savedValue = null;
+function restorePageBG()
+{
+	return; // ALL OF THIS IS HANDLED REMOTELY IN AS
+	/*
+	//var savedValue = readPref(); //GetCookie('xfs_preview_color');
+	alert('cookie value: ' + savedValue);
+	if (savedValue == null || savedValue == '')
+		savedValue = '#FFFFFF';
+	//document.bgColor = savedValue;
+	document.body.style.backgroundColor = savedValue;
+	document.getElementById('color_ti').value = savedValue;
+	*/
+}
+function savePageBG()
+{
+	var curValue = document.getElementById('color_ti').value;
+	//document.bgColor = curValue;
+	document.body.style.backgroundColor = curValue;
+	//writePref(curValue); //SetCookie('xfs_preview_color', curValue, 400);// exp);
+}
+
+    $(document).ready(function(){
+        restorePageBG();      
+    });
+</script>
+
+{% endblock %}
+
+{% block center_content %}
+
+<div class="span-13 last breadcrumbs">
+    <label class="link_all_green"><a href="{% url portal_about_history %}">{% blocktrans %}Machu Picchu & Peru{% endblocktrans %} ></a></label>
+    {% blocktrans %}Machu Picchu{% endblocktrans %}
+</div>
+
+<!--<div class="span-14 last winners push_down_30">-->
+<div align="center" style="margin-top: 30px;">
+    <!-- Begin DWUser_EasyRotator -->
+    <script type="text/javascript" src="http://easyrotator.s3.amazonaws.com/1/js/easy_rotator.min.js"></script>
+    <div class="dwuserEasyRotator" style="width: 550px; height: 500px; position:relative; text-align: left;" data-erConfig="{autoplayEnabled:false}" data-erName="Machu Picchu">
+      <div data-ertype="content" style="display: none;">
+        <ul data-erlabel="Main Category">
+        <li>
+          <img class="main" src="{{MEDIA_URL}}images/rotator-images/MP_zona_residencial.jpg" alt="Urban Sector" />
+          <img class="thumb" src="{{MEDIA_URL}}images/rotator-images/xfs_thumbs/MP_zona_residencial.jpg" />
+          <span class="title">{% blocktrans %}Urban Sector{% endblocktrans %}</span>
+          <span class="desc">{% blocktrans %}The urban sector of Machu Picchu was divided into 3 districts: the Sacred District, the Popular District, and the District of the Priests and the Nobility.{% endblocktrans %}</span>
+        </li>
+        <li>
+          <img class="main" src="{{MEDIA_URL}}images/rotator-images/mp_doors-windows2.jpg" alt="Trapezoidal Architecture" />
+          <img class="thumb" src="{{MEDIA_URL}}images/rotator-images/xfs_thumbs/mp_doors-windows2.jpg" />
+          <span class="title">{% blocktrans %}Trapezoidal Architecture{% endblocktrans %}</span>
+          <span class="desc">{% blocktrans %}The doors, windows and wall structures throughout Machu Picchu feature a variety of textures and sizes; though all feature the traditional trapezoidal structure. The trapezoidal structure offered greater strength and protection against collapse during seismic movements, which are common in the region.{% endblocktrans %}</span>
+        </li>
+        <li>
+          <img class="main" src="{{MEDIA_URL}}images/rotator-images/mp-intiwatana.jpg" alt="Intiwatana" />
+          <img class="thumb" src="{{MEDIA_URL}}images/rotator-images/mp-intiwatana.jpg" />
+          <span class="title">{% blocktrans %}Intiwatana{% endblocktrans %}</span>
+          <span class="desc">{% blocktrans %}The Intiwatna rock was the ceremonial center of Machu Picchu and was of great religious significance. Translated as sun (inti) year (wata), Incan astronomers studied the solar year, possibly to determine the solstices and equinoxes.The Incas also may have used Intiwana as a directional landmark to reference magnetic North.{% endblocktrans %}</span>
+        </li>
+        <li>
+          <img class="main" src="{{MEDIA_URL}}images/rotator-images/mp_3ventanas.jpg" alt="Temple of the Three Windows" />
+          <img class="thumb" src="{{MEDIA_URL}}images/rotator-images/xfs_thumbs/mp_3ventanas.jpg" />
+          <span class="title">{% blocktrans %}Temple of the Three Windows{% endblocktrans %}</span>
+          <span class="desc">{% blocktrans %}The Temple of the Three Windows is one of the most striking buildings at Machu Picchu. The temple owes its name to the main wall, where there are three large trapezoidal windows and two open spaces. The stonework demonstrates meticulous work; each enormous stone is separated from the other by mere millimeters.{% endblocktrans %}</span>
+        </li>
+        <li>
+          <img class="main" src="{{MEDIA_URL}}images/rotator-images/mp-maintemple.jpg" alt="The Main Temple" />
+          <img class="thumb" src="{{MEDIA_URL}}images/rotator-images/xfs_thumbs/mp-maintemple.jpg" />
+          <span class="title">{% blocktrans %}The Main Temple{% endblocktrans %}</span>
+          <span class="desc">{% blocktrans %}The Main Temple was built in the form of a  wayrana, a rectangular structure with only 3 walls.  The temple is located north of the sacred plaza, near the Temple of the Three Windows.{% endblocktrans %}</span>
+        </li>
+        <li>
+          <img class="main" src="{{MEDIA_URL}}images/rotator-images/mp_templodelsol.jpg" alt="Temple of the Sun" />
+          <img class="thumb" src="{{MEDIA_URL}}images/rotator-images/xfs_thumbs/mp_templodelsol.jpg" />
+          <span class="title">{% blocktrans %}Temple of the Sun{% endblocktrans %}</span>
+          <span class="desc">{% blocktrans %}The Temple of the Sun is built in a semi-circular structure following the natural curve of its foundation of existing granite rock. The temple features intricate stone work, including a stone gate with drilled holes and two trapezoidal windows with stone molding.{% endblocktrans %}</span>
+        </li>
+        <li>
+          <img class="main" src="{{MEDIA_URL}}images/rotator-images/mp-plazas2.jpg" alt="Plazas of Machu Picchu" />
+          <img class="thumb" src="{{MEDIA_URL}}images/rotator-images/xfs_thumbs/mp-plazas2.jpg" />
+          <span class="title">{% blocktrans %}Plazas of Machu Picchu{% endblocktrans %}</span>
+          <span class="desc">{% blocktrans %}There are four plazas in Machu Picchu located at different levels, yet they all feature classic Incan architecture in the form of their rectangular shape. The architects linked them together by staircases that were built into the construction of the terraces. The largest of these is the main square, which fulfilled religious and social functions.{% endblocktrans %}</span>
+        </li>
+        <li>
+          <img class="main" src="{{MEDIA_URL}}images/rotator-images/MP_zona_agricultura.jpg" alt="Agricultural Sector" />
+          <img class="thumb" src="{{MEDIA_URL}}images/rotator-images/xfs_thumbs/MP_zona_agricultura.jpg" />
+          <span class="title">{% blocktrans %}Agricultural Sector{% endblocktrans %}</span>
+          <span class="desc">{% blocktrans %}The Agricultural Sector of Machu Picchu is comprised of a series of agricultural irrigation terraces of various sizes and types. These terraces likely performed 2 primary functions: crop growing and protection from water erosion from heavy rains. Five storehouse structures (called “collpas” or “granaries”) are located within the sector.{% endblocktrans %}</span>
+        </li>
+        </ul>
+      </div>
+        <div data-ertype="layout" data-ertemplateName="NONE" style="">
+          <div class="erimgMain" style="position: absolute; left:0;right:0;top:0;bottom:70px;" data-erConfig="{___numTiles:3, scaleMode:'fillArea', imgType:'main', __loopNextButton:false, arrowButtonMode:'rollover'}">
+            <div class="erimgMain_slides" style="position: absolute; left:0px; top:0; bottom:0; right:0px;">
+              <div class="erimgMain_slide">
+                <div class="erimgMain_img" style="position: absolute; left: 0; right: 0; top: 0; bottom: 0;"></div>
+                <div class="" style="background: #000; background: rgba(0,0,0,0.85); position: absolute; left: 0; right: 0; bottom: 0; padding: 5px; color: #FFF; font-family: Arial; font-size: 12px;">
+                  <p class="erimgMain_title" style="padding: 0; margin: 0 0 3px 0; font-weight: bold;"></p>
+                  <p class="erimgMain_desc" style="padding: 0 0 10px 0; margin: 0;"></p>
+                </div>
+              </div>
+            </div>
+            <div class="erimgMain_arrowLeft" style="position:absolute; left: 10px; top: 50%; margin-top: -15px;" data-erConfig="{image:'circleSmall', image2:'circleSmall'}"></div>
+            <div class="erimgMain_arrowRight" style="position:absolute; right: 10px; top: 50%; margin-top: -15px;"></div>
+          </div>
+          <div class="erimgMain rotatorTileNav" style="position: absolute; left:0;right:0;bottom:0;height:80px;" data-erConfig="{numTiles:-1, scaleMode:'fillArea', imgType:'thumb', loopNextButton:false, arrowButtonMode:'rollover', __slideLinkEvent:'rollover'}">
+            <div style="position: absolute; left: 0; top: 10px; right: 0; bottom: 0; background: #FFF;"></div>
+            <div class="erimgMain_slides" style="position: absolute; left:0px; top:0; bottom:0; right:0px;">
+              <div class="erimgMain_slide">
+                <div class="erimgMain_img" style="position: absolute; left: 0; right: 0; top: 10px; bottom: 0; margin: 2px 1px;"></div>
+                  <!-- <div class="" style="background: #555; position: absolute; left: 1px; right: 1px; top: 10px; bottom: 0; padding: 5px; color: #FFF; font-family: Arial; font-size: 12px; text-align: center;">
+                          <p class="erimgMain_title" style="padding: 5px; margin: 0 0 3px 0; font-weight: bold;"></p>
+                  </div> -->
+                <div class="selectionArrow visibleWhenSelected" style="position: absolute; top: 0; left: 50%; margin-left: -10px; width: 20px; height: 10px; background-image: url('http://easyrotator.s3.amazonaws.com/1/i/rotator/FFF_arrow10_export.png');"></div>
+              </div>
+            </div>
+            <div class="erimgMain_arrowLeft" style="position:absolute; left: 60px; top: 50%; margin-top: -10px;" data-erConfig="{image:'circleSmall', image2:'circleSmall'}"></div>
+            <div class="erimgMain_arrowRight" style="position:absolute; right: 60px; top: 50%; margin-top: -10px;"></div>
+            <div class="erabout erFixCSS3" style="color: #FFF; text-align: left; background: #000; background:rgba(0,0,0,0.93); border: 2px solid #FFF; padding: 20px; font: normal 11px/14px Verdana,_sans; width: 300px; border-radius: 10px; display: none;"> This rotator was created with the free <a style="color:#FFF;" href="http://www.dwuser.com/easyrotator/" target="_blank">EasyRotator</a> software from DWUser.com. <br />
+              <br />
+              Need a powerful <a style="color:#FFF;" href="http://www.dwuser.com/flashslideshow/" target="_blank">Flash slideshow</a> creator with built-in iPhone/iPad/Android support? EasyRotator is supported by the <a style="color:#FFF;" href="http://www.dwuser.com/flashslideshow/" target="_blank">XML Flash Slideshow v4 Software</a>. <br />
+              <br />
+              <a style="color:#FFF;" href="#" class="erabout_ok">OK</a>
+            </div>                
+          </div>
+        </div>
+        
+    </div>
+    <!-- End DWUser_EasyRotator -->
+</div>
+
+<div class="span-14 last winners_menu" id="about_bar">
+  <ul>
+    <li class="selected">
+      <a href="{% url portal_about_history %}">{% blocktrans %}Machu Picchu{% endblocktrans %}</a>
+    </li>
+    <li class="light"><a href="{% url portal_about_history 2 %}">{% blocktrans %}Peru{% endblocktrans %}</a></li>
+    <li class="light"><a href="{% url portal_about_history 3 %}">{% blocktrans %}Trivia{% endblocktrans %}</a></li>
+    <li class="light"><a href="{% url portal_about_history 4 %}">{% blocktrans %}Videos{% endblocktrans %}</a></li>
+  </ul>
+</div>
+<br/>
+<!--<ul class="about-top-menu">
+  <li><a href="#">{% blocktrans %}Incan Empire{% endblocktrans %}</a></li>
+  <li><a href="#">{% blocktrans %}Spanish Conquerors{% endblocktrans %}</a></li>
+  <li><a href="#">{% blocktrans %}Discovery{% endblocktrans %}</a></li>
+  <li><a href="#">{% blocktrans %}New 7 wonders{% endblocktrans %}</a></li>
+</ul>-->
+<div class="about-content relative_push_down_10">
+<h3>{% blocktrans %}Machu Picchu{% endblocktrans %}</h3>
+
+<!--<p>Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem</p>-->
+<p class="link_all_green">
+ <small>{% blocktrans %}Information provided by{% endblocktrans %} <a href="http://www.peru.travel/" target="_blank">www.peru.travel.com</a></small>
+</p>
+</div>
+{% endblock %}
+
+

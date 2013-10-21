@@ -1,0 +1,22 @@
+{% load i18n %}
+<div class="span-2">
+  <a class="selected" href="{% url new_main_portal %}">{% blocktrans %}Home{% endblocktrans %}</a>
+</div>
+<div class="span-1">|</div>
+<div class="span-2">
+  <a href="{% url main_portal %}">{% blocktrans %}Contest{% endblocktrans %}</a>
+</div>
+<div class="span-1">|</div>
+<div class="span-2">
+  <a href="{% url djangobb:index %}">{% blocktrans %}Foro{% endblocktrans %}</a>
+</div>
+<div class="span-1">|</div>
+<div class="span-4 span-158px">
+  <a href="{% url ser_inicio %}">{% blocktrans %}Recommended Services{% endblocktrans %}</a>
+</div>
+<div class="span-1">|</div>
+<div class="span-3 span-140px last">
+  <a href="{% url portal_site_activity_stream %}">
+    {% blocktrans %}Activity Stream{% endblocktrans %}
+  </a>
+</div>

@@ -1,0 +1,78 @@
+{% extends "portal/menu_views/base_menu.html"  %}
+{% load i18n %}
+{% load portal_tags %}
+{% load thumbnail %} 
+{% block title %}
+  {% blocktrans %}Social Responsability{% endblocktrans %}
+{% endblock %}
+
+{% block head %}
+  {% include "portal/tags/sharethis/standard.html" %}  
+{% endblock %}
+
+{% block wall_menu %}
+<div class="wall_menu wall_menu_sponsors span-24 last">
+{% endblock %}
+
+{% block social_reponsability %}
+    <p class="link_all_black text_bold"><a href="{% url portal_social_responsability %}">EnseñaPerú</a></p>
+    <p class="link_all_green link_hover_black text_bold"><a href="{% url portal_social_responsability 2 %}">Cámara de Turismo de Cusco</a></p>
+{% endblock %}
+
+{% block center_content %}
+<div class="span-13 last breadcrumbs">
+    <label class="link_all_green"><a href="{% url portal_sponsors %}">{% blocktrans %}Organizers & Sponsors{% endblocktrans %} ></a></label>
+    {% blocktrans %}Social Responsability{% endblocktrans %}
+</div>
+
+<div class="span-14 last sponsors_organizers">
+  <h1>{% blocktrans %}Social Responsability{% endblocktrans %}</h1>
+  
+  <div class="span-14 last push_down_25 SocialResponsability">
+    <h2>Enseña Perú (teach for all)</h2>
+    <a href="http://ensenaperu.org/" target="_blank"><img class="image_to_right" width="190" height="163" src="{{MEDIA_URL}}images/social_responsability/sponsors_social_responsability_logo.jpg"></a>
+    {% blocktrans %}
+    <h2>About EnseñaPerú:</h2> 
+    <p>We are a civil association without profit, with a mission to decisively
+      address the main issue of Peru: education. To that end, EnseñaPerú 
+      recruits talented Young Leaders from top universities and institutes in 
+      the country who then test their talent and profession exercising 
+      leadership in schools in vulnerable areas for 2 years of teaching, 
+      training and managing. Their mission is to work full time for 2 years at
+      schools in vulnerable areas of Arequipa, Lima and Callao. 
+    </p>
+    <p>The project currently has 67 EnseñaPerú Young Leaders, committed 
+      professionals this year will impact the lives of more than 5,300 
+      children and young people in vulnerable areas of Arequipa, Lima and 
+      Callao. By 2014, this movement is expected to be present in at least 7
+      regions, which is expected to impact the lives of 35,000 children and 
+      young people and transform their environment and community, giving them 
+      the opportunity to enjoy a quality of life through a different excellent
+      education.</p>
+    <p>EnseñaPerú a member of the global network for education Teach For All 
+      (<a href="http://www.teachforall.org">www.teachforall.org</a>), 
+      the model is present in over 19 countries around 
+      the world, where thousands of young people and began to work to turn 
+      around educational inequity in places as diverse as Germany, Argentina,
+      Australia, Brazil, Chile, China, Estonia, India, Israel, Latvia, Lebanon,
+      U.S., Spain, United Kingdom, but with only one challenge: education.</p> 
+    <p>In addition, we have the backing of major organizations involved with
+      education such as the Interbank Group, DHL, the Instituto Apoyo, JP 
+      Morgan, IBM, among others, in addition to the support of a committed 
+      Board consisting of renowned Peruvian leaders like Chef Acurio, former 
+      Finance Minister Fernando Zavala, Vania Masías professional dancer, ex - 
+      CEO of Procter & Gamble Peru Jaime Raygada, Grupo Apoyo’s president 
+      Felipe Ortiz de Zevallos, among others. </p>
+    <p>Today, this movement in education has two generations of young leaders
+      graduated from the best universities and institutes in the country, 67 
+      professionals representing 12 different regions, which means half the 
+      country, leading schools in vulnerable areas in the regions of Lima , 
+      Callao, Arequipa and now, starting a unique experience in Peru.</p>
+    
+    <p>To learn more about the program: </p>
+    <p><a href="http://www.ensenaperu.org">www.ensenaperu.org</a></p>
+
+    {% endblocktrans %}
+  </div>
+</div>
+{% endblock %}

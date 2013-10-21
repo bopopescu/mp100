@@ -1,0 +1,79 @@
+{% extends "portal/menu_views/base_menu.html"  %}
+{% load i18n %}
+{% load portal_tags %}
+{% load thumbnail %} 
+{% block title %}
+  {% blocktrans %}Grand Prize{% endblocktrans %}
+{% endblock %}
+
+{% block head %}
+  {% include "portal/tags/sharethis/standard.html" %}
+{% endblock %}
+
+
+{% block center_content %}
+<div class="span-14 last breadcrumbs">
+    <label class="link_all_green">
+	<a href="{% url portal_winners %}">{% blocktrans %}Winners{% endblocktrans %} ></a>
+    </label>
+    <label class="link_all_green">
+	<a href="{% url portal_winners %}">{% blocktrans %}Grand Final{% endblocktrans %} ></a>
+    </label>
+    {% blocktrans %}Prizes{% endblocktrans %}
+</div>
+<div class="span-14 last winners push_down_25">
+  <div class="span-9 last">
+    <h1>{% blocktrans %}Photo Contest{% endblocktrans %}</h1>
+    <h2>{% blocktrans %}I was in Machu Picchu{% endblocktrans %}</h2>
+    <h3>{% blocktrans %}A Photographic Wonder{% endblocktrans %}</h3>
+  </div>
+  <div class="span-5 last grandPrize_GranPrize_word">
+    {% blocktrans %}Grand Prize{% endblocktrans %}
+  </div>
+</div>
+
+<div class="span-16 last panoramic_photos_prize_image">
+{% get_current_language as LANGUAGE_CODE %}
+{% if LANGUAGE_CODE == 'en' %}
+    <img height="349px" width="643px" src="{{MEDIA_URL}}style_imgs/GrandPrize_en.jpg">
+{% else %}
+    <img height="349px" width="643px" src="{{MEDIA_URL}}style_imgs/GrandPrize_es.jpg">
+{% endif %}
+</div>
+
+<div class="span-14 last push_down_320 prize_panoramic">
+    <h1>{% blocktrans %}Great Winner{% endblocktrans %}</h1>
+    <p>{% blocktrans %}If your photo  is selected as  the Grand Prize Winner, you'll win  the trip  to Peru of your dreams! The 11-day, 10-night  trip  includes:{% endblocktrans %}
+    </p>
+    <ul>
+    <li>{% blocktrans %}Round  trip  flight  to Lima, Peru as well as domestic  flights  to Cusco and Arequipa{% endblocktrans %}</li>
+    <li>{% blocktrans %}Lodging at  luxury hotels:{% endblocktrans %}<br/>&nbsp;</li>
+	<ul>
+	<li>{% blocktrans %}2 nights at  the Miraflores Park Hotel by Orient-Express  in Lima.{% endblocktrans %}</li>
+	<li>{% blocktrans %}2 nights at  the Hotel Monasterio by Orient-Express  in Cusco.{% endblocktrans %}</li>
+	<li>{% blocktrans %}1 Night at Sanctuary Lodge by Orient-Express  in Machu Picchu.{% endblocktrans %}</li>
+	<li>{% blocktrans %}2 nights  in Rio Sagrado Hotel by Orient-Express  in  the Sacred Valley.{% endblocktrans %}</li>
+	<li>{% blocktrans %}2 nights at Las Casitas del Colca by Orient-Express Colca Valley.{% endblocktrans %}</li>
+	<li>{% blocktrans %}1 night  in  the Hotel Libertador Arequipa.{% endblocktrans %}</li>
+	</ul>
+    <li>{% blocktrans %}Transfer  round  trip on  the  train Hiram Bingham PeruRail  from Cusco  to Machu Picchu.{% endblocktrans %}</li>
+    <li>{% blocktrans %}Transfer  round  trip  from Arequipa  to Colca.{% endblocktrans %}</li>
+    <li>{% blocktrans %}Travel purse of  US$ 2,000.{% endblocktrans %}</li>
+    </ul>   
+    <h1>{% blocktrans %}Category Winners{% endblocktrans %}</h1>
+    <p>
+    {% blocktrans %}If your photo is chosen as a Category Winner, you will win a trip for 2 to Peru! The 6-day/5-night trip includes:{% endblocktrans %}
+    </p>
+    <ul>
+    <li>{% blocktrans %}Round  trip  flight  to Lima Peru as well as domestic  round-trip  flight  to Cusco{% endblocktrans %}</li>
+    <li>{% blocktrans %}5 nights  in  the high-end Sonesta Hotels  in Lima and Cusco{% endblocktrans %}</li>
+    <li>{% blocktrans %}2 nights at  the Hotel Sonesta  in Lima{% endblocktrans %}</li>
+    <li>{% blocktrans %}3 nights at  the hotel Sonesta  in Cusco{% endblocktrans %}</li>
+    </ul>
+    <div class="span-14 GrandPrize_smallText special_gray">
+	<span class="green">{% blocktrans %}Grand Prize and Category Winner Prizes:{% endblocktrans %}</span>
+	<p class="link_all_green">{% blocktrans %}Flights: Includes international and domestic flights. Taxes included. Local airport taxes (T.U.U.A.)  to be paid at the airport by the winner. Hotels: Taxes and breakfast included. Machu Picchu: Train fare and taxes included. Entry fee to Machu Picchu ( S/. 126.00 for foreign adults at time of publishing) to be paid at the site by the winner. Winners will win either the grand prize or a category prize, not both. For more information, see{% endblocktrans %} <a href="{% url portal_bases %}">{% blocktrans %}Official Rules{% endblocktrans %}</a>.
+	</p>
+    </div>
+</div>
+{% endblock %}

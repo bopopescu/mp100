@@ -1,0 +1,72 @@
+{% extends "fotos/perfil_publico/base_perfil.html"  %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/jquery.lightbox-0.5.css" media="screen" />
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.lightbox-0.5.js"></script>
+    <script type="text/javascript">
+        $(function() {
+                $('a.lightbox_mis_fotos').lightBox({
+                    imageLoading:			'{{MEDIA_URL}}images/jquery-lightbox-0.5/lightbox-ico-loading.gif',		
+                    imageBtnPrev:			'{{MEDIA_URL}}images/jquery-lightbox-0.5/lightbox-btn-prev.gif',			
+                    imageBtnNext:			'{{MEDIA_URL}}images/jquery-lightbox-0.5/lightbox-btn-next.gif',			
+                    imageBtnClose:			'{{MEDIA_URL}}images/jquery-lightbox-0.5/lightbox-btn-close.gif',		
+                    imageBlank:				'{{MEDIA_URL}}images/jquery-lightbox-0.5/lightbox-blank.gif',			
+                });
+        });        
+    </script>
+{% endblock %}
+
+
+{% block body1 %}
+    <div class="user_details">
+        <dl>
+            <dt>Nombre de usuario:</dt>
+            <dd>{{usuario.username}}<dd>
+
+            <dt>Nombres:</dt>
+            <dd>{{usuario.first_name}}</dd>
+
+            <dt>Apellidos:</dt>
+            <dd>{{usuario.last_name}}</dd>
+
+            <dt>Correo:</dt>
+            <dd>{{usuario.email}}</dd>
+
+            <dt>Fecha de Nacimiento:</dt>
+            <dd>{{usuario.get_profile.fecha_nacimiento}}</dd>
+
+            <dt>Sexo:</dt>
+            <dd>{% if usuario.get_profile.sexo == 'M' %}
+                    Masculino
+                {% endif %}
+                {% if usuario.get_profile.sexo == 'F'  %}
+                    Femenino
+                {% endif %}
+            </dd>
+            <dt>Pais:</dt>
+            <dd>{{usuario.get_profile.pais}}</dd>
+            <div class="clear"></div>
+        </dl>
+    </div>
+    
+    <hr class="profile_separator"/>
+    <h2>Mis Fotos</h2>
+    <ul class="image_list main">    
+    {% load fotos_tags %}
+    {% get_some_user_fotos usuario 4 as usuario_fotos 1 0 %}
+
+        {% if usuario_fotos %}            
+            {% for foto in usuario_fotos %}
+                {% load thumbnail %}
+                <li><a href="{{ MEDIA_URL }}{{ foto.foto}}" class="lightbox_mis_fotos" title="{{ foto.titulo }}">
+                <img src="{% thumbnail foto.foto 75x75 crop="smart" upscale %}" width=75px height=75px alt="{{foto.titulo}}" /></a></li>
+            {% endfor %}
+        {% else %}
+            <li>Este usuario aún no ha subido ninguna foto.</li>
+        {% endif %}
+
+    </ul>
+    <div class="clear"></div>
+    <p class="more_profile"><a href="{% url fotos_ver_fotos_public usuario.id %}">Ver más...</a></p>
+    <hr class="profile_separator"/>    
+{% endblock %}

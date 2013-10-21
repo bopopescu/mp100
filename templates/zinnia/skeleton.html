@@ -1,0 +1,55 @@
+{% extends "zinnia/base_skeleton.html" %}
+{% load zinnia_tags tagging_tags i18n %}
+
+{% block title %} 
+{% blocktrans %}News{% endblocktrans %}
+{% endblock %}
+
+
+{% block center_content %}
+
+
+<div class="head-about">
+  <div class="span-14 last breadcrumbs">
+    {% block breadcrumbs %}{% endblock %}
+  </div>
+  {% block news_title %}
+  <p class="breadcrumbs blog">{% blocktrans %}News{% endblocktrans %}</p>
+  {% endblock %}
+</div>
+<div class="about-content">
+  {% block content %}
+  {% endblock %}
+</div>
+{% endblock %}
+
+
+{% block menu_bar_blog %}
+<h3>{% blocktrans %}Most Recent Posts{% endblocktrans %}</h3>
+<div class="recent-entries">
+  {% get_current_language as LANGUAGE %}
+  {% get_recent_entries LANGUAGE %}
+</div>
+<hr/>
+<h3>{% blocktrans %}Tags{% endblocktrans %}</h3>
+{% tag_cloud_for_model zinnia.Entry as entry_tags with min_count=1 steps=6 distribution=log %}
+<div class="tag-cloud">
+  {% for tag in entry_tags %}
+  <span style="font-size: {{tag.font_size|add:"10"}}px;">
+    <a href="/blog/tags/{{tag}}">{{tag}}</a>
+  </span>
+  {% endfor %}
+</div>
+
+<hr/>
+{% comment %}
+<h3>{% blocktrans %}Language{% endblocktrans %}</h3>
+<div class="recent-entries">
+ {% get_categories %}
+</div>
+{% endcomment %}
+
+{% endblock %}
+
+{% block special_awars_green_block %}
+{% endblock %}

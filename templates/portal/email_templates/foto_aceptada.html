@@ -1,0 +1,32 @@
+{% load i18n %}
+<table border=0 width=100% style=" padding: 10px 0px 10px 0px; background-color:black; " >
+	<tr>
+		<td align= "center" background=http://bcnloft.com/edgar/background.gif >
+			<table background=http://bcnloft.com/edgar/header.gif height=356 style=" padding: 50px 50px 10px 50px; text-align: center; background-color:#FFFFFF;"  width=600px border=0 >
+			<tr>
+			<td>
+				<table height=280 style=" padding: 0px; margin: 0px; text-align: center; background-color:white; "  width=495px border=0 >
+				<tr>
+					<td height=30%>
+					<br/><strong>"{% blocktrans %}Photo Contest I was in Machu Picchu{% endblocktrans %}"</strong></p>
+					</td>
+				</tr>
+				<tr>
+					<td height=50%>
+					<p >{{user_firstname}}, {% blocktrans %}your photo{% endblocktrans %} '{{photo_title}}' {% blocktrans %}has been accepted in the contest{% endblocktrans %} 
+					<br/><a href="http://machu-picchu100.com" target='_blank'>www.machu-picchu100.com</a>
+					</p>
+					</td>
+				</tr>
+				<tr>
+					<td height=20%>
+					<p> <small> {% blocktrans %}I was in Machu Picchu - &copy; Copyright 2011 Quimera HG{% endblocktrans %} </small></p>
+					</td>
+				</tr>
+				</table>
+			</td>
+			</tr>
+			</table>
+		</td>
+	</tr>
+</table>

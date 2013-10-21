@@ -1,0 +1,147 @@
+{% extends "portal/menu_views/base_menu.html" %}
+{% load i18n %}
+
+
+{% block title %} 
+  {% blocktrans %}Peru{% endblocktrans %}
+{% endblock %}
+
+{% block head %}
+  <script type="text/javascript" src="http://c520866.r66.cf2.rackcdn.com/1/js/easy_rotator.min.js"></script>
+{% endblock %}
+
+{% block center_content %}
+
+<div class="span-13 last breadcrumbs">
+    <label class="link_all_green"><a href="{% url portal_about_history %}">{% blocktrans %}Machu Picchu & Peru{% endblocktrans %} ></a></label>
+    {% blocktrans %}Machu Picchu{% endblocktrans %}
+</div>
+
+
+<div class="span-14 last winners_menu" id="about_bar">
+  <ul>
+    <li class="light">
+      <a href="{% url portal_about_history %}">{% blocktrans %}Machu Picchu{% endblocktrans %}</a>
+    </li>
+    <li class="selected"><a href="{% url portal_about_history 2 %}">{% blocktrans %}Peru{% endblocktrans %}</a></li>
+    <li class="light"><a href="{% url portal_about_history 3 %}">{% blocktrans %}Trivia{% endblocktrans %}</a></li>
+    <li class="light"><a href="{% url portal_about_history 4 %}">{% blocktrans %}Videos{% endblocktrans %}</a></li>
+  </ul>
+</div>
+<br/>
+<!--<ul class="about-top-menu">
+  <li><a href="#">{% blocktrans %}Incan Empire{% endblocktrans %}</a></li>
+  <li><a href="#">{% blocktrans %}Spanish Conquerors{% endblocktrans %}</a></li>
+  <li><a href="#">{% blocktrans %}Discovery{% endblocktrans %}</a></li>
+  <li><a href="#">{% blocktrans %}New 7 wonders{% endblocktrans %}</a></li>
+</ul>-->
+<div class="about-content push_down_10">
+<!--<h3>{% blocktrans %}Machu Picchu{% endblocktrans %}</h3>-->
+    <!-- Begin DWUser_EasyRotator -->
+    <div class="dwuserEasyRotator" style="width: 550px; height: 500px; position:relative; text-align: left;" data-erconfig="{autoplayEnabled:false, lpp:'102-105-108-101-58-47-47-47-85-115-101-114-115-47-109-97-99-111-110-109-111-114-114-105-115-111-110-47-68-111-99-117-109-101-110-116-115-47-69-97-115-121-82-111-116-97-116-111-114-80-114-101-118-105-101-119-47-112-114-101-118-105-101-119-95-115-119-102-115-47'}" data-ername="Peru">
+      <div data-ertype="content" style="display: none;"><ul data-erlabel="Main Category">
+            <li>
+                    <img class="main" src="{{MEDIA_URL}}images/PeruRotatorImages/Cusco_by_CitizenFresh.jpg" alt="Cusco" />
+                    <img class="thumb" src="{{MEDIA_URL}}images/PeruRotatorImages/xfs_thumbs/Cusco_by_CitizenFresh.jpg" />
+                    <span class="title">Cusco</span>
+                    <span class="desc">{% blocktrans %}Located 80 km (50 miles) from Machu Picchu, the capital of the ancient of the Incan Empire is one of the most imporant destinations in Peru. Cusco was placed on the World Cultural Heritage List by UNESCO in 1983 and was named the Historical Capital of Peru in the Constitution of Peru. The city is filled with coble-stoned streets and a mix of Incan and Colonial-era buildings.{% endblocktrans %}</span>
+            </li>
+            <li>
+                    <img class="main" src="{{MEDIA_URL}}images/PeruRotatorImages/cusco-telas.jpg" alt="San Blas - Cusco" />
+                    <img class="thumb" src="{{MEDIA_URL}}images/PeruRotatorImages/xfs_thumbs/cusco-telas.jpg" />
+                    <span class="title">San Blas - Cusco</span>
+                    <span class="desc">{% blocktrans %}Some of the best artisans in the region are located in the San Blas neighborhood of Cusco, where tourists can visit workshops and select among a wide variety of woven goods, pottery, paintings and other beautiful artisan crafts.{% endblocktrans %}</span>
+            </li>
+            <li>
+                    <img class="main" src="{{MEDIA_URL}}images/PeruRotatorImages/Sacsayhuaman.jpg" alt="{% blocktrans %}Sacsayhuamán Fortress{% endblocktrans %}" />
+                    <img class="thumb" src="{{MEDIA_URL}}images/PeruRotatorImages/xfs_thumbs/Sacsayhuaman.jpg" />
+                    <span class="title">{% blocktrans %}Sacsayhuamán Fortress{% endblocktrans %}</span>
+                    <span class="desc">{% blocktrans %}Located just minutes outside the city of Cusco, the Sacred Valley is home to the massive walls of the Sacsayhuamán fortress.  and a few kilometers from Sacsayhuamán are the Incan archeological sites of Qenko, Pukapukara, and Tambomachay.{% endblocktrans %}</span>
+            </li>
+            <li>
+                    <img class="main" src="{{MEDIA_URL}}images/PeruRotatorImages/incatrail.jpg" alt="{% blocktrans %}Inca Trail to Machu Picchu{% endblocktrans %}" />
+                    <img class="thumb" src="{{MEDIA_URL}}images/PeruRotatorImages/xfs_thumbs/incatrail.jpg" />
+                    <span class="title">{% blocktrans %}Inca Trail to Machu Picchu{% endblocktrans %}</span>
+                    <span class="desc">{% blocktrans %}In pre-Columbian South America, the Inca road system was the most extensive and advanced transportation system.  The Inca Trail to Machu Picchu, hiked by thousands of visitors each year, is the best known portion of the road system. The network was based on 2 North-South routes with numerous branches extending to the Coast, to Quito, Ecuador to modern-day Santiago, Chile.{% endblocktrans %}</span>
+            </li>
+            <li>
+                    <img class="main" src="{{MEDIA_URL}}images/PeruRotatorImages/colca-valley.jpg" alt="{% blocktrans %}Colca Valley{% endblocktrans %}" />
+                    <img class="thumb" src="{{MEDIA_URL}}images/PeruRotatorImages/xfs_thumbs/colca-valley.jpg" />
+                    <span class="title">{% blocktrans %}Colca Valley{% endblocktrans %}</span>
+                    <span class="desc">{% blocktrans %}Located about 100 miles (160 kilometers) northwest of Arequipa, the Colca Canyon is the world'd deepest canyon more than twice as deep as the Grand Canyon in the United States at 4,160 m.{% endblocktrans %}</span>
+            </li>
+            <li>
+                    <img class="main" src="{{MEDIA_URL}}images/PeruRotatorImages/El_Condor_Pasa_12_by_Samurai69.jpg" alt="{% blocktrans %}Colca Valley{% endblocktrans %}" />
+                    <img class="thumb" src="{{MEDIA_URL}}images/PeruRotatorImages/xfs_thumbs/El_Condor_Pasa_12_by_Samurai69.jpg" />
+                    <span class="title">{% blocktrans %}Colca Valley{% endblocktrans %}</span>
+                    <span class="desc">{% blocktrans %}The Colca Valley is home to the endangered Andean Condor, which can be seen soaring over the canyon at close range. With more than 1,800 species of migratory and endemic birds, Peru is a popular destination for birdwatchers.{% endblocktrans %}</span>
+            </li>
+            <li>
+                    <img class="main" src="{{MEDIA_URL}}images/PeruRotatorImages/Floating_Island_Titicaca_by_CitizenFresh.jpg" alt="{% blocktrans %}Lake Tititicaca{% endblocktrans %}" />
+                    <img class="thumb" src="{{MEDIA_URL}}images/PeruRotatorImages/xfs_thumbs/Floating_Island_Titicaca_by_CitizenFresh.jpg" />
+                    <span class="title">{% blocktrans %}Lake Tititicaca{% endblocktrans %}</span>
+                    <span class="desc">{% blocktrans %}The world's highest navigable lake is also the folklore capital of Peru. The lake's Uros population continues their ancestors' traditions, living on on man-made “floating islands” constructed of totora reeds, and navigating in traditional boats made of totora reeds.{% endblocktrans %}</span>
+            </li>
+            <li>
+                    <img class="main" src="{{MEDIA_URL}}images/PeruRotatorImages/arequipa.jpg" alt="{% blocktrans %}Arequipa - White City{% endblocktrans %}" />
+                    <img class="thumb" src="{{MEDIA_URL}}images/PeruRotatorImages/xfs_thumbs/arequipa.jpg" />
+                    <span class="title">{% blocktrans %}Arequipa - White City{% endblocktrans %}</span>
+                    <span class="desc">{% blocktrans %}With a population of approximately 1 million, Arequipa is the second most populous city in Peru. The capital city of the Arequipa Region, Arequipa is often referred to as "The White City", referring to the many Spanish-era colonial buildings built of white volcanic rock ("sillar").{% endblocktrans %}</span>
+            </li>
+            <li>
+                    <img class="main" src="{{MEDIA_URL}}images/PeruRotatorImages/aqp-santa-catalina.jpg" alt="{% blocktrans %}Santa Catarina Monastery - Arequipa{% endblocktrans %}" />
+                    <img class="thumb" src="{{MEDIA_URL}}images/PeruRotatorImages/xfs_thumbs/aqp-santa-catalina.jpg" />
+                    <span class="title">{% blocktrans %}Santa Catarina Monastery - Arequipa{% endblocktrans %}</span>
+            </li>
+            <li>
+                    <img class="main" src="{{MEDIA_URL}}images/PeruRotatorImages/mancora_II_by_Carlunchi.jpg" alt="Máncora" />
+                    <img class="thumb" src="{{MEDIA_URL}}images/PeruRotatorImages/xfs_thumbs/mancora_II_by_Carlunchi.jpg" />
+                    <span class="title">Máncora</span> <span class="desc">{% blocktrans %}Located in the Piuria region of Northwestern Peru, Máncora is known for its wide beaches, turquoise waters and good waves, making it a popular destination among surfers and vacationers. The town of 10,000 boasts beach resorts, luxury restaurants and an active nightlife.{% endblocktrans %}</span>
+            </li>
+            <li>
+                    <img class="main" src="{{MEDIA_URL}}images/PeruRotatorImages/amazon.jpg" alt="{% blocktrans %}Peruvian Amazon{% endblocktrans %}" />
+                    <img class="thumb" src="{{MEDIA_URL}}images/PeruRotatorImages/xfs_thumbs/amazon.jpg" />
+                    <span class="title">{% blocktrans %}Peruvian Amazon{% endblocktrans %}</span>
+                    <span class="desc">{% blocktrans %}The Amazon region comprises 60% of the land area of Peru. It is the second largest jungle after the Brazilian Amazon and home to a large degree of biodiversity.{% endblocktrans %}</span>
+            </li>
+    </ul>
+    </div>
+
+  <div data-ertype="layout" data-ertemplatename="NONE" style="">			<div class="erimgMainOneUp" style="position: absolute; left:0;right:0;top:0;bottom:70px;" data-erConfig="{___numTiles:3, scaleMode:'fillArea', transition:'fade', imgType:'main', __loopNextButton:false, arrowButtonMode:'rollover'}">
+				<div class="erimgMain_slides" style="position: absolute; left:0px; top:0; bottom:0; right:0px;">
+					<div class="erimgMainOneUp_img" style="position: absolute; left: 0; right: 0; top: 0; bottom: 0;"></div>
+				</div>
+				<div class="erimgMain_arrowLeft" style="position:absolute; left: 10px; top: 50%; margin-top: -15px;" data-erConfig="{image:'circleSmall', image2:'circleSmall'}"></div>
+				<div class="erimgMain_arrowRight" style="position:absolute; right: 10px; top: 50%; margin-top: -15px;"></div>
+			</div>
+			
+			<div class="" style="background: #000; background: rgba(0,0,0,0.85); position: absolute; left: 0; right: 0; bottom: 70px; padding: 5px; color: #FFF; font-family: Arial; font-size: 12px;">
+				<p class="erdynamicText" data-erfield="title" style="padding: 0; margin: 0 0 3px 0; font-weight: bold;"></p>
+				<p class="erdynamicText" data-erfield="desc" style="padding: 0 0 10px 0; margin: 0;"></p>
+			</div>
+			<div class="erimgMain rotatorTileNav" style="position: absolute; left:0;right:0;bottom:0;height:80px;" data-erConfig="{numTiles:-1, scaleMode:'fillArea', imgType:'thumb', loopNextButton:false, arrowButtonMode:'rollover', __slideLinkEvent:'rollover'}">
+				<div style="position: absolute; left: 0; top: 10px; right: 0; bottom: 0; background: #FFF;"></div>
+				<div class="erimgMain_slides" style="position: absolute; left:0px; top:0; bottom:0; right:0px;">
+					<div class="erimgMain_slide">
+						<div class="erimgMain_img" style="position: absolute; left: 0; right: 0; top: 10px; bottom: 0; margin: 2px 1px;"></div>
+						<!-- <div class="" style="background: #555; position: absolute; left: 1px; right: 1px; top: 10px; bottom: 0; padding: 5px; color: #FFF; font-family: Arial; font-size: 12px; text-align: center;">
+							<p class="erimgMain_title" style="padding: 5px; margin: 0 0 3px 0; font-weight: bold;"></p>
+						</div> -->
+						<div class="selectionArrow visibleWhenSelected" style="position: absolute; top: 0; left: 50%; margin-left: -10px; width: 20px; height: 10px; background-image: url('http://easyrotator.s3.amazonaws.com/1/i/rotator/FFF_arrow10_export.png');"></div>
+					</div>
+				</div>
+				<div class="erimgMain_arrowLeft" style="position:absolute; left: 60px; top: 50%; margin-top: -10px;" data-erConfig="{image:'circleSmall', image2:'circleSmall'}"></div>
+				<div class="erimgMain_arrowRight" style="position:absolute; right: 60px; top: 50%; margin-top: -10px;"></div>
+			</div><div class="erabout erFixCSS3" style="color: #FFF; text-align: left; background: #000; background:rgba(0,0,0,0.93); border: 2px solid #FFF; padding: 20px; font: normal 11px/14px Verdana,_sans; width: 300px; border-radius: 10px; display: none;"> This <a style="color:#FFF;" href="http://www.dwuser.com/easyrotator/" target="_blank">jQuery slider</a> was created with the free <a style="color:#FFF;" href="http://www.dwuser.com/easyrotator/" target="_blank">EasyRotator</a> software from DWUser.com. <br />
+      <br />
+      Need a powerful <a style="color:#FFF;" href="http://www.dwuser.com/flashslideshow/" target="_blank">Flash slideshow</a> creator with built-in iPhone/iPad/Android support?  EasyRotator is supported by the <a style="color:#FFF;" href="http://www.dwuser.com/flashslideshow/" target="_blank">XML Flash Slideshow v4 Software</a>. <br />
+      <br />
+      <a style="color:#FFF;" href="#" class="erabout_ok">OK</a> </div>
+  </div>
+
+    </div>
+    <!-- End DWUser_EasyRotator -->
+</div>
+{% endblock %}
+
+

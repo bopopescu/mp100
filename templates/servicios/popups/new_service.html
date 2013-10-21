@@ -1,0 +1,27 @@
+{% load i18n %}
+
+<div id="ser_nuevo" class="jqmWindow services_box">
+    <h2>{% blocktrans %}New service{% endblocktrans %}</h2>
+    <div class="services_box_content popup_form">
+        <form action="" method="post" enctype="multipart/form-data">
+            <ul>
+                {{ nuevo_servicio_form.as_ul }}
+                <div class="append-bottom prepend-top place_form">
+                    <div id="map_canvas" class="append-bottom" style="width:505px; height:200px;"></div>
+                    {{ ubicacion_form.as_ul }}
+                </div>
+            </ul>
+
+            <div class="append-bottom right">
+                {% if captcha_error %}
+                    <ul class="errorlist">
+                        <li>{{ captcha_error }}</li>
+                    </ul>
+                {% endif %}
+                {{ html_captcha|safe }}
+                <span class="closeClass ser_link">{% blocktrans %}Close{% endblocktrans %}</span> |
+                <input type="submit" value="{% blocktrans %}Save new service{% endblocktrans %}" name="nuevo_servicio" />
+            </div>
+        </form>
+    </div>
+</div>

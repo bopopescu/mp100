@@ -1,0 +1,22 @@
+{% extends "fotos/mensaje/base_profile.html"  %}
+{% load i18n %}
+
+{% block body1 %}
+<hr class="profile_separator"/>
+<h2>{% blocktrans %}Enviar Mensaje a{% endblocktrans %} {{usuario.first_name}} {{usuario.last_name}}</h2>
+<div class="user_details">  
+    <form action="" method=POST> {% csrf_token %}
+        <table>
+        {{ form.as_table }}
+        <tr>
+            <th>
+            </th>
+            <td><input type="submit" class="button" value="{% blocktrans %}Enviar{% endblocktrans %}" >
+            </td>
+        </tr>
+        </table>
+    </form>
+</div>
+<div class="clear"></div>
+<hr class="profile_separator"/> 
+{% endblock %}

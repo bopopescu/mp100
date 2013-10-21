@@ -1,0 +1,143 @@
+{% extends "admin/base_site.html" %}
+{% load adminmedia admin_list i18n %}
+{% load endless %}
+{% load fotos_tags %}
+{% block title %}Fotos Professinales subidas hasta el periodo de votación 10{% endblock %}
+
+{% block extrastyle %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" href="{% admin_media_prefix %}css/changelists.css" />
+  {% if cl.formset %}
+    <link rel="stylesheet" type="text/css" href="{% admin_media_prefix %}css/forms.css" />
+  {% endif %}
+  {% if cl.formset or action_form %}
+    {% url admin:jsi18n as jsi18nurl %}
+    <script type="text/javascript" src="{{ jsi18nurl|default:'../../jsi18n/' }}"></script>
+  {% endif %}
+  {{ media.css }}
+  {% if not actions_on_top and not actions_on_bottom %}
+    <style>
+      #changelist table thead th:first-child {width: inherit}
+    </style>
+  {% endif %}
+{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+{{ media.js }}
+{% if action_form %}{% if actions_on_top or actions_on_bottom %}
+<script type="text/javascript">
+(function($) {
+    $(document).ready(function($) {
+        $("tr input.action-select").actions();
+    });
+})(django.jQuery);
+</script>
+{% endif %}{% endif %}
+{% endblock %}
+
+{% block bodyclass %}change-list{% endblock %}
+
+{% if not is_popup %}
+  {% block breadcrumbs %}
+    <div class="breadcrumbs">
+      <a href="../../../">
+        {% trans "Home" %}
+      </a>
+       &rsaquo;
+      <a href="../../">
+        {% trans "Fotos" %}
+      </a>
+       &rsaquo;
+      <a href="../">
+        {% trans "Ganadores Profesionales" %}
+      </a>
+       &rsaquo;
+         Añadir ganadores Profesionales
+    </div>
+  {% endblock %}
+{% endif %}
+
+{% block coltype %}flex{% endblock %}
+
+{% block content %}
+  <h1>Seleccione las fotos profesionales ganadoras</h1>
+  <div id="content-main">
+    <div id="changelist" class="module filtered">
+      {% comment %}
+      <div id="toolbar">
+        <form id="changelist-search" method="get" actions="">
+          <div>
+            <label for="searchbar">
+              <img alt="Search" src="http://s3.amazonaws.com/mp100pruebas/adminmedia/media/img/admin/icon_searchbox.png">
+            </label>
+            <input id="searchbar" type="text" value="" name="" size="40">
+            <input type="submit" value="Buscar">
+          </div>
+        </form>
+      </div>
+      {% endcomment %}
+      <script type="text/javascript">
+      document.getElementById("searchbar").focus();
+      </script>
+      {% comment %}
+      <div id="changelist-filter">
+        <h2>Filtro</h2>
+        <h3>Por categoría</h3>
+        <ul>
+          <li {% if cat_id == 0 %}class="selected"{% endif %}>
+            <a href="0">Todo</a>
+          </li>
+	  {% for category in category_list %}
+          <li {% if cat_id == category.id %}class="selected"{% endif %}>
+            <a href="{{category.id}}">{{category.nombre_espaniol}}</a>
+          </li>
+	  {% endfor %}
+        </ul>
+      </div>
+      {% endcomment %}
+
+      {% comment %}
+      {% pagina 1 formset_list %}
+      {% paginate 1 fotos_list %}
+      {% endcomment %}
+      <form id="changelist-form" method="post" action="">{% csrf_token %}
+        <table id="result_list" cellspacing="0">
+          <thead>
+            <tr>
+              <th>Vista Previa</th>
+              <th>Título</th>
+              <th>Seleccionada</th>
+	      <th>Comentario</th>
+	      <th style="{% if not user.is_superuser %}display:none{% endif %}">
+		Ganador</th>
+            </tr>
+          </thead>
+          <tbody>
+	  {% for form in formset_list %}
+	    {% get_object forloop.counter0 from fotos_list as foto %}
+            <tr class="{% cycle 'row1' 'row2' %}">
+	      <td>{{foto.vista_previa|safe}}</td>
+              <td>{{foto.titulo}}</td>
+	      <td>{{form.selected}}{{form.foto_id}}</td>
+	      <td>{{form.comentario.errors}}{{form.comentario}}</td>
+	      <td style="{% if not user.is_superuser %}display:none{% endif %}">
+		{{form.winner}}</td>
+            </tr>	   
+          {% empty %}
+            <tr>
+              <td colspan=4>No hay fotos profesionales aún.</td>
+            </tr>
+          {% endfor %}
+	  {{formset.management_form}}
+	  <input type="hidden" value="{{cat_id}}" name="category">
+          </tbody>
+        </table>
+	<p class="paginator">
+	  {% comment %}{% show_pages %}{% endcomment %}
+	  <input class="default" type="submit" value="Guardar" name="_save">
+	</p>
+      </form>
+    </div>
+  </div>
+{% endblock %}

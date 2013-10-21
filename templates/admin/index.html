@@ -1,0 +1,121 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% load adminmedia %}{% admin_media_prefix %}css/dashboard.css" />{% endblock %}
+
+{% block coltype %}colMS{% endblock %}
+
+{% block bodyclass %}dashboard{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+<div id="content-main">
+    {% comment %}
+    <div class="module">
+    <table summary="Command Models available in the admin application.">
+    <caption><a href="#" class="section"> {% trans 'Administrar Datos' %} </a></caption>
+        
+        <tr>
+            <th scope="row"><a href="{% url admin_db %}">{% trans 'Base de Datos' %}</a></th>
+            <td></td>
+            <td><a href="{% url admin_db %}" class="addlink">{% trans 'Generar Backup' %}</a></td>
+        </tr>
+        
+        <tr>
+            <th scope="row"><a href="{% url admin_enviar_email %}">{% trans 'Enviar e-mail' %}</a></th>
+            <td colspan=2 align=center><a href="{% url admin_enviar_email %}" >{% trans 'Envío de e-mails' %}</a></td>
+        </tr>
+        
+    </table>
+    </div>
+    {% endcomment %}
+
+{% if app_list %}
+    {% for app in app_list %}
+        <div class="module">
+        <table summary="{% blocktrans with app.name as name %}Models available in the {{ name }} application.{% endblocktrans %}">
+        <caption><a href="{{ app.app_url }}" class="section">{% blocktrans with app.name as name %}{{ name }}{% endblocktrans %}</a></caption>
+        {% comment %}
+        {% if app.name == 'Fotos' %}
+        <tr>
+            <th scope="row"><a href="{% url admin_habilitar_fotos %}">{% trans 'Habilitar' %}</a></th>
+            <td colspan=2 align=right><a href="{% url admin_habilitar_fotos %}" >{% trans 'Habilitar todas las fotos' %}</a></td>
+        </tr>
+        {% endif %}
+        {% endcomment %}
+        {% for model in app.models %}
+            <tr>
+            {% if model.perms.change %}
+                <th scope="row"><a href="{{ model.admin_url }}">{{ model.name }}</a></th>
+            {% else %}
+                <th scope="row">{{ model.name }}</th>
+            {% endif %}
+
+            {% if model.perms.add %}
+                <td><a href="{{ model.admin_url }}add/" class="addlink">{% trans 'Add' %}</a></td>
+            {% else %}
+                <td>&nbsp;</td>
+            {% endif %}
+
+            {% if model.perms.change %}
+                <td><a href="{{ model.admin_url }}" class="changelink">{% trans 'Change' %}</a></td>
+            {% else %}
+                <td>&nbsp;</td>
+            {% endif %}
+            </tr>
+        {% endfor %}
+        </table>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>{% trans "You don't have permission to edit anything." %}</p>
+{% endif %}
+</div>
+{% endblock %}
+
+{% block sidebar %}
+<div id="content-related">
+    <div class="module" id="recent-actions-module">
+        <h2>{% trans 'Recent Actions' %}</h2>
+        <h3>{% trans 'My Actions' %}</h3>
+            {% load log %}
+            {% get_admin_log 10 as admin_log for_user user %}
+            {% if not admin_log %}
+            <p>{% trans 'None available' %}</p>
+            {% else %}
+            <ul class="actionlist">
+            {% for entry in admin_log %}
+            <li class="{% if entry.is_addition %}addlink{% endif %}{% if entry.is_change %}changelink{% endif %}{% if entry.is_deletion %}deletelink{% endif %}">
+                {% if entry.is_deletion %}
+                    {{ entry.object_repr }}
+                {% else %}
+                    <a href="{{ entry.get_admin_url }}">{{ entry.object_repr }}</a>
+                {% endif %}
+                <br/>
+                {% if entry.content_type %}
+                    <span class="mini quiet">{% filter capfirst %}{% trans entry.content_type.name %}{% endfilter %}</span>
+                {% else %}
+                    <span class="mini quiet">{% trans 'Unknown content' %}</span>
+                {% endif %}
+            </li>
+            {% endfor %}
+            </ul>
+            {% endif %}
+    </div>
+    {% if user.is_superuser %}
+    <div class="module">
+      <h2>Herramientas Especiales</h2>
+      <ul class="actionlist">
+	<li class="changelink">
+          <a href="{% url admin_show_fotos_for_kuna %}">My View</a>
+	</li>
+	<li class="changelink">
+          <a href="{% url admin_verify_votes %}">Verificar Votos</a>
+	</li>
+      </ul>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}

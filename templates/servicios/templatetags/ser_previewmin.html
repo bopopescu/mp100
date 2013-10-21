@@ -1,0 +1,23 @@
+{% load thumbnail %}
+{% load i18n %}
+
+<div class="span-7 append-bottom service_preview">
+    <div class="span-7">
+        <div class="span-2">
+            <a href="{{ servicio.get_absolute_url }}">
+                <img class="photo" src="{% thumbnail servicio.foto_principal "preview" %}" alt="{{ servicio.nombre }}">
+            </a>
+        </div>
+
+        <div class="span-5 last">
+            <a href="{{ servicio.get_absolute_url }}">
+                <h3>{{ servicio.nombre }}</h3>
+            </a>
+            <h4>{{ servicio.tipo_servicio }}</h4>
+        </div>
+    </div>
+
+    <div class="push-1 prepend-4 span-3 append-bottom">
+        {% blocktrans %}Rating{% endblocktrans %} <span class="point_color">{{ servicio.puntuacion|floatformat:"0" }}</span>
+    </div>
+</div>

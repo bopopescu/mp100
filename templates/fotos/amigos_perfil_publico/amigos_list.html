@@ -1,0 +1,65 @@
+{% extends "fotos/amigos_perfil_publico/base_profile.html"  %}
+{% load i18n %}
+
+	    {% block menu_left %}
+	    <li><a href="{% url fotos_perfil_publico usuario.id %}">{% blocktrans %}Perfil{% endblocktrans %}</a></li>
+	    <li><a href="{% url fotos_ver_fotos_public usuario.id %}">{% blocktrans %}Fotos{% endblocktrans %}</a></li>
+	    <li class="selected"><a href="{% url fotos_ver_amigos_public usuario.id %}">{% blocktrans %}Amigos{% endblocktrans %}</a></li>
+	    {% endblock %}
+
+{% block body1 %}
+    
+    <hr class="profile_separator"/>
+    <h2>{% blocktrans %}Lista de Amigos{% endblocktrans %}</h2>
+    {% if lista_amigos.object_list %}
+        {% load thumbnail %}
+        {% for amigos in lista_amigos.object_list %}
+            <ul class="image_list wide main">
+            {% for amigo in amigos %}
+                <li>
+                    <a class="resultados_search" href="{{amigo.get_absolute_url}}">
+                    <img src="{% thumbnail amigo.foto 75x75 sharpen %}" width=75px height=75px alt="Avatar" title="{% blocktrans %}Ver perfil{% endblocktrans %}" /></a>
+                                {% if user.is_authenticated %}
+                                <div class="resultados_search">                              
+                                    <form class="inside_user_image" action="/user/solicitar/" method=POST> {% csrf_token %}
+                                        <input type="hidden" value="{{amigo.id}}" id="id_amigo" name="amigo">
+                                        <input id="add_button" type="submit" value="" alt="AddToFriends" title="{% blocktrans %}Enviar solicitud de amistad{% endblocktrans %}" >
+                                    </form>
+                                </div>
+                            {% endif %}
+                                <p>
+                                {{amigo.user.username}}<br/>
+                                {{amigo.user.first_name}}<br/> {{amigo.user.last_name}} 
+                                </p>
+                </li>
+            {% endfor %}
+            </ul>
+            <div class="clear"></div>
+            <hr class="profile_separator"/> 
+        {% endfor %}
+        <ul class="image_list wide main">
+            <li>
+            <div class="pagination">
+                <span class="step-links">
+                    {% if lista_amigos.has_previous %}
+                        <a href="?page={{ lista_amigos.previous_page_number }}">{% blocktrans %}anterior{% endblocktrans %}</a>
+                    {% endif %}
+            
+                    <span class="current">
+                        {% blocktrans with lista_amigos.number as n and lista_amigos.paginator.num_pages as np %}Página {{ n }} de {{ np }}{% endblocktrans %}.
+                    </span>
+            
+                    {% if lista_amigos.has_next %}
+                        <a href="?page={{ lista_amigos.next_page_number }}">{% blocktrans %}siguiente{% endblocktrans %}</a>
+                    {% endif %}
+                </span>
+            </div>
+            </li>
+        </ul>
+    {% else %}
+        <ul class="image_list wide main">
+            <li>{% blocktrans %}No se encontraron resultados.{% endblocktrans %}</li>
+        </ul>
+    {% endif %}
+
+{% endblock %}

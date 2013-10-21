@@ -1,0 +1,12 @@
+{% extends "fotos/forms/invitacion/base_profile.html"  %}
+{% load i18n %}
+
+{% block body1 %}
+    <hr class="profile_separator"/>
+    <h2>{% blocktrans %}Invitar{% endblocktrans %}</h2>    
+        <ul class="image_list wide main">
+        <li>{% blocktrans %}La invitación fue enviada con éxito.{% endblocktrans %}<br/>
+        <a href="{% url fotos_enviar_invitacion %}" > {% blocktrans %}Enviar otra invitación.{% endblocktrans %} </a></li>
+        </ul>
+
+{% endblock %}

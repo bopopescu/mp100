@@ -1,0 +1,13 @@
+{% extends "fotos/forms/ver_perfil/base_profile.html"  %}
+{% load i18n %}
+
+{% block body1 %}
+    <hr class="profile_separator"/>
+    <h2>{% blocktrans %}Subir Foto{% endblocktrans %}</h2>    
+    <ul class="image_list main">
+        <li>
+        {% blocktrans %}La foto fue subida con éxito.{% endblocktrans %}
+        <a href="{% url fotos_subir_fotos %}" > {% blocktrans %}Seguir subiendo fotos{% endblocktrans %} </a>
+        </li>
+    </ul>
+{% endblock %}

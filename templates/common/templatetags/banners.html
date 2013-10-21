@@ -1,0 +1,11 @@
+<div class="banner_{{ align }}">
+    <ul>
+    {% for banner in banners %}
+        <li>
+            <div link="{{ banner.link }}" class="banner-link" id="{{ banner.id }}">
+                <img src="/media/{{ banner.image }}" class="item-banner" />
+            </a>
+        </li>
+    {% endfor %}
+    </ul>
+</div>

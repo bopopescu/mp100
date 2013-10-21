@@ -1,0 +1,48 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% load adminmedia %}{% admin_media_prefix %}css/dashboard.css" />{% endblock %}
+
+{% block coltype %}colMS{% endblock %}
+
+{% block bodyclass %}dashboard{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+    <h1>Estadísticas generales</h1>
+    <ul>
+        <li>
+            <h2>Número de fotos</h2>
+            <p>{{ nro_fotos }}</p>
+        </li>
+        <li>
+            <h2>Número de vistas</h2>
+            <p>{{ nro_vistas }}</p>
+        </li>
+        <li>
+            <h2>Número de usuarios</h2>
+            <p>{{ nro_usuarios }}</p>
+        </li>
+        <li>
+            <h2>Número de favoritos</h2>
+            <p>{{ nro_favoritos }}</p>
+        </li>
+        <li>
+            <h2>Número de comentarios</h2>
+            <p>{{ nro_comentarios }}</p>
+        </li>
+        <li>
+            <h2>Ranking de fotos</h2>
+            <ul>
+                {% for foto in ranking %}
+                <li>
+                    <h3>{{ foto.titulo }}</h3>
+                    <p>Número de votaciones: {{ foto.fans|length }}</p>
+                    <img src="{{ foto.foto.thumbnail }}" title="{{ foto.titulo }}" />
+                </li>
+                {% endfor %}
+            </ul>
+        </li>
+    </ul>
+{% endblock %}

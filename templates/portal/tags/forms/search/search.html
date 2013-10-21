@@ -1,0 +1,5 @@
+<form action="" method="post">{% csrf_token %}
+{{ form_search.non_field_errors }}  
+{{form_search.texto}}
+<input type="submit" value="Search" />
+</form>

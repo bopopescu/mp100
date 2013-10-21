@@ -1,0 +1,7 @@
+Pendientes
+
+- Revisar el último paso de la reserva, terminos de uso, condiciones, crear condiciones especiales 
+para cada alojamiento.
+
+Cuestiones de usabilidad
+- Al entrar al módulo de reservas se tiene que saber de que se trata.

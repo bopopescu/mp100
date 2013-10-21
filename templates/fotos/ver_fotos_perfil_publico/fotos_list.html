@@ -1,0 +1,70 @@
+{% extends "fotos/ver_fotos_perfil_publico/base_profile.html"  %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/jquery.lightbox-0.5.css" media="screen" />
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.lightbox-0.5.js"></script>
+    <script type="text/javascript">
+        $(function() {
+                $('a.lightbox_mis_fotos').lightBox({
+                    imageLoading:			'{{MEDIA_URL}}images/jquery-lightbox-0.5/lightbox-ico-loading.gif',		
+                    imageBtnPrev:			'{{MEDIA_URL}}images/jquery-lightbox-0.5/lightbox-btn-prev.gif',			
+                    imageBtnNext:			'{{MEDIA_URL}}images/jquery-lightbox-0.5/lightbox-btn-next.gif',			
+                    imageBtnClose:			'{{MEDIA_URL}}images/jquery-lightbox-0.5/lightbox-btn-close.gif',		
+                    imageBlank:				'{{MEDIA_URL}}images/jquery-lightbox-0.5/lightbox-blank.gif',			
+                });
+        });        
+    </script>
+{% endblock %}
+
+{% block menu_left %}
+<li><a href="{% url fotos_perfil_publico usuario.id %}">Perfil</a></li>
+<li class="selected"><a href="{% url fotos_ver_fotos_public usuario.id %}">Fotos</a></li>
+<li class="last"><a href="{% url fotos_ver_amigos_public usuario.id %}">Amigos</a></li>
+{% endblock %}
+
+{% block body1 %}
+    <hr class="profile_separator"/>
+    <h2>Lista de Fotos</h2>
+    {% if lista_fotos.object_list %}
+        {% load thumbnail %}
+        {% for fotos in lista_fotos.object_list %}
+            <ul class="image_list wide main">
+            {% for foto in fotos %}
+                <li>
+                    <a class="resultados_search" href="{% url fotos_navegar_foto_publico usuario.id foto.id %}">
+                        <img src="{% thumbnail foto.foto 75x75 crop="smart" upscale %}" width=75px height=75px alt="foto" title="Ver foto" /></a>
+                        <p class="caption">
+                        {{foto.titulo}}<br/>
+                        </p>
+                </li>
+            {% endfor %}
+            </ul>
+            <div class="clear"></div>
+            <hr class="profile_separator"/>  
+        {% endfor %}
+        <ul class="image_list wide main">
+            <li>
+            <div class="pagination">
+                <span class="step-links">
+                    {% if lista_fotos.has_previous %}
+                        <a href="?page={{ lista_fotos.previous_page_number }}">previous</a>
+                    {% endif %}
+            
+                    <span class="current">
+                        P&aacute;gina {{ lista_fotos.number }} de {{ lista_fotos.paginator.num_pages }}.
+                    </span>
+            
+                    {% if lista_fotos.has_next %}
+                        <a href="?page={{ lista_fotos.next_page_number }}">next</a>
+                    {% endif %}
+                </span>
+            </div>
+            </li>
+        </ul>
+    {% else %}
+        <ul class="image_list wide main">
+            <li>No se encontraron resultados.</li>
+        </ul>
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,130 @@
+{% extends "fotos/base_menu_public_profile.html"  %}
+{% load i18n %}
+{% load thumbnail %}
+{% load fotos_tags %}
+{% block title %}
+  {% blocktrans %}Public User Profile{% endblocktrans %}
+{% endblock %}
+
+
+{% block center_content %}
+  <div class="span-14 last machu_picchu_peru">
+    <div class="span-14 last">
+      <div class="span-7 all_to_left">
+	<table class="edit_profile">
+	  <tr>
+	    <th>{% blocktrans %}Birthday{% endblocktrans %}</th>
+	    <td>{{usuario.get_profile.fecha_nacimiento}}</td>
+	  </tr>
+	  <tr>
+	    <th>{% blocktrans %}Country{% endblocktrans %}:</th>
+	    <td>{{usuario.get_profile.pais}}</td>
+	  </tr>
+	  <tr>
+	    <th>{% blocktrans %}Gender{% endblocktrans %}:</th>
+	    <td>{% if usuario.get_profile.sexo == 'F'%}
+		  {% blocktrans %}Female{% endblocktrans %}
+		{% else %}
+		  {% blocktrans %}Male{% endblocktrans %}
+		{% endif %}
+	    </td>
+	  </tr>
+	</table>
+      </div>
+      <div class="span-14 last">
+	<div class="span-3">
+	  {% get_current_language as LANGUAGE_CODE %}	  
+	  {% get_current_badge usuario as badge %}
+	  {% if badge %}
+	  <img class="badge" src="{% thumbnail badge.foto '96x96' %}" alt="{% if LANGUAGE_CODE == 'en' %}{{badge.name_en}}{% else %}{{badge.name_es}}{% endif %}">
+	  {% if LANGUAGE_CODE == 'en' %}
+	  <p class="green no_margin"><strong>{{badge.name_en}}</strong></p>
+	  {{badge.description_en}}
+	  {% else %}
+	  <p class="green no_margin"><strong>{{badge.name_es}}</strong></p>
+	  {{badge.description_es}}
+	  {% endif %}
+	  {% endif %}
+	</div>
+	<div class="span-11 last">
+	  {% get_current_level usuario as level %}
+	  {% get_all_badges as badges %}
+	  {% for b in badges %}
+	  <div class="span-2 span-2_5 last center padding_bottom_30">
+	    <img width="50px" height="50px" class="{% if level == b.id %}actual_badge{% else %}badge{% endif %}" src="{% if b.id <= level %}{% thumbnail b.foto '50x50' %}{% else %}{{MEDIA_URL}}images/badges/no_badge.png{% endif %}" alt="{% if LANGUAGE_CODE == 'en' %}{{b.name_en}}{% else %}{{b.name_es}}{% endif %}" title="{% if LANGUAGE_CODE == 'en' %}{{b.description_en}}{% else %}{{b.description_es}}{% endif %}">
+	    {% if LANGUAGE_CODE == 'en' %}
+	    <p class="green no_margin">{{b.name_en}}</p>
+	    {% else %}
+	    <p class="green no_margin">{{b.name_es}}</p>
+	    {% endif %}
+	  </div>
+	  {% empty %}
+	  {% endfor %}
+	</div>
+      </div>
+      <div class="span-7 all_to_right last">
+	{% if user.is_authenticated %}
+	  {% if user.id != usuario.id %}
+	  <form action="{% url usuario_solicitud %}" method="post">{% csrf_token %}
+	    <input type="hidden" value="{{usuario.id}}" id="id_amigo" name="amigo">
+	    <input type="submit" class="{% if LANGUAGE_CODE == 'en' %}large_thin_cute_green_button{% else %}extra_large_thin_cute_green_button{% endif %}" value="{% blocktrans %}Add as a Friend{% endblocktrans %}">
+	  </form>
+	  {% endif %}
+	{% endif %}
+      </div>
+      
+      <div class="span-14 profile_gray_headline last">
+	{% blocktrans %}My Photos{% endblocktrans %}
+      </div>
+      <div class="span-14 profile_content last">
+	{% get_some_user_fotos usuario 50 as usuario_fotos 1 0 %}
+	{% if usuario_fotos %}
+	  <ul class="image_list wide main">
+	  {% for foto in usuario_fotos %}
+	      {% load thumbnail %}                
+	      <li><a href="{{foto.get_absolute_url}}">
+		  <img src="{% thumbnail foto.foto '65x65' %}" width=65px height=65px alt="{{foto.titulo}}" />
+	          </a>
+	      </li>                
+	  {% endfor %}
+	  </ul>
+	{% else %}
+	  {{usuario.first_name}} {% blocktrans %}has not uploaded photos yet{% endblocktrans %}.
+	{% endif %}	
+      </div>	    
+
+      <div class="span-14 profile_gray_headline">
+	{% blocktrans %}My Friends{% endblocktrans %}
+      </div>
+      <div class="span-14 profile_content">
+	{% get_some_friends_fotos usuario 6 as friend_fotos %}
+	{% if friend_fotos %}
+	  <div class="span-14 last link_all_black">
+	    <ul class="image_list wide main">
+	    {% for friend in friend_fotos %}
+	      <li>
+		<a href="{{friend.get_absolute_url}}">
+		  <div class="span-2 tag_friends">
+		    {% thumbnail friend.foto "50x50" as thumb %}
+		    <img width="50px" height="50px" src='{% if friend.foto %}{{thumb}}{% else %}{{MEDIA_URL}}{{friend.foto.name}}{% endif %}' alt="{{friend.user.username}}">
+		    <p>{{friend.user.first_name}} &nbsp {{friend.user.last_name}}</p>
+		  </div>
+		</a>
+	      </li>
+	    {% endfor %}
+	    </ul>
+	  </div>
+	<br/>
+	{% else %}
+	  {{usuario.first_name}} {% blocktrans %}has not friends yet{% endblocktrans %}.
+	{% endif %}
+      </div>
+      {% if friend_fotos %}
+      <div class="span-14 all_to_right last link_all_green">
+	<a class="no_decoration" href="#">{% blocktrans %}See more...{% endblocktrans %}</a>
+      </div>
+      {% endif %}
+    </div>	
+  
+  </div>	  
+{% endblock %}

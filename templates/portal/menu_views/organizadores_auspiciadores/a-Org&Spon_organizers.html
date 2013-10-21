@@ -1,0 +1,107 @@
+{% extends "portal/menu_views/base_menu.html"  %}
+{% load i18n %}
+{% load portal_tags %}
+{% load thumbnail %} 
+{% block title %}
+  {% blocktrans %}Organizers{% endblocktrans %}
+{% endblock %}
+
+{% block head %}
+  {% include "portal/tags/sharethis/standard.html" %}  
+{% endblock %}
+
+{% block wall_menu %}
+<div class="wall_menu wall_menu_sponsors span-24 last">
+{% endblock %}
+
+{% block center_content %}
+<div class="span-13 last breadcrumbs">
+    <label class="link_all_green"><a href="{% url portal_sponsors %}">{% blocktrans %}Organizers & Sponsors{% endblocktrans %} ></a></label>
+    {% blocktrans %}Organizers{% endblocktrans %}
+</div>
+    <div class="span-14 last sponsors_organizers">
+      <div class="span-7 ">
+	<h1>{% blocktrans %}Organized by:{% endblocktrans %}</h1>
+	<p></p>
+	<h2>Quimera HG</h2>
+      </div>
+      <div class="span-7">
+	{% blocktrans %}We are an economic group comprising a range of companies in strategic sectors of high economic growth, leaders in the southern region of Peru.{% endblocktrans %}
+	{% blocktrans %}Our goal is to create and develop business units of the highest performance and synergies among partners.{% endblocktrans %}
+	{% blocktrans %}We share ideals and goals with a common vision based development principles, ethics, creativity and constant innovation.{% endblocktrans %}
+	{% blocktrans %}we respect the environment and value the contribution that each human being carries with it, because we believe in their ideas and dreams an the ability to realize them.{% endblocktrans %}
+      </div>
+      <div class="span-7 last all_to_right">
+	<a href="http://www.quimerahg.com/" target="_blank"><img width="227px" height="73px" alt="" src="{{MEDIA_URL}}style_imgs/sponsors_quimera.png"></a>
+      </div>	  
+
+      <div class="span-14 push_down_30 comments_separator last">
+	<hr>
+      </div>
+
+      <div class="span-14 last push_down_6">
+	<h3>{% blocktrans %}With the support of:{% endblocktrans %}</h3>
+      </div>
+      <div class="span-7">
+	<h2>{% blocktrans %}Cusco Regional Chamber of Tourism{% endblocktrans %} (CARTUC)</h2>
+	<p>
+	  {% blocktrans %}Consultative and collaborative body that represents, promotes and defends the general interests of entrepreneurs in the tourism sector in the region of Cusco{% endblocktrans %}
+	</p>
+      </div>
+      <div class="span-7 last all_to_right">
+	<a href="http://www.cartuc.org/" target="_blank"><img width="203px"
+	     src="{{MEDIA_URL}}bottom_logos/cartuc.jpg"> </a>
+      </div>	
+    
+      <div class="span-7 push_down_30">
+	<h2>{% blocktrans %}Cusco Chamber of Commerce{% endblocktrans %} (CCC)</h2>
+	<p>
+	  {% blocktrans %}Institution that represents the business of Cusco. Advocates, promotes, encourages and promotes all kinds of legitimate business interests and activities that enable sustainable development of our society.{% endblocktrans %}
+	</p>
+      </div>
+      <div class="span-7 last all_to_right push_down_30">
+	<a href="http://www.camaracusco.org/" target="_blank"><img width="203px"  
+	     src="{{MEDIA_URL}}images/organizers/2_camara_de_comercio_de_cusco.png"></a>
+      </div>
+      
+      <div class="span-7 push_down_30">
+	<h2>{% blocktrans %}Association of Travel Agencies of Cusco{% endblocktrans %} (AATC)</h2>
+	<p>
+	  {% blocktrans %}Organization that represents the leading travel and tourism companies in Cusco.{% endblocktrans %}
+	</p>
+      </div>
+      <div class="span-7 last all_to_right push_down_30">
+	<a href="http://www.aatccusco.com/" target="_blank"><img width="203px" 
+	     src="{{MEDIA_URL}}images/organizers/logo-asoc-aatc.jpg"/></a>
+	     
+      </div>		  
+
+      <div class="span-7 push_down_30">
+	<h2>{% blocktrans %}Regional Government of Cusco{% endblocktrans %} (AATC)</h2>
+	<p>
+	  {% blocktrans %}Government entity responsible for organizing and conducting regional governance according to their exclusive, shared and delegated under national and sectoral policies to contribute to the integral and sustainable development of the Cusco region.{% endblocktrans %}
+	</p>
+	<p>
+	  {% blocktrans %}We are jointed and integrated with the environment in a competitive manner, which has enabled a more dynamic regional economy and access to major markets, expanding opportunities for employment for all. This builds on the capabilities of the human potential to add value to our biodiversity resources, environmental, tourism, agriculture, mining and energy.{% endblocktrans %}
+	</p>
+      </div>
+      <div class="span-7 last all_to_right push_down_30">
+	<a href="http://www.regioncusco.gob.pe/2.0/" target="_blank"><img width="203px"
+	     src="{{MEDIA_URL}}images/organizers/4_gobierno_regional.png"> </a>
+      </div>
+      
+      <div class="span-7 push_down_30">
+	<h2>{% blocktrans %}Provincial Municipality of Cusco{% endblocktrans %}</h2>
+	<p>
+	  {% blocktrans %}The goal of the Municipality of Cuso as local government is to promote the coordinated development, concerted and sustainable development of Cuzco and to achieve a better quality of life of its population.{% endblocktrans %}
+	</p>
+	<p>
+	  {% blocktrans %}The Municipality envisions a modern city, successful, participatory, efficient and effective working while preserving the its cultural heritage that enjoys the confidence and credibility of its population.{% endblocktrans %}
+	</p>
+      </div>
+      <div class="span-7 last all_to_right push_down_30">
+	<a href="http://www.municusco.gob.pe/" target="_blank"><img width="203px" 
+	     src="{{MEDIA_URL}}images/organizers/5_municipalidad_de_cusco.png"></a>
+      </div>
+    </div>	  
+{% endblock %}

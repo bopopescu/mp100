@@ -1,0 +1,56 @@
+{% extends "portal/menu_views/base_menu.html"  %}
+{% load i18n %}
+{% load portal_tags %}
+{% load thumbnail %} 
+{% block title %}
+      {% blocktrans %}Sponsors{% endblocktrans %}
+{% endblock %}
+
+{% block head %}
+  {% include "portal/tags/sharethis/standard.html" %}  
+{% endblock %}
+
+{% block wall_menu %}
+<div class="wall_menu wall_menu_sponsors span-24 last">
+{% endblock %}
+
+
+{% block social_reponsability %}
+    <p class="link_all_green text_bold link_hover_black">
+      <a href="{% url portal_sponsors %}">Movistar</a></p>
+    <p class="link_all_green text_bold link_hover_black">
+      <a href="{% url portal_sponsors 2 %}">Taca</a></p>
+    <p class="link_all_green text_bold link_hover_black">
+      <a href="{% url portal_sponsors 3 %}">PeruRail</a></p>
+    <p class="link_all_black text_bold link_hover_black">
+      <a href="{% url portal_sponsors 4 %}">Sonesta</a></p>    
+    <p class="link_all_green text_bold link_hover_black">
+      <a href="{% url portal_sponsors 5 %}">Sony</a></p>
+     <p class="link_all_green text_bold link_hover_black">
+      <a href="{% url portal_sponsors 6 %}">Orient Express</a></p>
+{% endblock %}
+
+{% block center_content %}
+<div class="span-13 last breadcrumbs">
+    <label class="link_all_green"><a href="{% url portal_sponsors %}">{% blocktrans %}Organizers & Sponsors{% endblocktrans %} ></a></label>
+    {% blocktrans %}Sponsors{% endblocktrans %}
+</div>
+
+<div class="span-14 last sponsors_organizers">
+  <div class="span-14 last">
+    <h1>{% blocktrans %}Sponsors{% endblocktrans %}</h1>
+    <p></p>
+    <a href="http://www.sonesta.com/" target="_blank">
+    <img width="550" height="350" src="{{MEDIA_URL}}images/sponsors/sonesta.jpg">
+    </a>    
+  </div>
+  
+  <div class="span-14 last wide_green_tile">
+    <h5>Sonesta</h5>
+  </div>
+
+  <div class="span-14 last sponsors_organizers push_down_70">
+
+  </div>
+</div>
+{% endblock %}

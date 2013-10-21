@@ -1,0 +1,15 @@
+{% load i18n %}
+<ul>
+  <li class="home"><a href="{% url new_main_portal %}">{% blocktrans %}Home{% endblocktrans %}</a></li>
+  <li class="contest"><a href="{% url main_portal %}">{% blocktrans %}Contest{% endblocktrans %}</a>
+    <ul>
+      {% include "portal/tags/menu/submenu_desplegable.html" %}
+    </ul>
+  </li>
+  <li class="act_str"><a href="{% url portal_site_activity_stream %}">{% blocktrans %}Activity Stream{% endblocktrans %}</a></li>
+  <li class="winners"><a href="{% url portal_finalists %}">{% blocktrans %}Winners{% endblocktrans %}</a></li>
+  <li class="mpp"><a href="{%  url portal_about_history %}">{% blocktrans %}MachuPicchu & Peru{% endblocktrans %}</a></li>
+  <li class="services"><a href="{% url ser_inicio %}">{% blocktrans %}Servicios{% endblocktrans %}</a></li>
+  <li class="foro_selected"><a href="{% url djangobb:index %}">{% blocktrans %}Foro{% endblocktrans %}</a></li>
+  <li class="News"><a href="{% url zinnia_entry_archive_index %}">{% blocktrans %}News{% endblocktrans %}</a></li>
+</ul>

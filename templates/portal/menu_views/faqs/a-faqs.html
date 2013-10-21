@@ -1,0 +1,240 @@
+{% extends "portal/menu_views/base_menu.html"  %}
+{% load i18n %}
+{% load portal_tags %}
+{% load thumbnail %} 
+{% block title %}
+  {% blocktrans %}FAQS{% endblocktrans %}
+{% endblock %}
+
+{% block head %}
+  {% include "portal/tags/sharethis/standard.html" %}
+{% endblock %}
+
+
+{% block center_content %}
+<div class="span-14 last sponsors_organizers">
+  <div class="span-14 last">
+    <h1>{% blocktrans %}FAQs{% endblocktrans %}</h1>
+  </div>
+  <div class="span-14 push_down_10 faqs_separator last">
+    <hr>
+  </div>
+  <div class="span-14 last">
+    <div class="span-2 contest_details_big_numbers smooth_green">
+      <h6>1</h6>
+    </div>
+    <div class="prepend-1 span-11 last">
+	  <h2>{% blocktrans %}Who can participate in the Photo Contest?{% endblocktrans %}</h2>
+      {% blocktrans %}The contest is open to the general public regardless of nationality or age at time of entry. Participation is open to contestants, voters and Professional Photographers.{% endblocktrans %} 
+    </div>	    	    
+  </div>
+  <div class="span-14 push_down_10 faqs_separator last">
+    <hr>
+  </div>
+  <div class="span-14 last ">
+    <div class="span-2 contest_details_big_numbers smooth_green">
+      <h6>2</h6>
+    </div>
+    <div class="prepend-1 span-11 last">
+      <h2>{% blocktrans %}How do I participate?{% endblocktrans %}</h2>
+      <ol>
+	<li><strong>{% trans "Submit Photos" %}</strong><br />
+	  {% blocktrans %}Login (if you already have an account) or sign up and upload your photos of Machu Picchu! You can submit up to 5 fotos each week. The contest is divided into 10 voting periods, each voting period lasts for one week and the 10 most voted photos will be selected for the Grand Final.{% endblocktrans %}</li>
+	<li><strong>{% trans "Vote for your favorite photos." %}</strong><br/>
+	  {% blocktrans %}Even if you've never visited Machu Picchu, make sure your voice is heard. Vote for up to 5 photos each week. You could even win a prize if the photos you choose win.{% endblocktrans %}<br />
+	  </li>
+	<li> <strong>{% trans "Sign in each week." %}</strong><br />
+	  {% blocktrans %}Don't forget to come back each week. You may submit and vote for up to 5 photos each Voting Period.{% endblocktrans %}</li>
+      </ol>
+    </div>	    
+  </div>	
+
+  <div class="span-14 push_down_10 faqs_separator last">
+    <hr>
+  </div>
+
+  <div class="span-14 last ">
+    <div class="span-2 contest_details_big_numbers smooth_green">
+      <h6>3</h6>
+    </div>
+    <div class="prepend-1 span-11 last">
+	  <h2>{% trans "I am Professional Photographer. How can I participate?" %}</h2>
+	  <p>{% blocktrans %}Professional Photographers have the option of competing as a regular contestant in the Contest Categories or participate with Professional Photography rights. If you participate as a professional photographer, you may compete for a certificate of honorable mention awarded by a jury of professional photographers. Please note that if a Professional Photographer chooses to compete as a regular contestant by placing the photograph in one of the Contest Categories, the author loses the rights reserved for Professional Photography (see Section D.2 in the <a href="#">Official Contest Rules</a>).{% endblocktrans %}</p>
+    </div>	    
+  </div>	
+  <div class="span-14 push_down_10 faqs_separator last">
+    <hr>
+  </div>
+
+  <div class="span-14 last ">
+    <div class="span-2 contest_details_big_numbers smooth_green">
+      <h6>4</h6>
+    </div>
+    <div class="prepend-1 span-11 last">
+	  <h2>{% trans "How do I submit a photo?" %}</h2>
+	  <p>{% blocktrans %}Login or register and select &quot;Enter&quot;.  Select your photo and a Category (or participate as a Professional Photographer). You can upload up to 5 photos per week.{% endblocktrans %}</p>
+    </div>	    
+  </div>  
+
+  <div class="span-14 push_down_10 faqs_separator last">
+    <hr>
+  </div>
+
+  <div class="span-14 last ">
+    <div class="span-2 contest_details_big_numbers smooth_green">
+      <h6>5</h6>
+    </div>
+    <div class="prepend-1 span-11 last">
+	  <h2>{% trans "What are the categories of the competition?" %}</h2>
+      {% trans "The Competition categories are:" %}
+	    <ul>
+	<li>{% blocktrans %}<em><strong>People</strong></em> &mdash; Photographs of people inside the tourist circuit{% endblocktrans %}</li>
+	    <li>{% blocktrans %}<strong><em>Landscapes and Nature</em></strong> &mdash; Landscapes, nature, animals.{% endblocktrans %}</li>
+	    <li>{% blocktrans %}<em><strong>Architecture</strong></em> &mdash;  Photographs of the old city {% endblocktrans %}<br />
+	      </li>
+	    <li>{% blocktrans %}<strong><em>En Route to Machu Picchu</em></strong> &mdash; Photos taken en route to Machu Picchu (Inca Trail, train, etc.){% endblocktrans %}<br />
+	      </li>
+	    <li>{% blocktrans %}<strong><em>Mystical</em></strong> &mdash; Photos that express the mystical and spiritual Machu Picchu experience.{% endblocktrans %}<br />
+	      </li>
+	    <li>{% blocktrans %}<strong><em>Fun</em></strong> &mdash; Creative and fun photographs taken inside the circuit{% endblocktrans %}<br />
+	      </li>
+	    <li>{% blocktrans %}<strong><em>Vintage</em></strong> &mdash; Photographs taken before 1970{% endblocktrans %}</li>
+      </ul>
+    </div>	    
+  </div>
+
+  <div class="span-14 push_down_10 faqs_separator last">
+    <hr>
+  </div>
+
+  <div class="span-14 last ">
+    <div class="span-2 contest_details_big_numbers smooth_green">
+      <h6>6</h6>
+    </div>
+    <div class="prepend-1 span-11 last">
+	  <h2>{% trans "My photographs of Machu Picchu are not in digital format. Can I still participate?" %}</h2>
+	  <p>{% trans "Photographs must be digital, as we will only be accepting photos via the website. Negatives, slides and printed photos converted to digital format will be accepted.." %}</p>
+    </div>	    
+  </div>   
+
+
+  <div class="span-14 push_down_10 faqs_separator last">
+    <hr>
+  </div>
+
+  <div class="span-14 last ">
+    <div class="span-2 contest_details_big_numbers smooth_green">
+      <h6>7</h6>
+    </div>
+    <div class="prepend-1 span-11 last">
+	  <h2>{% trans "What photos will be accepted?" %}</h2>
+	  <ul>
+	    {% blocktrans %}
+	    <li>Photos must be taken in the Machu Picchu tourist circuit or en route to Machu Picchu. <br />
+	      </li>
+	    <li>Photos must be digital photos with a resolution of at least 1 megapixel and measure at least 920 pixels in length (landscape orientation) or 920 pixels in width (portrait orientation).<br />
+	      </li>
+	    <li>The photographs will be accepted as long as it does not infringe copyright or constitute fraud. </li>
+	    <li>With regard to digital editing and alteration of images will be accepted according to the criteria detailed in paragraph D.1 in the <a href="#">Official Rules</a>.<br />
+	</li>
+	    <li>Photographs submitted to the competition must not, contain obscene images, provocative, defamatory, sexually explicit or inappropriate content, or to affect the cultural heritage or morality.<br />
+	      </li>
+	    <li>The Organization reserves the right to verify the validity and originality of the pictures and data of the participants, and to disqualify any participant who fails to comply with any provision of the <a href="#">Official Rules</a>. </li>
+	    {% endblocktrans %}
+      </ul>
+    </div>	    
+  </div>
+
+  <div class="span-14 push_down_10 faqs_separator last">
+    <hr>
+  </div>
+
+  <div class="span-14 last ">
+    <div class="span-2 contest_details_big_numbers smooth_green">
+      <h6>8</h6>
+    </div>
+    <div class="prepend-1 span-11 last">
+	  <h2>{% trans "Can I edit my photo?" %}</h2>
+	  <p>{% blocktrans %}While outright digital alteration is not allowed, minimal editing is allowed to achieve the desired sharpness and color balance. Please follow <a href="#">these guidelines</a> before submitting your photo.{% endblocktrans %}</p>
+    </div>	    
+  </div>
+
+
+  <div class="span-14 push_down_10 faqs_separator last">
+    <hr>
+  </div>
+
+  <div class="span-14 last ">
+    <div class="span-2 contest_details_big_numbers smooth_green">
+      <h6>9</h6>
+    </div>
+    <div class="prepend-1 span-11 last">
+	  <h2>{% trans "What rights do I retain over my photograph?" %}</h2>
+	  <p>{% blocktrans %}When registering, the author certifies that they have read and accepted the <a href="#">Official Contest Rules</a>, which grants the Organizers a non-exclusive, perpetual and royalty-free rights to reproduce the image in any media and in any country in the world for commercial use, to be distributed, adapted and used as deemed appropriate, without requiring author credit or recognition.{% endblocktrans %}</p>
+    </div>	    
+  </div>
+
+  <div class="span-14 push_down_10 faqs_separator last">
+    <hr>
+  </div>
+
+  <div class="span-14 last ">
+    <div class="span-2 contest_details_big_numbers smooth_green">
+      <h6>10</h6>
+    </div>
+    <div class="prepend-1 span-11 last">
+	  <h2>{% trans "What rights do I retain over my picture if I participate as a Professional Photographer?" %}</h2>
+	  <p>{% blocktrans %}For the honorable mention for Professional Photographers, the Contest Organizers will publish the author's name each time the photograph is published (including commercial use). The professional photographer grants non-exclusive royalty-free rights to reproduce photographs in any media, anywhere in the world for commercial use, to be distributed, adapted and in general use as deemed appropriate, with the requirement to recognize or give credit to the author of the picture as long as the author submits the photo as Professional Photography. By placing the photograph in one of the Contest Categories, the author loses the rights reserved for Professional Photography.{% endblocktrans %}</p>
+    </div>	    
+  </div> 
+
+  <div class="span-14 push_down_10 faqs_separator last">
+    <hr>
+  </div>
+
+  <div class="span-14 last ">
+    <div class="span-2 contest_details_big_numbers smooth_green">
+      <h6>11</h6>
+    </div>
+    <div class="prepend-1 span-11 last">
+      <h2>{% trans "Who will choose the winners?" %}</h2>
+	  {% blocktrans %}<p>The jury will consist of 8 persons chosen by the Organization, among whom will be designated a Chairman, who will award prizes. In case of a tie, the Jury President shall have the casting vote.</p>
+	  <p>In the case of <em>Machu Picchu 100</em> Special Awards: a Jury consisting of 3 designated Professional Photographers Organization will choose the best picture.</p>{% endblocktrans %}
+    </div>	    
+  </div>
+
+  <div class="span-14 push_down_10 faqs_separator last">
+    <hr>
+  </div>
+
+  <div class="span-14 last ">
+    <div class="span-2 contest_details_big_numbers smooth_green">
+      <h6>12</h6>
+    </div>
+    <div class="prepend-1 span-11 last">
+	  <h2>{% trans "How will the jury choose the winning photos?" %}</h2>
+	  <p>{% blocktrans %}After each stage of voting, will elect the 10 pictures with the highest score according to vote (without regard to category), which will go to the Grand Final. The photos that are not winners in each of the stages will be automatically moved to the next stage with score 0. In case of a tie for tenth place, all tied entries will advance to the Grand Final.{% endblocktrans %}</p>
+    </div>
+</div>
+  <div class="span-14 push_down_10 faqs_separator last">
+    <hr>
+  </div>
+
+<div class="span-14 last ">
+  <div class="span-2 contest_details_big_numbers smooth_green">
+    <h6>13</h6>
+  </div>
+  <div class="prepend-1 span-11 last">
+    <h2>{% trans "And for the Grand Final?" %}</h2>
+	  <p>{% blocktrans %}The 10 photos (or more in the event of a 10th place tie) with the most votes in each Voting Period will automatically will be entered as finalists in the Grand Final. A jury appointed by the Organization will evaluate the images and choose 7 winners (one per category), among which a Grand Prize Winner will be chosen. The results will be published on the Web (www.machu-picchu100.com). Winners will be notified via email. The decision of the Judges is final and irrevocable.<br />{% endblocktrans %}
+	  </p>
+      
+    </div>	    
+  </div>
+
+  <div class="span-14 push_down_10 faqs_separator last">
+    <hr>
+  </div>
+
+</div>	  
+{% endblock %}

@@ -1,0 +1,116 @@
+{% extends 'servicios/privado/ser_privado_base.html' %}
+
+{% load thumbnail %}
+{% load i18n %}
+
+{% block ser_title %}{% blocktrans %}Photo Gallery{% endblocktrans %}{% endblock %}
+
+{% block head %}
+    {{ block.super }}
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/servicios/ser_editar_fotos.js"></script>
+{% endblock %}
+
+{% block opciones %}
+    <a href="{% url ser_perfil_privado %}">{% blocktrans %}Edit profile{% endblocktrans %}</a>
+{% endblock %}
+
+{% block body_ext %}
+    {# Formulario para subir la foto panorámica #}
+    <div class="span-20 prepend-top last services_box">
+        <h2>Home page photo</h2>
+        <div class="span-20 services_box_content popup_form">
+            <div class="span-6 center">
+                {% if servicio.foto_panoramica %}
+                    <img class="border_photo" src="{% thumbnail servicio.foto_panoramica "preview" %}" alt="">
+                {% else %}
+                    <span>{% blocktrans %}Your not uploaded a photo{% endblocktrans %}</span>
+                {% endif %}
+            </div>
+            <div class="span-11 last">
+                <form action="" method="post" enctype="multipart/form-data">
+                    <ul>
+                        {{ panoramica_form.as_ul }}
+                    </ul>
+                    <div class="append-bottom right">
+                        <input type="submit" value="{% blocktrans %}Upload photo{% endblocktrans %}" name="panoramica"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="span-20 last services_shadow">
+        <div class="span-10 left"></div><div class="span-10 last right"></div>
+    </div>
+
+    {# Formulario para subir una foto nueva #}
+    <div class="span-20 last services_box">
+        <h2>{% blocktrans %}Upload a new pic{% endblocktrans %}</h2>
+        <div class="services_box_content popup_form">
+            <form action="" method="post" enctype="multipart/form-data">
+                <ul>
+                    {{ guardar_form.as_ul }}
+                </ul>
+                <div class="append-bottom right">
+                    <input type="submit" value="{% blocktrans %}Upload photo{% endblocktrans %}" name="guardar"/>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="span-20 last services_shadow">
+        <div class="span-10 left"></div><div class="span-10 last right"></div>
+    </div>
+
+    {# Galería de fotos del servicio #}
+    <div class="span-20 last services_box">
+        <h2>{% blocktrans %}Photo gallery{% endblocktrans %}</h2>
+        <div class="span-20 services_box_content">
+            {% if editado %}
+            <span>{% blocktrans %}Your photo was successfully edited{% endblocktrans %}</span>
+            {% endif %}
+            {% for foto in galeria %}
+            <div class="photo_edit column center">
+                <h3>{{ foto.nombre }}</h3>
+                <img src="{% thumbnail foto.imagen "edit" %}"
+                     alt="{{ foto.nombre }}"
+                     title="{{ foto.descripcion }}"
+                     class="border_photo"/>
+                {# opciones para la foto #}
+                <ul class="prepend-top">
+                    <li>
+                        <span
+                            class="editar ser_link"
+                            id="{{ foto.id }}"
+                            nombre="{{ foto.nombre }}"
+                            descripcion="{{ foto.descripcion }}">
+                            {% blocktrans %}Edit photo{% endblocktrans %}
+                        </span>
+                    </li>
+                    <li>
+                        <a href="{% url ser_eliminar_foto foto.id %}">{% blocktrans %}Delete{% endblocktrans %}</a>
+                    </li>
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="span-20 last services_shadow">
+        <div class="span-10 left"></div><div class="span-10 last right"></div>
+    </div>
+
+    {# POPUPS #}
+    {# Formulario desplegable para editar una foto: popup #}
+    <div id="editar_foto" class="services_box jqmWindow">
+        <h2>{% blocktrans %}Edit photo details{% endblocktrans %}</h2>
+        <div class="services_box_content popup_form">
+            <form action="" method="post" enctype="multipart/form-data">
+                <ul>
+                    {{ editar_form.as_ul }}
+                </ul>
+                <div class="append-bottom right">
+                    <span class="closeClass ser_link">{% blocktrans %}Close{% endblocktrans %}</span> |
+                    <input type="submit" value="{% blocktrans %}Save{% endblocktrans %}" name="editar" />
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

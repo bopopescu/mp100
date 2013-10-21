@@ -1,0 +1,41 @@
+{% extends "fotos/amigos/base_profile.html"  %}
+{% load i18n %}
+
+{% block menu_top%}
+    	<ul class="span-17 last prepend-6">
+    	  <li><a href="{% url fotos_noticias 'notificaciones' %}">{% blocktrans %}Noticias{% endblocktrans %}</a></li>
+    	  <li><a href="{% url fotos_buscar_usuarios %}">{% blocktrans %}Buscar usuarios{% endblocktrans %}</a></li>
+    	  <li><a href="{% url fotos_buscar_fotos %}">{% blocktrans %}Galería de fotos{% endblocktrans %}</a></li>
+    	  <li><a href="{% url fotos_subir_fotos %}">{% blocktrans %}Subir fotos{% endblocktrans %}</a></li>
+	  <li><a href="{% url fotos_ver_solicitudes %}">{% blocktrans %}Solicitudes{% endblocktrans %}</a></li>
+    	  <li class="selected"><a href="{% url fotos_ayuda %}">{% blocktrans %}Ayuda{% endblocktrans %}</a></li>
+    	</ul>    
+{% endblock %}
+
+{% block menu_left %}
+	  <ul class="menu_bar profile"> 
+	    <li><a href="{% url main_user %}">{% blocktrans %}Inicio{% endblocktrans %}</a></li>
+	    <li><a href="{% url fotos_perfil_publico user.id %}">{% blocktrans %}Perfil Público{% endblocktrans %}</a></li>
+	    <li><a href="{% url editar_perfil %}">{% blocktrans %}Editar Perfil{% endblocktrans %}</a></li>
+	    <li><a href="{% url fotos_ver_fotos %}">{% blocktrans %}Mis Fotos{% endblocktrans %}</a></li>
+	    <li><a href="{% url fotos_amigos %}">{% blocktrans %}Mis Amigos{% endblocktrans %}</a></li>
+	  </ul>    
+{% endblock %}
+
+{% block body1 %}
+
+    <hr class="profile_separator"/>
+    <h2>{% blocktrans %}Video Ayuda{% endblocktrans %}</h2>    
+    <ul class="image_list main">
+        <li>{% blocktrans %}Los siguientes enlaces muestran mini videos de como utilizar las funciones básicas de tu cuenta.{% endblocktrans %}</li>
+        <li>
+            <p>*<a href="{% url fotos_ayuda_detail 'buscar_usuarios' %}">{% blocktrans %}Buscar usuarios{% endblocktrans %}</a></p>
+            <p>*<a href="{% url fotos_ayuda_detail 'buscar_fotos' %}">{% blocktrans %}Buscar fotos{% endblocktrans %}</a></p>
+            <p>*<a href="{% url fotos_ayuda_detail 'subir_fotos' %}">{% blocktrans %}Subir fotos{% endblocktrans %}</a></p>
+            <p>*<a href="{% url fotos_ayuda_detail 'editar_perfil' %}">{% blocktrans %}Editar Perfil{% endblocktrans %}</a></p>
+            <p>*<a href="{% url fotos_ayuda_detail 'mis_fotos' %}">{% blocktrans %}Mis fotos{% endblocktrans %}</a></p>
+            <p>*<a href="{% url fotos_ayuda_detail 'mis_amigos' %}">{% blocktrans %}Mis Amigos{% endblocktrans %}</a></p>
+            <p>*<a href="{% url fotos_ayuda_detail 'invitar' %}">{% blocktrans %}Invitar{% endblocktrans %}</a></p>
+    </ul>
+
+{% endblock %}

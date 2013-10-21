@@ -1,0 +1,14 @@
+
+<form action="{%url validar_usuario%}" method="post">{% csrf_token %}
+{% if error %}
+    <ul class="errorlist">
+        <li>{{ error }}</li>
+    </ul>
+{% endif %}
+
+{{ form_login.as_p }}
+<a href="{% url recuperar_password %}" >¿No recuerda su contraseña?</a>
+<input type="submit" value="Submit" />
+<a href="{% url registro %}"><input type="submit" value="Registrate" /></a>
+</form>
+

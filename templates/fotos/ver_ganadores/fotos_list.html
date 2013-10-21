@@ -1,0 +1,60 @@
+{% extends "fotos/ver_ganadores/base_profile.html"  %}
+
+{% block menu_left %}
+	  <ul class="menu_bar profile"> 
+	    <li><a href="{% url main_user %}">Inicio</a></li>
+	    <li><a href="{% url fotos_perfil_publico user.id %}">Perfil Público</a></li>
+	    <li><a href="{% url editar_perfil %}">Editar Perfil</a></li>
+	    <li><a href="{% url fotos_ver_fotos %}">Mis Fotos</a></li>
+	    <li><a href="{% url fotos_amigos %}">Mis Amigos</a></li>
+	  </ul>    
+{% endblock %}
+
+{% block body1 %}
+
+    <hr class="profile_separator"/>
+    <h2>Ganadores</h2>     
+    {% if lista_fotos.object_list %}
+        {% load thumbnail %}
+        {% for fotos in lista_fotos.object_list %}
+            <ul class="image_list wide main">
+            {% for foto in fotos %}
+                <li>
+                    <a class="resultados_search" href="{{foto.codigo_user.get_profile.get_absolute_url }}">
+                        <img src="{% thumbnail foto.codigo_user.get_profile.foto "75x75"  %}" width=75px height=75px alt="{{foto.codigo_user.first_name}}{{foto.codigo_user.last_name}}" title="{{foto.codigo_user.first_name}}{{foto.codigo_user.last_name}}" /></a>
+                        <p>
+                        {{foto.codigo_user.first_name}}<br/>{{foto.codigo_user.last_name}}
+                        </p>
+                </li>
+            {% endfor %}
+            </ul>
+            <div class="clear"></div>
+            <hr class="profile_separator"/>  
+        {% endfor %}
+
+        <ul class="image_list wide main">
+            <li>
+            <div class="pagination">
+                <span class="step-links">
+                    {% if lista_fotos.has_previous %}
+                        <a href="?page={{ lista_fotos.previous_page_number }}">Anterior</a>
+                    {% endif %}
+            
+                    <span class="current">
+                        P&aacute;gina {{ lista_fotos.number }} de {{ lista_fotos.paginator.num_pages }}.
+                    </span>
+            
+                    {% if lista_fotos.has_next %}
+                        <a href="?page={{ lista_fotos.next_page_number }}">Siguiente</a>
+                    {% endif %}
+                </span>
+            </div>
+            </li>
+        </ul>
+    {% else %}
+        <ul class="image_list wide main">
+            <li>Todavía no hay ganadores.</li>
+        </ul>
+    {% endif %}
+
+{% endblock %}

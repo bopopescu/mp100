@@ -1,0 +1,103 @@
+{% extends "portal/menu_views/base_menu.html"  %}
+{% load i18n %}
+{% load portal_tags %}
+{% load thumbnail watermark %}
+{% block title %}
+  {% blocktrans %}Professional Winner{% endblocktrans %}
+{% endblock %}
+
+{% block head %}
+  {% include "portal/tags/sharethis/standard.html" %}
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.lightbox-0.5.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/jquery.lightbox-0.5.css"/>
+    <script type="text/javascript">
+    $(function() {
+      $('a.lightbox').lightBox({
+	  imageLoading:			'{{MEDIA_URL}}images/jquery-lightbox-0.5/lightbox-ico-loading.gif',
+	  imageBtnPrev:			'{{MEDIA_URL}}images/jquery-lightbox-0.5/lightbox-btn-prev.gif',
+	  imageBtnNext:			'{{MEDIA_URL}}images/jquery-lightbox-0.5/lightbox-btn-next.gif',
+	  imageBtnClose:			'{{MEDIA_URL}}images/jquery-lightbox-0.5/lightbox-btn-close.gif',
+	  imageBlank:				'{{MEDIA_URL}}images/jquery-lightbox-0.5/lightbox-blank.gif'
+      });
+    });
+    </script>
+{% endblock %}
+
+
+{% block center_content %}
+<div class="span-15 last breadcrumbs">
+    <label class="link_all_green">
+	<a href="{% url portal_winners %}">{% blocktrans %}Winners{% endblocktrans %} ></a>
+    </label>
+    <label class="link_all_green">
+	<a href="{% url portal_mp100_special_awards %}">{% blocktrans %}Machu Picchu 100 Special Awards{% endblocktrans %} ></a>
+    </label>
+    <label class="link_all_green">
+	<a href="{% url portal_professional_intro %}">{% blocktrans %}Professional Photography{% endblocktrans %} ></a>
+    </label>
+    {% blocktrans %}Professional Winner{% endblocktrans %}
+</div>
+<div class="span-14 last winners push_down_25">
+  <div class="span-9">
+    <h1>{% blocktrans %}Photo Contest{% endblocktrans %}</h1>
+    <h2>{% blocktrans %}I was in Machu Picchu{% endblocktrans %}</h2>
+    <h3>{% blocktrans %}A Photographic Wonder{% endblocktrans %}</h3>
+  </div>
+  <div class="span-9 last special_award_word">
+    <h1>{% blocktrans %}Professional Winner{% endblocktrans %}</h1>
+  </div>
+  <div class="span-14 last winners_stoneMenu">
+    <ul>
+      <li class="Finalists">
+	<a href="{% url portal_finalists %}">
+	  <label class="relative_push_down_10">{% blocktrans %}Winners{% endblocktrans %}</label>
+	</a>
+      </li>
+      <li class="Grand_Final">
+	<a href="{% url portal_winners %}">
+	  <label class="relative_push_down_10">{% blocktrans %}Grand Final{% endblocktrans %}</label>
+	</a>
+      </li>
+      <li class="Voting_winners"><a href="{% url portal_votingWinners %}">{% blocktrans %}Voting<br/>Winners{% endblocktrans %}</a></li>
+      <li class="Machu_Picchu_100_selected"><a href="{% url portal_mp100_special_awards %}">{% blocktrans %}Machu Picchu 100<br/>Special Awards{% endblocktrans %}</a></li>
+    </ul>
+  </div>
+  <div class="span-14 last winners_green_area">
+    <p><span>{% blocktrans %}CONGRATULATIONS TO THE BEST PROFESSIONAL PHOTO !!!{% endblocktrans %}</span><br/>
+    {% blocktrans %}The  jury appointed by the Organization and lead by the prominent Peruvian photographer Walter Wust chose the winner {% endblocktrans %}.
+    </p>
+    <div class="span-14">
+    {% blocktrans %}Take a look at the winning photo and share with the world…{% endblocktrans %}
+    </div>
+  </div>
+</div>
+
+<div class="span-14 last pull_up_20 ">
+{% for foto in lista_fotos %}
+  <div class="span-1 winners_big_numbers {% cycle 'smooth_green' 'darker_gray' as numberColors %}">
+    <h1>{{forloop.counter}}</h1>
+  </div>
+  <div class="span-4 winners_image_box">
+    {% thumbnail foto.codigo_foto.foto '600x600_upscale' as thumb %}
+    <a href='{{thumb|watermark:"mp100,position=br,opacity=90"}}' class="lightbox" title="{{foto.codigo_foto.titulo}}">
+    <img width="122px" height="116px" alt="" src="{% thumbnail foto.codigo_foto.foto '122x116' %}">
+    </a>
+  </div>
+  <div class="span-8 winners_details_box {% cycle 'darker_gray' '' as textColors %} last">
+    <h3 class="green no_margin"><label>{% blocktrans %}Photo title:{% endblocktrans %} {{foto.codigo_foto.titulo}}</label></h3>
+    {% blocktrans %}Author:{% endblocktrans %} <a class="link_all_green green" href="{{foto.codigo_foto.codigo_user.get_profile.get_absolute_url}}">{{foto.codigo_foto.codigo_user.get_full_name}}</a><br/>
+    <h3 class="green no_margin"><label>{% blocktrans %}Judges' comments:{% endblocktrans %}</label></h3>
+    {% if foto.comentario %}
+      {{foto.comentario|truncatewords_html:"15"|safe}}
+    {% else %}
+      {% blocktrans %}There is no comment.{% endblocktrans %}
+    {% endif %}
+  </div>
+  <div class="span-14 last winners_separator">
+    <hr>
+  </div>
+{% empty %}
+  {% blocktrans %}There are not winners yet.{% endblocktrans %}
+{% endfor %}
+</div>
+{% endblock %}

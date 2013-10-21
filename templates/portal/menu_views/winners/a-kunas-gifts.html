@@ -1,0 +1,89 @@
+{% extends "portal/menu_views/base_menu.html"  %}
+{% load i18n %}
+{% load portal_tags %}
+{% load thumbnail %} 
+{% block title %}
+  {% blocktrans %}Kuna's gift{% endblocktrans %}
+{% endblock %}
+
+{% block head %}
+  {% include "portal/tags/sharethis/standard.html" %}
+{% endblock %}
+
+
+{% block center_content %}
+<div class="span-13 last breadcrumbs">
+    <label class="link_all_green">
+	<a href="{% url portal_winners %}">{% blocktrans %}Winners{% endblocktrans %} ></a>
+    </label>
+    <label class="link_all_green">
+	<a href="{% url portal_mp100_special_awards %}">{% blocktrans %}Machu Picchu 100 Special Awards{% endblocktrans %} ></a>
+    </label>
+    {% blocktrans %}Kuna's gift{% endblocktrans %}
+    
+</div>
+<div class="span-14 last winners push_down_25">
+  <div class="span-9 last">
+    <h1>{% blocktrans %}Photo Contest{% endblocktrans %}</h1>
+    <h2>{% blocktrans %}I was in Machu Picchu{% endblocktrans %}</h2>
+    <h3>{% blocktrans %}A Photographic Wonder{% endblocktrans %}</h3>
+  </div>
+  <div class="span-9 last special_award_word">
+    <h1>{% blocktrans %}Special Awards{% endblocktrans %}</h1>
+  </div>
+  <div class="span-14 last winners_stoneMenu">
+    <ul>
+      <li class="Finalists">
+	<a href="{% url portal_finalists %}">
+	  <label class="relative_push_down_10">{% blocktrans %}Winners{% endblocktrans %}</label>
+	</a>
+      </li>
+      <li class="Grand_Final">
+	<a href="{% url portal_winners %}">
+	  <label class="relative_push_down_10">{% blocktrans %}Grand Final{% endblocktrans %}</label>
+	</a>
+      </li>
+      <li class="Voting_winners"><a href="{% url portal_votingWinners %}">{% blocktrans %}Voting<br/>Winners{% endblocktrans %}</a></li>
+      <li class="Machu_Picchu_100_selected"><a href="{% url portal_mp100_special_awards %}">{% blocktrans %}Machu Picchu 100<br/>Special Awards{% endblocktrans %}</a></li>
+    </ul>
+  </div>
+  <div class="span-14 last winners_green_area_MP100_SA">
+    <span class="profesionalCategory_word">{% blocktrans %}Kuna's Gift{% endblocktrans %}</span>
+    <p>
+    {% blocktrans %}We are giving away gift cards Kuna.<br/>The most interesting photos, those with subject matter, funny, with impact, they wil be given a gift card Kuna with S/.300.{% endblocktrans %} 
+    </p><p>
+    {% blocktrans %}Go ahead an upload your photos too! Every day a photo is picked!{% endblocktrans %}
+    </p>
+  </div>  
+</div>
+<div class="span-14 last judges_menu"></div>
+
+<div class="span-14 last pull_up_20 ">
+  {% get_current_language as LANGUAGE %}
+  <a href="http://www.kuna.com.pe" target="_blank">
+  <img width="550" height="398" alt="" src="{{MEDIA_URL}}images/kunas_gift/{% if LANGUAGE == 'en'%}kuna_gift_en{% else %}kuna_gift_es{% endif %}.png">
+  </a>
+  <div class="span-14 last push_down_6 ">
+    {% for usuario in lista_users %}
+    <div class="span-1 winners_big_numbers {% cycle 'smooth_green' 'darker_gray' as numberColors %}">
+      <h1>{{forloop.counter}}</h1>
+    </div>
+    <div class="span-4 winners_image_box">
+      <a href="{{usuario.get_profile.get_absolute_url}}">
+	<img width="122px" height="116px" alt="" src="{% thumbnail usuario.get_profile.foto "122x116" %}">
+      </a>
+    </div>
+    <div class="span-8 winners_details_box {% cycle 'darker_gray' '' as textColors %} last">
+      <h3 class="green no_margin"><label>{% blocktrans %}Name:{% endblocktrans %}</label> <span class="black">{{usuario.get_full_name}}</span></h3>
+      <h3 class="green no_margin"><label>{% blocktrans %}Screen Name:{% endblocktrans %}</label> <a class="link_all_black black" href="{{usuario.get_profile.get_absolute_url}}">{{usuario.username}}</a></h3>
+      <img src="{{FLAG_PATH}}{{usuario.get_profile.pais.iso|lower}}.gif" /> &nbsp;{{usuario.get_profile.pais}}
+    </div>
+    <div class="span-14 last winners_separator">
+      <hr>
+    </div>
+    {% empty %}
+    {% blocktrans %}There are not winners yet.{% endblocktrans %} 
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

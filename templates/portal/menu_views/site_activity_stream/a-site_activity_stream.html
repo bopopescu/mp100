@@ -1,0 +1,235 @@
+{% extends "portal/menu_views/base_menu.html"  %}
+{% load i18n %}
+{% load portal_tags %}
+{% load thumbnail %} 
+{% block title %}
+  {% blocktrans %}Vote{% endblocktrans %}
+{% endblock %}
+
+{% block head %}
+  {% include "portal/tags/sharethis/standard.html" %}
+{% endblock %}
+
+
+{% block center_content %}    
+  <div class="span-1" style="height: 1050px; width:0px;"></div>  
+  <div class="span-14 last">
+    <div class="span-14 last breadcrumbs">
+      <label class="link_all_green">
+	<a href="#">{% blocktrans %}Activity Stream{% endblocktrans %} ></a>
+      </label>
+    </div>
+    <div class="span-16 last site_act_stream">
+      <!-- begin ambassador activity stream -->
+      <div class="span-16 last">
+	<div class="span-16 last act_str_header">
+	  <h1>{% blocktrans %}Most Active Ambassadors{% endblocktrans %}</h1>
+	</div>
+	{% get_current_language as LANGUAGE %}
+	{% for ListAmbassadors in listListAmbassadors %}
+	  {% if ListAmbassadors %}
+	    <div class="span-16 span-606px last act_str_body">
+	    {% for Ambassador in ListAmbassadors%}  
+  	      <!-- begin ambassador item -->
+	      <div class="span-5">
+		<div class="span-2 last">
+		  <a href="{{Ambassador.get_absolute_url}}"><img src="{% thumbnail Ambassador.foto '50x50' %}" height="50" width="50" alt="{{Ambassador.user.username}}" class="act_str_img" ></a>
+		</div>
+		<div class="span-3 last link_all_green">
+		  <a href="{{Ambassador.get_absolute_url}}">{{Ambassador.user.username}}</a><br/>
+		  {% get_age Ambassador.fecha_nacimiento as age %}
+		  {% if LANGUAGE == 'en'%}
+		    {% if Ambassador.sexo == 'M' %}
+		      Male
+		    {% else %}
+		      Female
+		    {% endif %}
+		  {% else %}
+		    {% if Ambassador.sexo == 'M' %}
+		      Hombre
+		    {% else %}
+		      Mujer
+		    {% endif %}
+		  {% endif %}
+
+		  {{age}}<br/>
+		  {{Ambassador.pais}}<br/>
+		  {% blocktrans %}level{% endblocktrans %}: 
+		  <a href="{{Ambassador.get_absolute_url}}">{% if LANGUAGE == 'en' %}{{Ambassador.get_BadgeName_en}}{% else %}{{Ambassador.get_BadgeName_es}}{% endif %}</a>
+		</div>
+	      </div>
+	      <!-- end ambassador item -->	      
+	    {% endfor %}
+	    </div>
+	    <div class="span-16 span-606px last act_str_body act_str_hr_height">
+	      <hr class="notice_separator">
+	    </div>	
+	  {% endif %}
+	{% empty %}
+	    <div class="span-16 span-606px last act_str_body">
+  	      <!-- begin ambassador item -->
+		{% blocktrans %}There is no user yet{% endblocktrans %}.
+	    </div>
+	{% endfor %}
+	<div class="span-16 last act_str_footer"></div>
+
+
+      </div>
+      <!-- end ambassador activity stream -->
+
+      <!-- begin recently uploaded photos activity stream  -->
+      <div class="span-8">
+	<div class="span-8 last act_str_header">
+	  <h1>{% blocktrans %}Last Uploaded Photos{% endblocktrans %}</h1>
+	</div>
+	{% for photo in photosList %}
+	<div class="span-8 last act_str_body1">
+	  <!-- begin ambassador item -->
+	  <div class="span-7">
+	    <div class="span-2 last">
+	      <a href="{{photo.get_absolute_url}}"><img src="{% thumbnail photo.foto '50x50' %}" height="50" width="50" alt="{{photo.titulo}}" class="act_str_img" ></a>
+	    </div>
+	    <div class="span-5 last link_all_green">
+	      {% blocktrans %}was uploaded by{% endblocktrans %}:<br/>
+	      <a href="{{photo.codigo_user.get_profile.get_absolute_url}}">{{photo.codigo_user.username}}</a><br/>
+	    </div>
+	  </div>
+	  <!-- end ambassador item -->
+	</div>
+	<div class="span-8 last act_str_body1 act_str_hr_height">
+	  <hr class="notice_separator">
+	</div>	
+	{% empty %}
+	<div class="span-8 last act_str_body1">
+	  {% blocktrans %}There are not photos yet{% endblocktrans %}.
+	</div>
+	{% endfor %}
+	<div class="span-8 last act_str_footer2"></div>
+      </div>
+      <!-- end recently uploaded photos activity stream -->
+
+      <!-- begin last votes activity stream -->
+      <div class="span-8 last">
+	<div class="span-8 last act_str_header">
+	  <h1>{% blocktrans %}Last Votes{% endblocktrans %}</h1>
+	</div>
+	{% for voto in votoList %}
+	<div class="span-8 last act_str_body1">
+	  <!-- begin ambassador item -->
+	  <div class="span-7">
+	    <div class="span-2 last">
+	      <a href="{{voto.codigo_foto.get_absolute_url}}"><img src="{% thumbnail voto.codigo_foto.foto '50x50' %}" height="50" width="50" alt="{{voto.codigo_foto.titulo}}" class="act_str_img" ></a>
+	    </div>
+	    <div class="span-5 last link_all_green">
+	      <a href="{{voto.codigo_user.get_profile.get_absolute_url}}">{{voto.codigo_user.username}}</a><br/>
+	      {% blocktrans %}has just voted for{% endblocktrans %}:<br/>
+	      <a href="{{voto.codigo_foto.get_absolute_url}}">{{voto.codigo_foto.titulo}}</a>
+	    </div>
+	  </div>
+	  <!-- end ambassador item -->
+	</div>
+	<div class="span-8 last act_str_body1 act_str_hr_height">
+	  <hr class="notice_separator">
+	</div>	
+	{% empty %}
+	<div class="span-8 last act_str_body1">
+	  {% blocktrans %}There are no votes yet{% endblocktrans %}.
+	</div>
+	{% endfor %}
+	<div class="span-8 last act_str_footer2"></div>
+      </div>
+      <!-- end last votes activity stream -->
+
+      <!-- begin foro activity stream  -->
+      <div class="span-8">
+	<div class="span-8 last act_str_header">
+	  <h1>{% blocktrans %}Forums{% endblocktrans %}</h1>
+	</div>
+	{% for topic in topicsList %}
+	<div class="span-8 last act_str_body1">
+	  <!-- begin ambassador item -->
+	  <div class="span-7">
+	    <div class="span-2 last">
+	      <a href="{{topic.get_absolute_url}}"><img src="{{MEDIA_URL}}images/site_activity_stream/act_str_foro.png" height="37" width="36" alt="{{topic.name}}" class="act_str_img_foro" ></a>
+	    </div>
+	    <div class="span-5 last link_all_green">
+	      <a href="{{topic.get_absolute_url}}">{{topic.name}}</a>
+	    </div>
+	  </div>
+	  <!-- end ambassador item -->
+	</div>
+	<div class="span-8 last act_str_body1 act_str_hr_height">
+	  <hr class="notice_separator">
+	</div>	
+	{% empty %}
+	<div class="span-8 last act_str_body1">
+	  {% blocktrans %}There are no topics created{% endblocktrans %}.
+	</div>
+	{% endfor %}
+	<div class="span-8 last act_str_footer2"></div>
+      </div>
+      <!-- end foro activity stream -->
+
+      <!-- begin recommendations activity stream -->
+      <div class="span-8 last">
+	<div class="span-8 last act_str_header">
+	  <h1>{% blocktrans %}Opinions and Recommendations{% endblocktrans %}</h1>
+	</div>
+	{% for opinion in opinionsList %}
+	<div class="span-8 last act_str_body1">
+	  <!-- begin ambassador item -->
+	  <div class="span-7">
+	    <div class="span-2 last">
+	      <a href="{{opinion.servicio.get_absolute_url}}"><img src="{% thumbnail opinion.servicio.foto_principal 'bigIcon' %}" height="50" width="50" alt="{{opinion.servicio.nombre}}" class="act_str_img" ></a>
+	    </div>
+	    <div class="span-5 last link_all_green">
+	      {{opinion.texto|truncatewords:15}}<br/>
+	      <a href="{{opinion.usuario.get_absolute_url}}">
+		{{opinion.usuario.user.username}}</a>
+	      {% blocktrans %}about{% endblocktrans %}:
+	      <a href="{{opinion.servicio.get_absolute_url}}">{{opinion.servicio.nombre}}</a>
+	    </div>
+	  </div>
+	  <!-- end ambassador item -->
+	</div>
+	<div class="span-8 last act_str_body1 act_str_hr_height">
+	  <hr class="notice_separator">
+	</div>	
+	{% empty %}
+	<div class="span-8 last act_str_body1">
+	  {% blocktrans %}There are no opinions yet{% endblocktrans %}.
+	</div>
+	<div class="span-8 last act_str_body1 act_str_hr_height">
+	  <hr class="notice_separator">
+	</div>	
+	{% endfor %}
+	{% for service in servicesList %}
+	<div class="span-8 last act_str_body1">
+	  <!-- begin ambassador item -->
+	  <div class="span-7 link_all_green">
+	    {% if service.tipo_servicio.icono %}
+	    <img class="serviceItem" src="{% thumbnail service.tipo_servicio.icono "small" %}" alt="{{service.tipo_servicio.nombre}}" width="20px" height="20px">
+	    {% endif %}
+	    <a href="{{service.get_absolute_url}}">
+	      {{service.nombre}}</a><br/>
+	    {{service.descripcion|truncatewords:15}}
+	  </div>
+	  <!-- end ambassador item -->
+	</div>
+	<div class="span-8 last act_str_body1 act_str_hr_height">
+	  <hr class="notice_separator">
+	</div>	
+	{% empty %}
+	<div class="span-8 last act_str_body1">
+	  {% blocktrans %}There are no services yet{% endblocktrans %}.
+	</div>	
+	{% endfor %}
+	<div class="span-8 last act_str_footer2"></div>
+      </div>
+      <!-- end recommendations activity stream -->
+
+    </div>
+  </div>
+  
+
+{% endblock %}

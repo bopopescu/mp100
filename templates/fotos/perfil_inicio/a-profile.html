@@ -1,0 +1,244 @@
+{% extends "portal/menu_views/base_menu.html"  %}
+{% load i18n %}
+{% load thumbnail %}
+{% load fotos_tags %}
+{% load portal_tags %}
+{% block title %}
+  {% blocktrans %}User Profile{% endblocktrans %}
+{% endblock %}
+
+{% block head %}
+  <script type="text/javascript">
+    $(document).ready(function() {
+        //(IE hack)
+        $('input#bigEnter').click(function(event){
+            event.preventDefault();
+            $(window.location).attr('href', '{% url portal_subir_fotos %}');    
+        });
+        $('input#greenVote').click(function(event){
+            event.preventDefault();
+            $(window.location).attr('href', '{% url portal_vote %}');    
+        });	
+    });
+  </script>     
+{% endblock  %}
+
+      
+{% block left_menu %}  
+<li>
+  <a href="{% url usuario_mis_fotos %}">{% blocktrans %}My Photos{% endblocktrans %}</a>
+</li>
+<li>
+  <a href="{% url usuario_editar_perfil %}">{% blocktrans %}Edit My Profile{% endblocktrans %}</a>
+</li>
+<li>
+  <a href="{% url usuario_amigos %}">{% blocktrans %}My Friends{% endblocktrans %}</a>
+</li>
+<li>
+  <a href="{% url usuario_public_profile user.id %}">{% blocktrans %}My Public Profile{% endblocktrans %}</a>
+</li>  
+{% endblock %}
+
+{% block fb_like_top %}
+  {% include 'portal/tags/fb_like/fb_like_top_UserAccount.html' %}
+{% endblock %}
+      
+{% block center_content %}        
+  <div class="span-14 last machu_picchu_peru">
+    <div class="span-14 last">
+      {% get_current_language as LANGUAGE_CODE %}	  
+      {% get_current_badge user as badge %}
+      <div class="span-14 all_to_left link_all_green last">
+	{% if badge %}<h1>{% blocktrans %}Your activity level is:{% endblocktrans %}</h1><br/>{% endif %}
+      </div>
+      <div class="span-14 last">
+	<div class="span-3">
+	  {% if badge %}
+	  <img class="badge" src="{% thumbnail badge.foto '96x96' %}" alt="{% if LANGUAGE_CODE == 'en' %}{{badge.name_en}}{% else %}{{badge.name_es}}{% endif %}"> 
+	  {% if LANGUAGE_CODE == 'en' %}
+	  <p class="green no_margin"><strong>{{badge.name_en}}</strong></p>
+	  {{badge.description_en}}
+	  {% else %}
+	  <p class="green no_margin"><strong>{{badge.name_es}}</strong></p>
+	  {{badge.description_es}}
+	  {% endif %}
+	  {% endif %}
+	</div>
+	<div class="span-11 last">
+	  {% get_current_level user as level %}
+	  {% get_all_badges as badges %}
+	  {% for b in badges %}
+	  <div class="span-2 span-2_5 last center padding_bottom_30">
+	    <img width="50px" height="50px" class="{% if level == b.id %}actual_badge{% else %}badge{% endif %}" src="{% if b.id <= level %}{% thumbnail b.foto '50x50' %}{% else %}{{MEDIA_URL}}images/badges/no_badge.png{% endif %}" alt="{% if LANGUAGE_CODE == 'en' %}{{b.name_en}}{% else %}{{b.name_es}}{% endif %}" title="{% if LANGUAGE_CODE == 'en' %}{{b.description_en}}{% else %}{{b.description_es}}{% endif %}">
+	    {% if LANGUAGE_CODE == 'en' %}
+	    <p class="green no_margin">{{b.name_en}}</p>
+	    {% else %}
+	    <p class="green no_margin">{{b.name_es}}</p>
+	    {% endif %}
+	  </div>
+	  {% empty %}
+	  {% endfor %}
+	</div>
+      </div>
+
+      <!-- Begin UserProfile Activity Stream -->
+      <div class="span-14 last push_down_20">
+	<div class="span-14 last act_str_header">
+	  <h1>{% blocktrans %}Activity Stream{% endblocktrans %}</h1>
+	</div>
+	<div class="span-14 span-526px last act_str_body link_all_green">
+	  {% for actStr in listActStr %}
+	  {{actStr.get_act_str|safe}}
+	  <div class="span-13 last act_str_hr_height2">
+	    <hr class="notice_separator">
+	  </div>
+	  {% empty %}
+
+	  {% endfor %}
+	</div>
+	<div class="span-14 last act_str_footer3"></div>
+      </div>
+      <!-- End UserProfile Activity Stream -->
+
+      <div class="span-14 profile_gray_headline">
+	{% blocktrans %}My Photos{% endblocktrans %}
+      </div>
+      <div class="span-14 profile_content">
+	{% get_some_user_fotos user 5 as usuario_fotos 0 1 %}
+	{% if usuario_fotos %}
+	  <ul class="image_list wide main">
+	  {% for foto in usuario_fotos %}
+	      {% load thumbnail %}                
+	      <li><a href="{{foto.get_absolute_url}}">
+		    <img src="{% thumbnail foto.foto '65x65' %}" width=65px height=65px alt="{{foto.titulo}}" />
+	        </a>
+            <div>{% blocktrans %}votes{% endblocktrans %}: {{ foto.get_nro_votos }}</div>
+	      </li>                
+	  {% endfor %}
+	  </ul>
+	{% endif %}	
+      </div>
+      <div class="span-14 profile_content">
+	{% get_actual_and_next_temporadas actual_temp next_temp %}
+	{% if next_temp %}
+	  {% blocktrans %}You have entered{% endblocktrans %} {{user.get_profile.uploaded_photos}}
+	  {% blocktrans %}photo{% endblocktrans %}{{user.get_profile.uploaded_photos|pluralize}}
+	  {% blocktrans %}for Voting Period{% endblocktrans %} {{next_temp.get_order_number}}.
+	  {% if user.get_profile.remaining_uploads > 0 %}
+	    {% blocktrans %}You may enter{% endblocktrans %} {{user.get_profile.remaining_uploads}}
+	    {% blocktrans %}aditional photo{% endblocktrans %}{{user.get_profile.remaining_uploads|pluralize}}{% if LANGUAGE_CODE == 'es' %} más{% endif %}
+	    {% blocktrans %}before{% endblocktrans %}{% if LANGUAGE_CODE == 'es' %} del{% endif %} {{next_temp.fecha_inicio|date:"D, j M Y h:i:s a"}}
+	  {% endif %}
+	  <p></p>	
+	{% endif %}		
+	<!--<a href="{% url portal_subir_fotos %}">-->
+	  <input id="bigEnter" class="cute_green_button" type="submit" value="{% blocktrans %}Enter{% endblocktrans %}" >
+	<!--</a>-->      
+      </div>
+      
+      <div class="span-14 profile_gray_headline">
+	{% blocktrans %}My Votes{% endblocktrans %}
+      </div>
+      <div class="span-14 profile_content">
+	{% if allTemporadas %}
+	  {% for temporada in allTemporadas %}
+	    <label>{% blocktrans %}Voting Period{% endblocktrans %} {{temporada.id}}</label>
+	    <br/>
+	    {% blocktrans %}Voting begins on{% endblocktrans %} {{temporada.fecha_inicio|date:"Y-n-j h:i:s a "}} 
+	    {% blocktrans %}and ends on{% endblocktrans %} {{temporada.fecha_fin|date:"Y-n-j h:i:s a"}} GMT -005 (Lima)
+	    {% get_my_votes user temporada as usuario_votes %}
+	    {% if usuario_votes %}            
+	      <div class="span-14 last">	  
+		<ul class="image_list wide main">	    
+		  {% for foto in usuario_votes %}
+		      {% load thumbnail %}
+		      <li><a href="{{foto.get_absolute_url}}">
+			  <img src='{% thumbnail foto.foto "65x65" %}' width=65px height=65px alt="{{foto.titulo}}" /></a></li>
+		  {% endfor %}
+		</ul>
+	      </div>
+	    {% else %}
+	      <br/>{% blocktrans %}No votes{% endblocktrans %}
+	    {% endif %}
+	    <br/>
+	  {% endfor %}
+	  <!--{% get_actual_and_next_temporadas actual_temp next_temp %}-->
+	  {% if actual_temp %}
+	    <br/>
+	    {% blocktrans %}You have{% endblocktrans %}
+	    {{user.get_profile.remaining_votes}}
+	    {% blocktrans %}vote{% endblocktrans %}{{user.get_profile.remaining_votes|pluralize}}
+	    {% blocktrans %}remaining{% endblocktrans %}
+	    <br/>
+	    <!--<a href="{% url portal_vote %}">-->
+	      <input id="greenVote" class="cute_green_button" type="submit" value="{% blocktrans %}Vote{% endblocktrans %}" >
+	    <!--</a>-->
+	  {% endif %}
+	{% endif %}
+      </div>  
+
+      {% get_all_next_temporadas user temporadas %}
+      {% if temporadas %}
+	<div class=" span-14 last comments_separator push_down_20">
+	  <hr/>
+	</div>
+	{% for temporada in temporadas %}
+	  <div class="span-14 profile_content last">
+	    <label>{% blocktrans %}Voting Period{% endblocktrans %} {{temporada.id}}</label><br/>
+        <div class="span-14 last">
+	      <ul class="image_list wide main">
+		{% for foto in temporada.fotos %}
+		    {% load thumbnail %}
+		    <li><a href="{{foto.get_absolute_url}}">
+			<img src='{% thumbnail foto.foto "65x65" %}' width=65px height=65px alt="{{foto.titulo}}" /></a></li>
+		{% endfor %}
+	      </ul>
+	    </div>
+	    {% blocktrans %}Voting begins on{% endblocktrans %} {{ temporada.fecha_inicio|date:"Y-n-j h:i:s a" }} GMT -005 (Lima)
+	  </div>
+	  <div class=" span-14 last comments_separator push_down_20">
+	    <hr/>
+	  </div>	    	
+	{% endfor %}
+      {% else %}
+	{% if not actual_temp %}
+	  <strong class="elegant_red">{% blocktrans %}The Photo Contest has finished{% endblocktrans %}</strong>
+	{% endif %}
+      {% endif %}
+
+      <div class="span-14 profile_gray_headline">
+	{% blocktrans %}My Friends{% endblocktrans %}
+      </div>
+      <div class="span-14 profile_content">
+	{% get_some_friends_fotos user 6 as friend_fotos %}
+	{% if friend_fotos %}
+	  <div class="span-14 last link_all_black">
+	    <ul class="image_list wide main">
+	    {% for friend in friend_fotos %}
+	      <li>
+		<a href="{{friend.get_absolute_url}}">
+		  <div class="span-2 tag_friends">
+		    {% thumbnail friend.foto "50x50" as thumb %}
+		    <img width="50px" height="50px" src='{% if friend.foto %}{{thumb}}{% else %}{{MEDIA_URL}}{{friend.foto.name}}{% endif %}' alt="{{friend.user.username}}' alt="{{friend.user.username}}">
+		    <p>{{friend.user.first_name}} &nbsp {{friend.user.last_name}}</p>
+		  </div>
+		</a>
+	      </li>
+	    {% endfor %}
+	    </ul>
+	  </div>
+	<br/>
+	{% else %}
+	  {% blocktrans %}You do not have friends yet{% endblocktrans %}
+	{% endif %}
+      </div>
+      
+      {% if friend_fotos %}
+      <div class="span-14 all_to_right last link_all_green">
+	<a class="no_decoration" href="{% url usuario_ver_amigos %}">{% blocktrans %}See more...{% endblocktrans %}</a>
+      </div>
+      {% endif %}
+    </div>	
+  
+  </div>	  
+{% endblock %}      

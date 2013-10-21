@@ -1,0 +1,269 @@
+{% extends "portal/register/base_register.html"  %}
+
+{% block ini %}
+    {% load banners %}
+    {% load i18n %}
+{% endblock %}
+
+{% block head %}
+    <script type="text/javascript" language="javascript">
+        document.domain = document.domain;
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $
+        })
+    </script>
+{% endblock %}
+
+{% block body %}
+  <body class="register information register_information">
+    
+    {% block top_form %}
+        {{ block.super }}
+    {% endblock %}
+
+
+    <div class="container container_register">
+      <div class="span-24  last header_ads">
+	<img width="950"  src="{{MEDIA_URL}}dump_images/adv_950.png" 
+	     alt="950px advertisement"/>
+        <!--{% block banner1 %} {% banners "H" %} {% endblock %}-->        
+      </div>
+      <div class="span-13 content_box register_content_box">
+	<h1>Machupicchu 100</h1>
+	<div class="register_title_bar">
+	  <h2>{% blocktrans with step as step and step_count as step_count %}Formulario de Registro: paso {{ step }} de {{ step_count }}{% endblocktrans %}</h2>
+	</div>
+
+      <div class="register-form">
+        {% if step == 1 %}
+            <fieldset class="register">
+              <table>
+                <tr>
+                  <td>
+		    {% blocktrans %}
+                    Machu Picchu (del quechua sureño machu pikchu, "Montaña Vieja") es 
+                    el  nombre  contemporáneo  que  se  da  a  una  llaqta  (antiguo  poblado 
+                    andino  inca)  de  piedra  construida  principalmente  a mediados  del  siglo 
+                    XV  en  el  promontorio  rocoso  que  une  las montañas Machu  Picchu  y 
+                    Huayna Picchu en la vertiente oriental de los Andes Centrales, al sur del 
+                    Perú.   Su  nombre  or iginal   habr ía  sido  Picchu  o  Picho.1
+                    Según  documentos  de mediados  del  siglo XVI,2 Machu Picchu  habría 
+                    sido  una  de  las  residencias  de  descanso  de  Pachacútec  (primer 
+                    emperador  inca,  1438-1470).  Sin  embargo,  algunas  de  sus  mejores 
+                    construcciones y el evidente carácter ceremonial de  la principal vía de 
+                    acceso  a  la  llaqta  demostrarían  que  ésta  fue  usada  como  santuario 
+                    religioso.3 Ambos usos, el de palacio y el de santuario, no habrían sido 
+                    incompatibles. Algunos expertos parecen haber descartado, en cambio, 
+                    un  supuesto  carácter militar,  por  lo  que  los  populares  calificativos  de 
+                    "fortaleza"  o  "ciudadela"  podrían  haber  sido  superados.4
+                    Machu Picchu es considerada al mismo  tiempo una obra maestra de  la 
+                    arquitectura  y  la  ingeniería.5  Sus  peculiares  características 
+                    arquitectónicas  y paisajísticas,  y el  velo de misterio que ha  tejido a  su 
+                    alrededor  buena  parte  de  la  literatura  publicada  sobre  el  sitio,  lo  han 
+                    convertido en uno de los destinos turísticos más populares del planeta.6
+                    Machu  Picchu  está  en  la  Lista  del  Patrimonio  de  la  humanidad  de  la 
+                    Unesco desde 1983, como parte de todo un conjunto cultural y ecológico 
+                    conocido  bajo  la  denominación  Santuario  histórico  de  Machu  Picchu.
+                    El  7  de  julio  de  2007  Machu  Picchu  fue  declarada  como  una  de  las 
+                    nuevas maravillas  del mundo  en  una  ceremonia  realizada  en  Lisboa, 
+                    Portugal,  luego  de  la  participación  de  cien  millones  de  votantes  del 
+                    mundo entero.
+		    {% endblocktrans %}
+                  </td>
+                </tr>
+              </table>         
+            {% endif %}
+
+      <div id="fb-root"></div>
+      <script>
+        window.fbAsyncInit = function() {
+            FB.init({appId: '139305339468660', status: true, cookie: true,
+                   xfbml: true});
+            FB.login();
+        };
+        (function() {
+          var e = document.createElement('script'); e.async = true;
+          e.src = document.location.protocol +
+            '//connect.facebook.net/en_US/all.js';
+          document.getElementById('fb-root').appendChild(e);
+        }());
+      </script>
+
+
+        <form action="." method="post">{% csrf_token %}
+          <fieldset class="register">
+            <table>
+            <tr>
+                <th></th>
+                <td>{{ form.non_field_errors }}      
+                </td>
+            </tr>
+            {% if step == 1 %}
+            <tr>
+                <th></th>
+                <td>{{form.accepted.errors}}
+                </td>
+            </tr>
+            <tr>
+                <th>{{form.accepted.label_tag}}
+                </th>
+                <td>{{form.accepted}}
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <th>{{form.username.label_tag}}
+                </th>
+                <td>{{form.username.errors}}
+                    {{form.username}}
+                </td>
+            </tr>
+            <tr>
+                <th>{{form.password1.label_tag}}
+                </th>
+                <td>{{form.password1.errors}}
+                    {{form.password1}}
+                </td>
+            </tr>
+            <tr>
+                <th>{{form.password2.label_tag}}
+                </th>
+                <td>{{form.password2.errors}}
+                    {{form.password2}}
+                </td>
+            </tr>
+            <tr>
+                <th>{{form.nombres.label_tag}}
+                </th>
+                <td>{{form.nombres.errors}}
+                    {{form.nombres}}
+                </td>
+            </tr>
+            <tr>
+                <th>{{form.apellidos.label_tag}}
+                </th>
+                <td>{{form.apellidos.errors}}
+                    {{form.apellidos}}
+                </td>
+            </tr>
+            <tr>
+                <th>{{form.correo.label_tag}}
+                </th>
+                <td>{{form.correo.errors}}
+                    {{form.correo}}
+                </td>
+            </tr>
+            <tr>
+                <th>{{form.pais.label_tag}}
+                </th>
+                <td>{{form.pais.errors}}
+                    {{form.pais}}
+                </td>
+            </tr>
+
+            {% endif %}
+            <tr>
+                <td></td>
+                <td>
+                <input type="hidden" name="{{ step_field }}" value="{{ step0 }}" />
+                {{ previous_fields|safe }}                
+                <input type="submit" value={% trans "Continuar" %} class="button">
+                </td>
+            </tr>
+            </table>
+        </form>        
+      </div>
+<!--	<div class="register-form">
+	  <form action="" method="post">
+	    <fieldset class="register">
+	      <p class="error">Los siguientes campos son obligatorios: email</p>
+	      <table>
+		<tr>
+		  <td><label>Email</label></td>
+		  <td><input type="text"/></td>
+		</tr>
+		<tr>
+		  <td><label>Contraseña</label></td>
+		  <td><input type="text"/></td>
+		</tr>
+		<tr>
+		  <td><label>Nombres</label></td>
+		  <td><input type="text"/></td>
+		</tr>
+		<tr>
+		  <td><label>Apellidos</label>
+		  </td><td><input type="text"/></td>
+		</tr>
+		<tr>
+		  <td><label>Edad</label></td>
+		  <td><input type="text"/></td>
+		</tr>
+		<tr>
+		  <td><label>Direccion</label></td>
+		  <td><input type="text"/></td>
+		</tr>
+		<tr>
+		  <td><label>País</label></td>
+		  <td>
+		    <select>
+		      <option>Peru</option>
+		      <option>Argentina</option>
+		      <option>Chile</option>
+		    </select>
+		  </td>
+		</tr>
+
+		<tr>
+		  <td></td><td>
+		    <input type="submit" class="button" value="Registrar"/>
+		  </td>
+		</tr>
+	      </table>
+	    </fieldset>
+	  </form>
+	</div>
+-->
+    </div>
+      
+      <div class="span-11 last">
+	<div class="span-6 notice_menu register">
+	  <ul class="menu_bar">
+            <li class="first"><a href="{% url main_portal %}">{% blocktrans %}Inicio{% endblocktrans %}</a></li>
+            <li class="second"><a href="{% url portal_sobre_MP %}">{% blocktrans %}Sobre Machu Picchu{% endblocktrans %}</a></li>
+            <li class="third"><a href="{% url portal_galeria_vote %}">{% blocktrans %}Galería de Imágenes{% endblocktrans %}</a></li>
+            <li class="fourth"><a href="{% url portal_ver_bases %}">{% blocktrans %}Información y bases del concurso{% endblocktrans %}</a></li>
+            <li class="fifth"><a href="{% url portal_organizadores_auspiciadores %}">{% blocktrans %}Organizadores y auspiciadores{% endblocktrans %}</a></li>
+            <li class="sixth"><a href="{% url portal_rrss %}">{% blocktrans %}Responsabilidad Social{% endblocktrans %}</a></li>            
+	  </ul>
+	  <div class="clear"></div>
+	  <h3>{% blocktrans %}Concurso de Fotografia para aficionados{% endblocktrans %}</h3>
+	  <a href="#">
+  	    <img src="{{MEDIA_URL}}dump_images/machu-picchu-center.jpg" alt="machu picchu" 
+		 width="210"/>
+	  </a>
+	  <h2>{% blocktrans %}YO ESTUVE...{% endblocktrans %} </h2>
+	  <h2>{% blocktrans %}EN MACHU PICCHU{% endblocktrans %}</h2>
+	  <br/>
+	</div>
+
+	<div class="span-4 prepend-1 last">
+	  <img alt="advertisement" src="{{MEDIA_URL}}dump_images/adv_150_500.png"/>
+          <!--{% block banner2 %} {% banners "V" %} {% endblock %}-->
+	</div>
+      </div>
+      <div class="span-13 register footer_hspacer register_footer_hspacer">
+	<br/>
+      </div>
+      <div class="span-11 last">
+	<p class="footer register">copyrigth©2011 quimeraONLIFE</p>
+    </div>
+    </div>
+    
+  </div>
+
+
+</body>
+{% endblock %}

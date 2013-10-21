@@ -1,0 +1,341 @@
+{% load i18n %}
+<html>
+<head>
+    <link REL="SHORTCUT ICON" HREF="http://c498733.r33.cf2.rackcdn.com/favicon.ico">
+    <!-- Framework CSS -->
+    <link rel="stylesheet" href="{{ MEDIA_URL }}blueprint/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="{{ MEDIA_URL }}blueprint/print.css" type="text/css" media="print"/>
+    <link rel="stylesheet" href="{{ MEDIA_URL }}css/main.css" type="text/css" media="screen"/>
+  
+    <!--[if lt IE 8]><link rel="stylesheet" href="{{ MEDIA_URL }}blueprint/ie.css" type="text/css" media="screen, projection"/><![endif]-->
+
+    <!--[if IE]><link rel="stylesheet" href="{{ MEDIA_URL }}css/ie_general.css" type="text/css" media="screen, projection"/><![endif]-->
+    <!--[if IE 6]>
+    <link rel="stylesheet" href="{{ MEDIA_URL }}css/ie6.css" type="text/css" media="screen, projection"/><![endif]-->
+
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/common/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/jqModal.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/jqModal.css"/>    
+    <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}css/portal_style.css"/>
+    
+<style>
+body{
+margin:0;
+padding:0;
+}
+#password-clear{
+display: inline-block;
+}
+#password-clear2{
+display: inline-block;
+}
+</style>
+</head>
+<body>
+
+
+<div id="ajax_register_box" class="jqmAlertContent wide_first_navigation_menu_ajax black">
+    <div class="profile_content">
+    <!--			  <div class="span-14 all_to_left link_all_green last">
+        <h1 class="register_title">Please register in order to vote and submit photos</h1>
+      </div>-->
+      <div class="profile_content">
+        {% if not successful_register %}
+            <form method="post" action="{% url ajax_register_form %}" enctype="multipart/form-data">
+              {% csrf_token %}
+            <table class="edit_profile">
+              {% if form.nombres.errors or form.apellidos.errors or  form.titulo.errors %}
+              <tr>
+                <td>{{form.nombres.errors}}
+                </td>
+                <td>{{form.apellidos.errors}}
+                </td>
+                <td>{{form.titulo.errors}}
+                </td>
+              </tr>
+              {% endif %}
+              <tr>
+                <td><!--<input id="id_nombres" class="textbox special_gray clearInput" type="text" maxlength="50" name="nombres" value="{% blocktrans %}First Name{% endblocktrans %}" title="{% blocktrans %}First Name{% endblocktrans %}">-->
+                    {{form.nombres}}
+                </td>
+                <td><!--<input id="id_apellidos" class="textbox special_gray clearInput" type="text" maxlength="50" name="apellidos" value="{% blocktrans %}Last Name{% endblocktrans %}" title="{% blocktrans %}Last Name{% endblocktrans %}">-->
+                    {{form.apellidos}}
+                </td>
+                <td>
+                  <select id="id_titulo" name="titulo" class="textbox special_gray">
+                    <option selected="selected" value="">{% blocktrans %}Title{% endblocktrans %}</option>
+                    <option value="Mr.">{% blocktrans %}Mr{% endblocktrans %}</option>
+                    <option value="Mrs.">{% blocktrans %}Mrs{% endblocktrans %}</option>
+                    {% get_current_language as LANGUAGE_CODE %}
+                    {% if LANGUAGE_CODE == 'en' %}
+                        <option value="Ms.">{% blocktrans %}Ms{% endblocktrans %}</option>
+                    {% endif %}
+                    <option value="Miss.">{% blocktrans %}Miss{% endblocktrans %}</option>
+                    <option value="Dr.">{% blocktrans %}Dr{% endblocktrans %}</option>
+                  </select>
+                </td>
+              </tr>
+              {% if form.correo.errors or form.username.errors or form.fecha_nacimiento.errors %}
+              <tr>
+                <td>{{form.correo.errors}}
+                </td>
+                <td>{{form.username.errors}}
+                </td>
+                <td>{{form.fecha_nacimiento.errors}}
+                </td>
+              </tr>
+              {% endif %}
+              <tr>
+                <td><!--<input id="id_correo" class="textbox special_gray clearInput no_bottom_margin" type="text" maxlength="75" name="correo" value="{% blocktrans %}Email{% endblocktrans %}" title="{% blocktrans %}Email{% endblocktrans %}">-->
+                    {{form.correo}}
+                </td>
+                <td><!--<input id="id_username" class="textbox special_gray clearInput no_bottom_margin" type="text" maxlength="50" name="username" value="{% blocktrans %}Screen Name{% endblocktrans %}" title="{% blocktrans %}Screen Name{% endblocktrans %}">-->
+                    {{form.username}}
+                </td>
+                <td><!--<input id="id_fecha_nacimiento" class="textbox special_gray calendar clearInput no_bottom_margin" type="text" name="fecha_nacimiento" value="{% blocktrans %}Date of Birth{% endblocktrans %}" title="{% blocktrans %}Date of Birth{% endblocktrans %}">-->
+                    {{form.fecha_nacimiento}}
+                </td>
+              </tr>
+              <!--begin help text-->
+              <tr class="help_text_tr">
+                <td>
+                    <div class="green register_help_text">
+                    {% blocktrans %}Your email will be your login user ID{% endblocktrans %}
+                    </div>
+                </td>
+                <td>
+                    <div class="green">
+                      {% blocktrans %}Your screen name will appear with your photos and blog comments{% endblocktrans %}
+                    </div>
+                </td>
+                <td>
+                    <!--<br><label class="green">(dd-mm-yyyy)</label>-->
+                    <div class="link_all_green green">
+                    (dd-mm-yyyy)<!--&nbsp;<a class="green" href="#">{% blocktrans %}why we need this?{% endblocktrans %}</a>-->
+                    </div>
+                </td>
+              </tr>
+              <!--end help text-->
+              {% if form.non_field_errors or form.sexo.errors %}
+              <tr>
+                <td>{{form.non_field_errors}}
+                </td>
+                <td>{{form.non_field_errors}}
+                </td>
+                <td>{{form_register.sexo.errors}}
+                </td>
+              </tr>
+              {% endif %}
+              <tr>
+                <td><input id="_id_password1" class="textbox special_gray password1" maxlength="30" type="password" name="password1">
+                    <!--{{form_register.password1}}-->
+                    <input id="password-clear" class="textbox special_gray" type="text" name="password-clear" value="{% blocktrans %}Password{% endblocktrans %}" title="{% blocktrans %}Passsword{% endblocktrans %}">
+                </td>
+                <td><input id="_id_password2" class="textbox special_gray password2" maxlength="30" type="password" name="password2">
+                    <!--{{form_register.password2}}-->
+                    <input id="password-clear2" class="textbox special_gray" type="text" name="id_password-clear2" value="{% blocktrans %}Confirm Password{% endblocktrans %}" title="{% blocktrans %}Confirm Password{% endblocktrans %}">
+                </td>
+                <td>
+                  <label class="green">{% blocktrans %}Gender{% endblocktrans %}</label>
+        <!--          <label for="id_sexo_0" class="black">
+                    <input id="id_sexo_0" type="radio" name="sexo" value="F">{% blocktrans %}Female{% endblocktrans %}
+                  </label>
+                  <label for="id_sexo_1" class="black">
+                    <input id="id_sexo_1" type="radio" name="sexo" value="M">{% blocktrans %}Male{% endblocktrans %}
+                  </label>-->
+                  {{form.sexo}}
+                </td>
+              </tr>
+              {% if form.pais.errors or error_size or form.foto.errors %}
+              <tr>
+                <td colspan="2">{{form.pais.errors}}
+                </td>
+                <td>
+                    <ul class="errorlist">
+                        <li> {{form.foto.errors}} {{error_size}} </li>
+                    </ul>
+                </td>
+              </tr>
+              {% endif %}
+              <tr>
+                <td colspan=2>
+                  {{form.pais}}
+                  {{form.departamento}}
+                  <div class="link_all_green">
+                  <a class="green" href="#">&nbsp;<!--{% blocktrans %}why we need this?{% endblocktrans %}--></a>
+                  </div>
+                  
+                </td>
+        
+                <td><div style="margin-top:7px;">
+                    <!--<input id="id_foto" type="file" class="textbox special_gray" name="foto" >-->
+                    {{form.foto}}
+                    </div>
+                    <div class="green register_help_text">
+                    {% blocktrans %}Upload your user profile photo{% endblocktrans %}
+                    </div>
+                </td>
+              </tr>
+              {% if form.idioma.errors%}
+              <tr>
+                <td colspan=3>
+                    <ul class="errorlist">
+                        <li> {{form.idioma.errors}}</li>
+                    </ul>
+                </td>
+              </tr>
+              {% endif %}
+                <tr>
+                <td colspan=3>
+                    <label class="green">{% blocktrans %}Language{% endblocktrans %}</label>
+                <!--    <label for="id_idioma_0" class="black">
+                    <input id="id_idioma_0" type="radio" name="idioma" value="en">{% blocktrans %}English{% endblocktrans %}
+                    </label>
+                    <label for="id_idioma_1" class="black">
+                    <input id="id_idioma_1" type="radio" name="idioma" value="es">{% blocktrans %}Spanish{% endblocktrans %}
+                    </label>-->
+                    {{form.idioma}}
+                </td>
+                </tr>      
+              {% if form.accept_conditions.errors or captcha_error%}
+              <tr>
+                <td colspan=2>{{form.accept_conditions.errors}}
+                </td>
+                <td><ul class="errorlist">
+                      <li>{{captcha_error}}</li>
+                    </ul>
+                </td>
+              </tr>
+              {% endif %}
+              <tr>
+                <td colspan=2>
+                    <!--<input id="id_accept_conditions" type="checkbox" name="accept_conditions" />-->
+                    {{form.accept_conditions}}<label class="black link_all_green">{% blocktrans %}I confirm that I have read and accept the{% endblocktrans %} <a class="green" href="#">{% blocktrans %}Contest Terms & Conditions{% endblocktrans %}</a></label><br />
+                    <!--<input id="id_accept_email_updates" type="checkbox" name="accept_email_updates" checked />-->
+                    {{form.accept_email_updates}}<label class="black">{% blocktrans %}I agree to receive email updates about the contest{% endblocktrans %}</label><br />
+                    <!--<input id="id_accept_sponsors_emails" type="checkbox" name="accept_sponsors_emails" checked />-->
+                    {{form.accept_sponsors_emails}}<label class="black">{% blocktrans %}Contest sponsors may send me emails (aprox 2 per week){% endblocktrans %}</label>
+                </td>
+                <td>
+                    <div class="all_to_middle">{% if LANGUAGE_CODE == 'es' %}Ingrese el siguiente texto{% endif %}
+                    {{html_captcha|safe}}
+                    </div>
+                </td>
+              </tr>
+              <tr>
+                <td colspan=3><div class="push_down_10 all_to_middle">
+                    <input type="submit" class="cute_green_button" value="{% blocktrans %}Register{% endblocktrans %}">
+                    </div>
+                </td>
+              </tr>
+              <tr>
+                <td colspan=3 class="text_justified">
+                    <br/>
+                    <strong>{% blocktrans %}IMPORTANT{% endblocktrans %}:</strong> {% blocktrans %}There is a chance our response to you will be discarded by your spam filter. You should receive an acknowledgment email in approximately 15 minutes. Please check your inbox for our auto-acknowledgment email, which has just been sent to the email address you specified. If you don't see the email, look in your junk-mail folder. If you find it there, please mark the email as Not Junk and add @machu-picchu100.com to your address book.{% endblocktrans %}
+                </td>
+              </tr>
+                
+            </table>
+            </form>
+        {% else %}
+            <br/>
+            <span class="black">{% blocktrans %}Thank you for registering for the &quot;I was in Machu Picchu&quot; Photo Contest! We have sent an activation link to your email address. In order to activate your account, please validate your email address using the link in the message.{% endblocktrans %}</span>
+            <br/><br/>
+            <span class="black">{% blocktrans %}There is a chance our response to you will be discarded by your spam filter. You should receive an acknowledgment email within 10 minutes. If you don't see the email, look in your junk-mail folder. If you find it there, please mark the email as Not Junk and add @machu-picchu100.com to your address book.{% endblocktrans %}</span>            
+        {% endif %}
+      </div>
+    </div>
+
+
+          <!--begin successful register-->
+          <div class="jqmAlert" id="ex5b">
+            <div id="ex5b" class="jqmAlertWindow">
+                <div class="jqmAlertTitle clearfix">
+                    <h1>{% trans 'Successful Registration' %}</h1><a href="#" class="jqmClose"><em>{% trans 'Close' %}</em></a>
+                </div><br/>
+                <div class="jqmAlertContent all_to_left">
+                <!-- content -->
+                    {% include 'portal/tags/login_register/register_successfull.html' %}
+                <!-- end content -->
+                </div>
+            </div>
+          </div>
+          <!--end successful register-->
+
+</div>
+
+<script type="text/javascript">
+//$(document).ready(function(){
+//clear on click register input text
+$('.clearInput').focus(function () {
+if ($(this).val() == $(this).attr("title")) {
+$(this).val("");
+}
+}).blur(function () {
+if ($(this).val() == "") {
+$(this).val($(this).attr("title"));
+}
+}); 
+
+      //clear on click register input text
+      $('.clearInput').focus(function () {
+	      if ($(this).val() == $(this).attr("title")) {
+		      $(this).val("");
+	      }
+      }).blur(function () {
+	      if ($(this).val() == "") {
+		      $(this).val($(this).attr("title"));
+	      }
+      });
+
+
+      //change the type of password input for id_password1
+	$('#password-clear').show();
+	$('#_id_password1').hide();
+	 
+	$('#password-clear').focus(function() {
+	    $('#password-clear').hide();
+	    $('#_id_password1').show();
+	    $('#_id_password1').focus();
+	});
+	$('#_id_password1').blur(function() {
+	    if($('#_id_password1').val() == '') {
+	        $('#password-clear').show();
+	        $('#_id_password1').hide();
+	    }
+	});
+
+      //change the type of password input for id_password2
+	$('#password-clear2').show();
+	$('#_id_password2').hide();
+	 
+	$('#password-clear2').focus(function() {
+	    $('#password-clear2').hide();
+	    $('#_id_password2').show();
+	    $('#_id_password2').focus();
+	});
+	$('#_id_password2').blur(function() {
+	    if($('#_id_password2').val() == '') {
+	        $('#password-clear2').show();
+	        $('#_id_password2').hide();
+	    }
+	});
+        
+//      //Show popin after successfully register
+//      $('#ex5b').jqm({
+//        target: 'div.jqmAlertContent',
+//	toTop: true,
+//        overlay: 0
+//        });
+
+      {% if successful_register %}
+            $('#ex5b').jqmShow();
+            this.close()
+      {% endif %}        
+        
+//});
+</script>
+
+
+</body>
+</html>

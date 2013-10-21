@@ -1,0 +1,76 @@
+{% extends "portal/menu_views/base_menu.html"  %}
+{% load i18n %}
+{% load portal_tags %}
+{% load thumbnail %} 
+{% block title %}
+      {% blocktrans %}Sponsors{% endblocktrans %}
+{% endblock %}
+
+{% block head %}
+  {% include "portal/tags/sharethis/standard.html" %}  
+{% endblock %}
+
+{% block wall_menu %}
+<div class="wall_menu wall_menu_sponsors span-24 last">
+{% endblock %}
+
+
+{% block social_reponsability %}
+    <p class="link_all_green text_bold link_hover_black">
+      <a href="{% url portal_sponsors %}">Movistar</a></p>
+    <p class="link_all_green text_bold link_hover_black">
+      <a href="{% url portal_sponsors 2 %}">Taca</a></p>
+    <p class="link_all_black text_bold link_hover_black">
+      <a href="{% url portal_sponsors 3 %}">PeruRail</a></p>
+    <p class="link_all_green text_bold link_hover_black">
+      <a href="{% url portal_sponsors 4 %}">Sonesta</a></p>    
+    <p class="link_all_green text_bold link_hover_black">
+      <a href="{% url portal_sponsors 5 %}">Sony</a></p>
+     <p class="link_all_green text_bold link_hover_black">
+      <a href="{% url portal_sponsors 6 %}">Orient Express</a></p>
+{% endblock %}
+
+{% block center_content %}
+<div class="span-13 last breadcrumbs">
+    <label class="link_all_green"><a href="{% url portal_sponsors %}">{% blocktrans %}Organizers & Sponsors{% endblocktrans %} ></a></label>
+    {% blocktrans %}Sponsors{% endblocktrans %}
+</div>
+
+<div class="span-14 last sponsors_organizers">
+  <div class="span-14 last">
+    <h1>{% blocktrans %}Sponsors{% endblocktrans %}</h1>
+    <p></p>
+    <a href="https://www.perurail.com/" target="_blank">
+    <img width="550" height="350" src="{{MEDIA_URL}}images/sponsors/perurail.jpg">
+    </a>
+  </div>
+  
+  <div class="span-14 last wide_green_tile">
+    <h5>PeruRail</h5>
+  </div>
+
+  <div class="span-14 last sponsors_organizers push_down_70">
+<!--    <p>
+    {% blocktrans %}Thanks to the generosity of PeruRail, Grand Prize and Category winners will travel to Machu Picchu aboard 2 high-end trains.  The Grand Prize winner and guest will travel aboard the luxurious Hiram Bingham train, an exclusive luxury service operated by Orient Express and ranked as one of the best journeys in 2008 by the Italian <em>Class Magazine</em>. Category winners will travel to Machu Picchu on the Vista Dome train, offering passengers an unforgettable "journey for your senses". Surrounded entirely by glass and wagons with large panoramic windows offering incomparable scenic views and innumerous opportunities to capture amazing pictures, Vistadome travelers feel connected and part of the impressive landscape of Peru.{% endblocktrans %}
+    </p>
+    <p>
+    {% blocktrans %}With more than 10 years in Peru creating unforgettable journeys and carrying more than 7 million passengers worldwide, PeruRail is a leader company in the tourism sector that creates "unique travel experiences" through an extensive range of rail services to two of the most representative destinations in Peru; such as: Machu Picchu and Lake Titicaca.{% endblocktrans %}
+    </p>
+    <p>
+    {% blocktrans %}PeruRail service has the highest international quality standards of service, safety and punctuality.{% endblocktrans %}
+    </p>
+    <p>
+    {% blocktrans %}PeruRail operates from Cusco, the historic Inca capital, to the famous citadel of Machu Picchu, and from Cusco to Lake Titicaca (Puno), providing personalized service that will make your trip a memory that last forever. PeruRail has on-board staff service with extensive experience and high levels of satisfaction among travelers, which is composed by supervisors in every trip and support staff in each of the stations.{% endblocktrans %}
+    </p>
+    <p>
+    {% blocktrans %}PeruRail offers the best schedules, multiplicity of services and costs allowing several options to plan the dream trip, offer that can be adapted to the needs and requirement of every traveler.{% endblocktrans %}
+    </p>
+    <p>
+    {% blocktrans %}PeruRail is a company committed to Peru since its beginning, having revolutionized and bet constantly for the development of high level tourism; as well as, fostered numerous projects involving the growth of communities in the areas of influence.{% endblocktrans %}
+    </p>
+    <p>
+    {% blocktrans %}Perurail is a company of Orient-Express hotels and trains group (OEH){% endblocktrans %}
+    </p>-->	    
+  </div>
+</div>
+{% endblock %}

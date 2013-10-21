@@ -1,0 +1,50 @@
+{% extends 'servicios/ser_base.html' %}
+
+{% load i18n %}
+
+{% block ser_title %}{% blocktrans %}Registration{% endblocktrans %}{% endblock %}
+
+{% block head %}
+    {{ block.super }}
+     <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}js/jquery.searchbox/jquery.searchbox.css" />
+
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.searchbox/jquery.searchbox.js"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/servicios/googlemaps.ubicacion.js"> </script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/servicios/ser_registro.js"></script>
+{% endblock %}
+
+{% block ser_content %}
+    <div class="center_register">
+        <div class="span-13 last services_box register_form">
+            <h2>New service registration</h2>
+            <div class="span-13 services_box_content">
+                <form action="" method="post" enctype="multipart/form-data">
+                    <div class="span-12 last append-bottom">
+                        {{ form_registro.as_ul }}
+                    </div>
+                    <div class="span-11 place_form">
+                        <div id="map_canvas" class="append-bottom" style="width:457px; height:280px"></div>
+                        {{ form_ubicacion.as_ul }}
+                    </div>
+                    <div class="push-2 span-9 prepend-top">
+                        {% if ser_captcha_error %}
+                            <ul class="errorlist">
+                                <li>{{ ser_captcha_error }}</li>
+                            </ul>
+                        {% endif %}
+                        {{ html_captcha|safe }}
+                    </div>
+                    <ul>
+                        <li class="span-12 submit">
+                            <input type="submit" value="{% blocktrans %}Register{% endblocktrans %}">
+                        </li>
+                    </ul>
+                </form>
+            </div>
+        </div>
+        <div class="span-13 last services_shadow">
+            <div class="span-6 left"></div><div class="span-7 last right"></div>
+        </div>
+    </div>
+{% endblock %}

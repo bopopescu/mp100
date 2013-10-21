@@ -1,0 +1,146 @@
+{% extends "portal/menu_views/base_menu.html"  %}
+{% load i18n %}
+{% load portal_tags %}
+{% load thumbnail %} 
+{% block title %}
+  {% blocktrans %}Panoramic Photos{% endblocktrans %}
+{% endblock %}
+
+{% block head %}
+  {% include "portal/tags/sharethis/standard.html" %}
+  <script type="text/javascript">
+    $(document).ready(function() {
+        //directioning of green buttons (IE hack)
+        $('input#linkPanoramicFotos').click(function(event) {
+            event.preventDefault();
+            $(window.location).attr('href', '{% url portal_panoramic_fotos %}');    
+        });
+        $('input#linkPanoramicWinners').click(function(event) {
+            event.preventDefault();
+            $(window.location).attr('href', '{% url panoramic_winners %}');
+        });
+{#        $('input#linkPanoramicPrize').click(function(event){#}
+{#            event.preventDefault();#}
+{#            $(window.location).attr('href', '{% url portal_panoramic_prize %}');    #}
+{#        });	#}
+    });
+    </script> 
+{% endblock %}
+
+
+{% block center_content %}
+<div class="span-13 last breadcrumbs">
+    <label class="link_all_green">
+	<a href="{% url portal_winners %}">{% blocktrans %}Winners{% endblocktrans %} ></a>
+    </label>
+    <label class="link_all_green">
+	<a href="{% url portal_mp100_special_awards %}">{% blocktrans %}Machu Picchu 100 Special Awards{% endblocktrans %} ></a>
+    </label>
+    {% blocktrans %}Panoramic Photography{% endblocktrans %}
+    
+</div>
+<div class="span-14 last winners push_down_25">
+  <div class="span-9 last">
+    <h1>{% blocktrans %}Photo Contest{% endblocktrans %}</h1>
+    <h2>{% blocktrans %}I was in Machu Picchu{% endblocktrans %}</h2>
+    <h3>{% blocktrans %}A Photographic Wonder{% endblocktrans %}</h3>
+  </div>
+  <div class="span-9 last special_award_word">
+    <h1>{% blocktrans %}Special Awards{% endblocktrans %}</h1>
+  </div>
+  <div class="span-14 last winners_stoneMenu">
+    <ul>
+      <li class="Finalists">
+	<a href="{% url portal_finalists %}">
+	  <label class="relative_push_down_10">{% blocktrans %}Winners{% endblocktrans %}</label>
+	</a>
+      </li>
+      <li class="Grand_Final">
+	<a href="{% url portal_winners %}">
+	  <label class="relative_push_down_10">{% blocktrans %}Grand Final{% endblocktrans %}</label>
+	</a>
+      </li>
+      <li class="Voting_winners"><a href="{% url portal_votingWinners %}">{% blocktrans %}Voting<br/>Winners{% endblocktrans %}</a></li>
+      <li class="Machu_Picchu_100_selected"><a href="{% url portal_mp100_special_awards %}">{% blocktrans %}Machu Picchu 100<br/>Special Awards{% endblocktrans %}</a></li>
+    </ul>
+  </div>
+  <div class="span-14 last winners_green_area_MP100_SA">
+    <span class="profesionalCategory_word">{% blocktrans %}Panoramic Photos{% endblocktrans %}</span>
+    <p>
+	{% blocktrans %}Enter  a  Panoramic  Photo  in  any  of  the Contest Categories  and  you will  be automatically entered  to win a a Sony α NEX-5 Digital Camera  featuring 3D Sweep Panorama™! A special panel of  judges will announce  the best Panoramic Photo on August 26, 2011.{% endblocktrans %}
+    </p>
+    <div class="span-7">
+      <!--enlazar esto con su vista usando js-->
+      <input id="linkPanoramicFotos" class="extra_extra_large_thin_cute_green_button" type="submit" value="{% blocktrans %}View Panoramic Photo Entries{% endblocktrans %}">
+    </div>
+    <div class="span-7 last">
+      <!--enlazar esto con su vista usando js-->
+      <input id="linkPanoramicWinners" class="extra_extra_large_thin_cute_green_button" type="submit" value="{% blocktrans %}View Panoramic Photo Winners{% endblocktrans %}">
+    </div>
+{#    <div class="span-6 all_to_right last">#}
+{#      <!--enlazar esto con su vista usando js-->#}
+{#      <input id="linkPanoramicPrize" class="cute_green_button" type="submit" value="{% blocktrans %}View Prize{% endblocktrans %}">#}
+{#    </div>#}
+  </div>  
+</div>
+<div class="span-14 last judges_menu">
+    <span>{% blocktrans %}Judges{% endblocktrans %}</span>
+</div>
+
+<div class="span-14 last pull_up_10 ">
+    <div class="span-1 winners_fistSpace_MP100_SA {% cycle 'darker_gray' '' as numberColors %}">
+    </div>
+    <div class="span-4 winners_image_box_MP100_SA">
+      <img width="113px" height="118px" alt="" src="{{MEDIA_URL}}images/portal/WalterWust.png">
+    </div>
+    <div class="span-9 last winners_details_box_MP100_SA {% cycle 'darker_gray' '' as textColors %} last">
+      <label class="green no_margin">Walter Wust</label><br/>
+      {% blocktrans %}With more than 20 years making publications, Wust is the most experienced editor of ecologic and tourism topics in Peru.{% endblocktrans %}<br/><br/>
+      <p><label class="link_all_green no_margin">
+	  <a class="no_decoration" href="http://www.walterwust.com" target="_blank" >www.walterwust.com</a>
+	</label>
+      </p>
+    </div>
+
+{% comment %}
+    <div class="span-1 winners_fistSpace_MP100_SA {% cycle 'darker_gray' '' as numberColors %}">
+    </div>
+    <div class="span-4 winners_image_box_MP100_SA">
+      <img width="113px" height="118px" alt="" src="{{MEDIA_URL}}dump_images/dump_mt.jpg">
+    </div>
+    <div class="span-9 last winners_details_box_MP100_SA {% cycle 'darker_gray' '' as textColors %} last">
+      <label class="green no_margin">Mario Testino</label><br/>
+      Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum<br/><br/>
+      <p><label class="green no_margin">www.testinomariotestino.com</label></p>
+    </div>
+    
+    <div class="span-1 winners_fistSpace_MP100_SA">
+    </div>
+    <div class="span-4 winners_image_box_MP100_SA">
+      <img width="113px" height="118px" alt="" src="{{MEDIA_URL}}dump_images/dump_mt.jpg">
+    </div>
+    <div class="span-9 last winners_details_box_MP100_SA last">
+      <label class="green no_margin">Mario Testino</label><br/>
+      Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum<br/><br/>
+      <p><label class="green no_margin">www.testinomariotestino.com</label></p>
+    </div>    
+
+    <div class="span-1 winners_fistSpace_MP100_SA {% cycle 'darker_gray' '' as numberColors %}">
+    </div>
+    <div class="span-4 winners_image_box_MP100_SA">
+      <img width="113px" height="118px" alt="" src="{{MEDIA_URL}}dump_images/dump_mt.jpg">
+    </div>
+    <div class="span-9 last winners_details_box_MP100_SA {% cycle 'darker_gray' '' as textColors %} last">
+      <label class="green no_margin">Mario Testino</label><br/>
+      Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum<br/><br/>
+      <p><label class="green no_margin">www.testinomariotestino.com</label></p>
+    </div>
+{% endcomment %}
+</div>
+
+<div class="span-14 last push_down_10">
+    <div class="span-14 winners_MP100_SA_bottom_green_box">    
+    {% blocktrans %}Winner  to  be  announced  on August  26,  2011!   A  panel  of  professional photographers  will  select  the  best  Professional  Photograph  of  Machu Picchu.{% endblocktrans %}
+    </div>
+</div>
+{% endblock %}

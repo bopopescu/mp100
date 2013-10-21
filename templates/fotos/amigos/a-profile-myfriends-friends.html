@@ -1,0 +1,109 @@
+{% extends "portal/menu_views/base_menu.html"  %}
+{% load i18n %}
+{% load thumbnail %}
+{% load fotos_tags %}
+{% block title %}
+  {% blocktrans %}User Profile - Friends{% endblocktrans %}
+{% endblock %}
+
+
+{% block left_menu %}
+<li>
+  <a href="{% url usuario_mis_fotos %}">{% blocktrans %}My Photos{% endblocktrans %}</a>
+</li>
+<li>
+  <a href="{% url usuario_editar_perfil %}">{% blocktrans %}Edit My Profile{% endblocktrans %}</a>
+</li>
+<li>
+  <a href="{% url usuario_amigos %}">{% blocktrans %}My Friends{% endblocktrans %}</a>
+</li>
+<li>
+  <a href="{% url usuario_public_profile user.id %}">{% blocktrans %}My Public Profile{% endblocktrans %}</a>
+</li>  
+{% endblock %}
+
+{% block fb_like_top %}
+  {% include 'portal/tags/fb_like/fb_like_top_UserAccount.html' %}
+{% endblock %}
+
+{% block center_content %}
+  <div class="span-14 last machu_picchu_peru">
+    <div class="span-14 last">
+      <div class="span-14 all_to_left link_all_green last">
+	<h1>{% blocktrans %}My Profile{% endblocktrans %}</h1>
+      </div>
+
+      <div class="span-14 profile_gray_headline">
+	{% blocktrans %}My Friends{% endblocktrans %}
+      </div>
+      <div class="span-14 profile_content">
+	{% if amigos %}
+	<div class="span-14 last link_all_black">
+	  <ul class="image_list wide main">
+	    {% for amigo in amigos %}
+	    <li>
+	      <a href="{{amigo.get_absolute_url}}">
+		<div class="span-2 tag_friends">
+		  {% thumbnail amigo.foto "50x50" as thumb %}
+		  <img width="50px" height="50px" src='{% if amigo.foto %}{{thumb}}{% else %}{{MEDIA_URL}}{{amigo.foto.name}}{% endif %}'>
+		  <div class="friend_delete_button">
+		    <form method="post" action="{% url usuario_eliminar_amigo %}">{% csrf_token %}
+		      <input type="hidden" value="{{amigo.user.id}}" id="id_amigo" name="amigo">
+		      <input class="friend_delete_button" type="submit" title="Delete Friend" alt="Delete" value="">
+		    </form>
+		  </div>
+		  <p>{{amigo.user.first_name}}&nbsp;{{amigo.user.last_name}}</p>
+		</div>
+	      </a>
+	    </li>
+	  {% endfor %}
+	  </ul>
+	</div>
+	{% else %}
+	{% blocktrans %}You do not have friends yet{% endblocktrans %}
+	{% endif %}
+	<br/>
+      </div>
+      
+<!--	    <div class="span-14 all_to_right last link_all_green">
+	<a class="no_decoration" href="#">See more...</a>
+      </div>-->	    
+
+      <div class="span-14 profile_gray_headline">
+	{% blocktrans %}Friend Requests{% endblocktrans %}
+      </div>
+      <div class="span-14 profile_content">
+	{% get_some_friend_requests user 6 as friend_requests %}
+	{% if friend_requests %}
+	<div class="span-14 last link_all_black">
+	  <ul class="image_list wide main">
+	    {% for friend_request in friend_requests %}
+	    <li>
+	      <a href="{{friend_request.codigo_user_solicitante.get_profile.get_absolute_url}}">
+		<div class="span-2 tag_friends">
+		  {% thumbnail friend_request.codigo_user_solicitante.get_profile.foto "50x50" as thumb %}
+		  <img width="50px" height="50px" src='{% if friend_request.codigo_user_solicitante.get_profile.foto %}{{thumb}}{% else %}{{MEDIA_URL}}{{friend_request.codigo_user_solicitante.get_profile.foto.name}}{% endif %}'>
+		  <p>{{friend_request.codigo_user_solicitante.first_name}}&nbsp;{{friend_request.codigo_user_solicitante.last_name}}</p>
+		</div>
+	      </a>
+	    </li>
+	    {% endfor %}
+	  </ul>
+	</div>
+	<br/>
+	{% else %}
+	{% blocktrans %}You do not have friend requests{% endblocktrans %}
+	{% endif %}
+      </div>
+      
+      {% if friend_requests %}
+      <div class="span-14 all_to_right last link_all_green">
+	<a class="no_decoration" href="{% url usuario_ver_solicitudes %}">{% blocktrans %}See more...{% endblocktrans %}</a>
+      </div>
+      {% endif %}	    
+
+
+    </div>	
+  
+  </div>	  
+{% endblock %}

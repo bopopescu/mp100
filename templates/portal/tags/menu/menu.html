@@ -1,0 +1,32 @@
+{% load i18n %}
+<ul>
+  <li class="home"><a href="{% url new_main_portal %}">{% blocktrans %}Home{% endblocktrans %}</a></li>
+  <li class="contest{{concurso_home}}"><a href="{% url main_portal %}">{% blocktrans %}Contest{% endblocktrans %}</a>
+    <ul>
+      {% include "portal/tags/menu/submenu_desplegable.html" %}
+    </ul>
+  </li>
+  <li class="act_str{{concurso_act_str}}"><a href="{% url portal_site_activity_stream %}">{% blocktrans %}Activity Stream{% endblocktrans %}</a></li>
+  <li class="winners{{concurso_winners}}"><a href="{% url portal_finalists %}">{% blocktrans %}Winners{% endblocktrans %}</a></li>
+  <li class="mpp{{concurso_mpp}}"><a href="{%  url portal_about_history %}">{% blocktrans %}MachuPicchu & Peru{% endblocktrans %}</a></li>
+  <li class="services{{concurso_services}}"><a href="{% url ser_inicio %}">{% blocktrans %}Servicios{% endblocktrans %}</a></li>
+  <li class="foro{{concurso_foro}}"><a href="{% url djangobb:index %}">{% blocktrans %}Foro{% endblocktrans %}</a></li>
+  <li class="News{{concurso_news}}"><a href="{% url zinnia_entry_archive_index %}">{% blocktrans %}News{% endblocktrans %}</a></li>
+</ul>
+
+{% comment %}
+<ul>
+  <li class="first"><a href="{% url main_portal %}">{% blocktrans %}Home{% endblocktrans %}</a></li>
+  <li class="second"><a {% if not user.is_authenticated %}class="ex3bTrigger"{% endif %} href="{% url portal_subir_fotos %}">{% blocktrans %}Enter{% endblocktrans %}</a></li>
+  <li class="third"><a href="{% url portal_vote %}">{% blocktrans %}Vote{% endblocktrans %}</a></li>
+  <li class="fourth"><a href="{% url portal_finalists %}">{% blocktrans %}Winners{% endblocktrans %}</a></li>
+  <li class="fifth"><a href="#">{% blocktrans %}Organizers & Sponsors{% endblocktrans %}</a>
+    <ul>
+      {% include "portal/tags/menu/submenu_desplegable.html" %}
+    </ul>        
+  </li>
+  <li class="sixth"><a href="{% url portal_about_history %}">{% blocktrans %}MachuPicchu & Perú{% endblocktrans %}</a></li>
+  <li class="seventh"><a href="{% url zinnia_entry_archive_index %}">{% blocktrans %}News{% endblocktrans %}</a></li>
+</ul>
+
+{% endcomment %}

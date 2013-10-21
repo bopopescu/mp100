@@ -1,0 +1,178 @@
+{% extends 'servicios/privado/ser_privado_base.html' %}
+
+{% load thumbnail %}
+{% load blocktags %}
+{% load i18n %}
+
+{% block ser_title %}{{ servicio.nombre }}{% endblock %}
+
+{% block head %}
+    {{ block.super }}
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/servicios/googlemaps.ubicacion.js"> </script>
+    <script type="text/javascript" src="{{ MEDIA_URL }}js/servicios/ser_perfil_privado.js"> </script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var latitud = "{{ servicio.ubicacion.latitud }}";
+            var longitud = "{{ servicio.ubicacion.longitud }}";
+            loadMap(latitud, longitud);
+        });
+    </script>
+{% endblock %}
+
+{% block body_ext %}
+    {# Puntuación del servicio #}
+    <div class="span-19 prepend-top append-bottom last private-postheader">
+        {% blocktrans %}Rating{% endblocktrans %} <span class="point_color">{{ servicio.puntuacion|floatformat:"0" }}</span> {% blocktrans %}by{% endblocktrans %} {{ servicio.num_opiniones }} {% blocktrans %}person{% endblocktrans %}{{ servicio.num_opiniones|pluralize }}.
+    </div>
+
+    <form action="" method="post">
+        <div class="span-20 last append-bottom">
+            {# Foto principal y link para el editor de galería #}
+            <div class="span-8 ser_mainphoto">
+                <a href="{% url ser_editar_fotos %}">
+                    <img class="border_photo" src="{% thumbnail servicio.foto_principal "edit" %}" alt="{{ servicio.nombre }}">
+                </a>
+                <a class="prepend-top" href="{% url ser_editar_fotos %}">{% blocktrans %}Edit gallery{% endblocktrans %}</a>
+            </div>
+
+            {# Formulario para editar los datos del servicio #}
+            <div class="span-12 last edit_form">
+                <ul>
+                    {% if servicio_form.is_valid and ubicacion_form.is_valid %}
+                    <li>
+                        <span>{% blocktrans %}Changes to your profile is saved correctly.{% endblocktrans %}</span>
+                    </li>
+                    {% endif %}
+                    <li>
+                        {{ servicio_form.nombre.errors }}
+                        <label for="id_nombre">{% blocktrans %}Name{% endblocktrans %}</label>
+                        {{ servicio_form.nombre }}
+                    </li>
+                    <li>
+                        {{ servicio_form.tipo_servicio.errors }}
+                        <label for="id_tipo_servicio">{% blocktrans %}Type of service{% endblocktrans %}</label>
+                        <div class="styled_select"></div>
+                        {{ servicio_form.tipo_servicio }}
+                    </li>
+                    <li>
+                        {{ servicio_form.website.errors }}
+                        <label for="id_website">{% blocktrans %}Website{% endblocktrans %}</label>
+                        {{ servicio_form.website }}
+                    </li>
+                    <li>
+                        {{ servicio_form.telefono.errors }}
+                        <label for="id_telefono">{% blocktrans %}Phone{% endblocktrans %}</label>
+                        {{ servicio_form.telefono }}
+                    </li>
+                    <li>
+                        {{ servicio_form.descripcion.errors }}
+                        <label for="id_descripcion">{% blocktrans %}Description{% endblocktrans %}</label>
+                        {{ servicio_form.descripcion }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        {# Opiniones de los usuarios #}
+        <div class="span-20 last">
+            <div class="span-8">
+                <div class="span-8 services_box">
+                    <h2>User feedback</h2>
+                    <div class="services_box_content">
+                        {# Paginador de comentarios #}
+                        <div class="span-8 append-bottom">
+                            {% ser_paginator opiniones "comments_link" %}
+                        </div>
+
+                        <a name="comments_link"></a>
+                        {% for opinion in opiniones.object_list %}
+                        <div class="append-bottom">
+                            <div class="op_usuario">
+                                <span class="span_bold">
+                                    <a href="{{ opinion.usuario.get_absolute_url }}">{{ opinion.usuario }}</a> {% blocktrans %}said{% endblocktrans %}:
+                                </span>
+                                <p class="prepend-top">{{ opinion.texto }}</p>
+                                <div class="op_puntaje">
+                                    <ul>
+                                        <li>
+                                            {% blocktrans %}User rating{% endblocktrans %}: <span class="point_color">{{ opinion.puntuacion }}</span>
+                                        </li>
+                                        <li>
+                                            {% blocktrans %}Comment rating{% endblocktrans %}: {{ opinion.valoracion }}
+                                        </li>
+                                    </ul>
+                                </div>
+                                {% if opinion.respuesta %}
+                                <div>
+                                    <span class="span_bold">{% blocktrans %}Manager's response{% endblocktrans %}: </span>
+                                    <p class="prepend-top">{{ opinion.respuesta.texto }}</p>
+                                </div>
+                                {% else %}
+                                <span class="append-bottom responder_link ser_link">{% blocktrans %}Reply{% endblocktrans %}</span>
+                                <div class="op_respuesta">
+                                    <textarea name="texto"></textarea>
+                                    <span class="pub_respuesta ser_button right" opinion="{{ opinion.id }}">{% blocktrans %}Post reply{% endblocktrans %}</span>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endfor %}
+
+                        {# Paginador de comentarios #}
+                        <div class="span-8 append-bottom">
+                            {% ser_paginator opiniones "comments_link" %}
+                        </div>
+                    </div>
+                </div>
+                <div class="span-8 services_shadow">
+                    <div class="span-4 left"></div><div class="span-4 last right"></div>
+                </div>
+            </div>
+
+            <div class="span-12 last">
+                <div class="span-12 last services_box private_place extra_bottom_padding">
+                    <h2>{% blocktrans %}Location{% endblocktrans %}</h2>
+                    <div class="services_box_content place_form">
+                        <div id="map_canvas" style="width:407px; height:300px"></div>
+                        <ul>
+                            {{ ubicacion_form.as_ul }}
+                        </ul>
+                    </div>
+                </div>
+                <div class="span-12 last services_shadow">
+                    <div class="span-6 left"></div><div class="span-6 last right"></div>
+                </div>
+
+                <div class="span-12 last services_box">
+                    <h2>Características</h2>
+                    <div class="services_box_content">
+                        <ul>
+                            <li>
+                                {{ servicio_form.subtipo_servicio.errors }}
+                                <label for="id_subtipo_servicio">{% blocktrans %}Subtype of service{% endblocktrans %}: </label>
+                                {{ servicio_form.subtipo_servicio }}
+                            </li>
+                            <li>
+                                {{ servicio_form.caracteristicas.errors }}
+                                <label for="id_caracteristicas">{% blocktrans %}Features{% endblocktrans %}: </label>
+                                {# TODO: Estilar la lista de características #}
+                                <div>
+                                    {{ servicio_form.caracteristicas }}
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="span-12 last services_shadow">
+                    <div class="span-6 left"></div><div class="span-6 last right"></div>
+                </div>
+
+                <div class="span-12 last right">
+                    <input type="submit" value="{% blocktrans %}Save{% endblocktrans %}" name="editar" />
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}

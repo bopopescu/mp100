@@ -1,0 +1,81 @@
+{% extends "fotos/ver_solicitudes/base_perfil.html"  %}
+
+{% block menu_top%}
+    	<ul class="span-17 last prepend-6">
+    	  <li><a href="{% url fotos_noticias 'notificaciones' %}">Noticias</a></li>
+    	  <li><a href="{% url fotos_buscar_usuarios %}">Buscar usuarios</a></li>
+    	  <li><a href="{% url fotos_buscar_fotos %}">Galeríade fotos</a></li>
+    	  <li><a href="{% url fotos_subir_fotos %}">Subir fotos</a></li>
+	  <li class="selected"><a href="{% url fotos_ver_solicitudes %}">Solicitudes</a></li>
+    	  <li class="last"><a href="{% url fotos_ayuda %}">Ayuda</a></li>
+    	</ul>    
+{% endblock %}
+
+{% block menu_left %}
+	  <ul class="menu_bar profile"> 
+	    <li><a href="{% url main_user %}">Inicio</a></li>
+	    <li><a href="{% url fotos_perfil_publico user.id %}">Perfil Público</a></li>
+	    <li><a href="{% url editar_perfil %}">Editar Perfil</a></li>
+	    <li><a href="{% url fotos_ver_fotos %}">Mis Fotos</a></li>
+	    <li><a href="{% url fotos_amigos %}">Mis Amigos</a></li>
+	  </ul>    
+{% endblock %}
+
+{% block body1 %}
+    
+    <hr class="profile_separator"/>
+    <h2>Solicitudes</h2>    
+    {% if lista_solicitudes.object_list %}
+        {% load thumbnail %}
+        {% for solicitudes in lista_solicitudes.object_list %}
+            <tr>
+            {% for solicitud in solicitudes %}
+              <div class="user_pic">
+                            <a class="resultados_search" href="{{solicitud.codigo_user_solicitante.get_profile.get_absolute_url}}">
+                                <img src="{% thumbnail solicitud.codigo_user_solicitante.get_profile.foto "75x75"  %}" width=75px height=75px alt="Avatar" title="Ver perfil" /></a>
+                             <p class="caption">
+                                {{solicitud.codigo_user_solicitante.first_name}}
+                             </p>
+              </div>
+              <div class="comment-box">
+                    Quiere ser tu amig@.
+                    <ul class="image_list main">
+                            <li>    <form action="/user/aceptar_solicitud/" method="POST"> {% csrf_token %}
+                                    <input type="hidden" value="{{solicitud.codigo_user_solicitante.id}}" id="id_amigo" name="amigo">
+                                    <input type="submit" value="Aceptar" alt="Aceptar" title="Aceptar Solicitud" >
+                                </form></li>
+                            <li><form action="/user/eliminar_solicitud/" method="POST"> {% csrf_token %}
+                                    <input type="hidden" value="{{solicitud.codigo_user_solicitante.id}}" id="id_amigo" name="amigo">
+                                    <input type="submit" value="Eliminar" alt="Eliminar" title="Eliminar Solicitud" >
+                                </form></li>
+                    </ul>
+              </div>
+              <div class="clear"></div>
+              <hr class="profile_separator feeds"/>                 
+            {% endfor %}
+            </tr>
+        {% endfor %}
+        </table>
+        <div class="pagination">
+            <span class="step-links">
+                {% if lista_solicitudes.has_previous %}
+                    <a href="?page={{ lista_solicitudes.previous_page_number }}">Anterior</a>
+                {% endif %}
+        
+                <span class="current">
+                    P&aacute;gina {{ lista_solicitudes.number }} de {{ lista_solicitudes.paginator.num_pages }}.
+                </span>
+        
+                {% if lista_solicitudes.has_next %}
+                    <a href="?page={{ lista_solicitudes.next_page_number }}">Siguiente</a>
+                {% endif %}
+            </span>
+        </div>
+    {% else %}
+        <ul class="image_list main">
+            <li>No tienes solicitudes de amistad.</li>
+        </ul>
+    {% endif %}
+
+
+{% endblock %}

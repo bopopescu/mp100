@@ -1,0 +1,47 @@
+{% extends "portal/menu_views/base_menu.html"  %}
+{% load i18n %}
+{% load portal_tags %}
+{% load thumbnail %} 
+{% block title %}
+  {% blocktrans %}Social Responsability{% endblocktrans %}
+{% endblock %}
+
+{% block head %}
+  {% include "portal/tags/sharethis/standard.html" %}  
+{% endblock %}
+
+{% block wall_menu %}
+<div class="wall_menu wall_menu_sponsors span-24 last">
+{% endblock %}
+
+{% block social_reponsability %}
+    <p class="link_all_green text_bold link_hover_black"><a href="{% url portal_social_responsability %}">EnseñaPerú</a></p>
+    <p class="link_all_black text_bold"><a href="{% url portal_social_responsability 2 %}">Cámara de Turismo de Cusco</a></p>
+{% endblock %}
+
+{% block center_content %}
+<div class="span-13 last breadcrumbs">
+    <label class="link_all_green"><a href="{% url portal_sponsors %}">{% blocktrans %}Organizers & Sponsors{% endblocktrans %} ></a></label>
+    {% blocktrans %}Social Responsability{% endblocktrans %}
+</div>
+
+<div class="span-14 last sponsors_organizers">
+  <h1>{% blocktrans %}Social Responsability{% endblocktrans %}</h1>
+  
+  <div class="span-14 last push_down_25 SocialResponsability">
+    {% get_current_language as LANGUAGE_CODE %}
+    <h2>Camara Regional de Turismo de Cusco
+    {% if LANGUAGE_CODE = 'en' %}
+        <br/>(Regional Cusco Tourism Chamber of Commerce)
+    {% endif %}
+    </h2>
+    <a href="http://www.cartuc.org/" target="_blank"><img class="image_to_right" width="203" src="{{MEDIA_URL}}bottom_logos/cartuc.jpg"></a>
+    <p>
+    {% blocktrans %}A portion of the proceeds of the Contest will be donated to CARTUC in order to develop the Incan highway route, known as the "Ruta Inca del Pescado" which runs from Puerto Inca to Cusco.{% endblocktrans %}
+    </p>
+    <p>
+    {% blocktrans %}Founded in 1975, CARTUC is an advisory body in collaboration with the government. The organization represents, promotes and defends the general interests of tourism entrepreneurs in the region of Cusco, and provides many services to companies operating in our region. Our institution promotes communication within and outside the sector and seeks to accelerate these processes through the use of the Internet.{% endblocktrans %}
+    </p>
+  </div>
+</div>
+{% endblock %}

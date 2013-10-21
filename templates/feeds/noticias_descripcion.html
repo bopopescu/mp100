@@ -1,0 +1,19 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+    "http://www.w3.org/TR/html4/strict.dtd"
+    >
+<html lang="en">
+<head>
+    <title><!-- Insert your title here --></title>
+</head>
+
+<body>
+
+{% if obj.excerpt_html %}
+    {{obj.excerpt_html|safe}}
+{% else %}
+    {{obj.body_html|truncatewords_html:"50"|safe}}
+ {% endif %}
+
+
+</body>
+</html>

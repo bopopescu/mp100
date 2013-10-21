@@ -1,0 +1,89 @@
+{% load portal_tags %}
+
+<table border=0 width=100% style=" padding: 10px 0px 10px 0px; " >
+	<tr>
+		<td align= "center">
+		  <table style="border: 1px solid #d9d9db; border-collapse:collapse;">
+		    <tr>
+			<td>
+			<table height=356 style="text-align: let; background-color:#FFFFFF; color:#333; border-collapse:collapse; font-family: arial sans-serif;"  width=600px border=0 >
+				<tr>
+					<td colspan=2>
+					  <img border="0" src="http://mp100.s3.amazonaws.com/images/emails/cabeceras.jpg" usemap="#enlaces_cabecera" alt="Concurso de Fotografía Yo Estuve en Machu Picchu" />
+					  <map name="enlaces_cabecera">
+					    <area shape="rect" coords="14,0,82,61" href="http://machu-picchu100.com/"  target="_blank">
+					    <area shape="rect" coords="463,11,5577,45" href="http://www.quimerahg.com/"  target="_blank">
+					  </map>
+					</td>
+				</tr>
+				<tr>
+				  <td colspan=2>
+				    <table width=600px border=0 style="border-collapse:collapse; font-family: arial sans-serif;">
+					<td width="560px" style="padding:20px; ">
+					    {% get_actual_and_next_temporadas actual_temp next_temp %}
+					    <p>{{user_firstname}},</p>
+					    <p style="color:#899F3E; font-weight: bold;">Gracias por ayudarnos en crear una experiencia, haciéndola simple y diferente.</p>
+					    <p>Activa tu cuenta de usuario haciendo clic o copiando el siguiente enlace: <br/><a href="{{mydomain}}/auc/{{encryptedEmail}}/{{encryptedUsername}}/">{{mydomain}}/auc/{{encryptedEmail}}/{{encryptedUsername}}/</a></p>
+					    <p>Te recordamos que tus datos de ingreso son los siguientes:</p>
+					    <p><span style="color:#899F3E;">Nombre de Usuario: </span>{{email}}<br/><span style="color:#899F3E;">Contraseña: </span>{{password}}</p>
+					    <p>
+					    <table width=100%>
+					      <tr>
+						<td style="text-align:right;">							
+						  <a href="{{mydomain}}/subir_fotos/" target="_blank"><img border="0" src="http://mp100.s3.amazonaws.com/images/emails/subir.png" alt="SUBIR"></a>
+						</td>
+						<td style="text-align:left;">
+						  <a href="{{mydomain}}/vote/" target="_blank"><img border="0" src="http://mp100.s3.amazonaws.com/images/emails/votar.png" alt="VOTAR"></a>
+						</td> 
+					      </tr>
+					    </table>
+					    </p>
+					    <p style="color:#899F3E; font-weight: bold;">Recordatorio:</p>
+					    <ul>
+						{% if next_temp %}
+						<li>La votación comienza el {{next_temp.fecha_inicio|date:"D, j M Y h:i:s a"}} GMT -005 (Lima).</li>
+						{% endif %}
+						<li>Comparte tu foto y recuerda a tus amigos que voten a través de Facebook, Twitter, correo electrónico o ShareThis directamente desde la página de la foto.</li>
+						<li>Sigue tus fotos y el número de votos recibidos en la actual Temporada en la sección "Mi Perfil" en la página machu-picchu100.com.</li>
+						<li>Tienes más fotos de Machu Picchu? Puedes subir hasta 5 fotos cada período de votación.</li>
+						<li>También puedes votar por cinco fotos cada Temporada.</li>
+					    </ul>
+					    <p>Buena suerte en el Concurso!</p>
+					</td>
+				    </table>
+				  </td>
+				</tr>
+				<tr>
+				  <td colspan=2>
+				    <table style="background-color: #839327; color:#fff; font-size: 11px; text-align: center; border-collapse:collapse; font-family: arial sans-serif;" width=600px border=0>
+				      <tr><td>2011 QuimeraOnlife - &copy; Copyright</td></tr>
+				    </table>
+				  </td>
+				</tr>
+			</table>
+			</td>
+		    </tr>
+		  </table>
+		  <table width=600px border=0 style="border-collapse:collapse; font-size: 12px; color:#a3a5a9; font-family: arial sans-serif;">
+		    <tr>
+		        <td width=60px>
+			  <table width=60px border=0 style="border-collapse:collapse; font-size: 12px; color:#a3a5a9; font-family: arial sans-serif;">
+			  <tr><td colspan=2>Búscanos:</td></tr>
+			  <tr>
+			    <td><a href="http://www.facebook.com/machupicchu100photocontest" target="_blank"><img border="0" src="http://mp100.s3.amazonaws.com/images/emails/email_facebook.jpg" alt="F"></a></td>
+			    <td><a href="http://twitter.com/#!/Machu_Picchu100" target="_blank"><img border="0" src="http://mp100.s3.amazonaws.com/images/emails/email_twitter.jpg" alt="T"></a></td>
+			  </tr>
+			  </table>
+		        </td>
+		        <td>
+			  Estas subscrito como  
+			  <span style="color:#0000ef; text-decoration: underline; ">{{email}}</span>.
+			  Haz recibido este mensaje porque elegiste recibir comunicaciones acerca del Concurso de Fotografía 'Yo estuve en Machu Picchu'. 
+			  Si ya no deseas recibir comunicaciones acerca del concurso, por favor 
+			  <a href="{{mydomain}}/stop_comunications/{{encryptedUsername}}/" target="_blank">haz clic aquí</a>.
+		        </td>
+		    </tr>
+		  </table>
+		</td>
+	</tr>
+</table>

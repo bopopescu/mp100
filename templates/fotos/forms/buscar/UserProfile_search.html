@@ -1,0 +1,91 @@
+{% extends "fotos/forms/ver_perfil/base_profile.html"  %}
+{% load i18n %}
+
+{% block menu_top%}
+    	<ul class="span-17 last prepend-6">
+    	  <li><a href="{% url fotos_noticias 'notificaciones' %}">{% blocktrans %}Noticias{% endblocktrans %}</a></li>
+    	  <li class="selected"><a href="{% url fotos_buscar_usuarios %}">{% blocktrans %}Buscar usuarios{% endblocktrans %}</a></li>
+    	  <li><a href="{% url fotos_buscar_fotos %}">{% blocktrans %}Galería de fotos{% endblocktrans %}</a></li>
+    	  <li><a href="{% url fotos_subir_fotos %}">{% blocktrans %}Subir fotos{% endblocktrans %}</a></li>
+	  <li><a href="{% url fotos_ver_solicitudes %}">{% blocktrans %}Solicitudes{% endblocktrans %}</a></li>
+    	  <li class="last"><a href="{% url fotos_ayuda %}">{% blocktrans %}Ayuda{% endblocktrans %}</a></li>
+    	</ul>    
+{% endblock %}
+
+{% block menu_left %}
+	  <ul class="menu_bar profile"> 
+	    <li><a href="{% url main_user %}">{% blocktrans %}Inicio{% endblocktrans %}</a></li>
+	    <li><a href="{% url fotos_perfil_publico user.id %}">{% blocktrans %}Perfil Público{% endblocktrans %}</a></li>
+	    <li><a href="{% url editar_perfil %}">{% blocktrans %}Editar Perfil{% endblocktrans %}</a></li>
+	    <li><a href="{% url fotos_ver_fotos %}">{% blocktrans %}Mis Fotos{% endblocktrans %}</a></li>
+	    <li><a href="{% url fotos_amigos %}">{% blocktrans %}Mis Amigos{% endblocktrans %}</a></li>
+	  </ul>    
+{% endblock %}
+
+{% block body1 %}
+
+  <div class="user_details">
+    <form action="" method=POST> {% csrf_token %}
+        <table>
+        {{ form.as_table }}
+        <tr>
+            <th>
+            </th>
+            <td><input type="submit" class="button" value="{% blocktrans %}Buscar{% endblocktrans %}" />
+            </td>
+        </tr>
+        </table>
+    </form>
+    </div>
+  
+    <hr class="profile_separator"/>
+    <h2>{% blocktrans %}Usuarios{% endblocktrans %}</h2>   
+    {% if lista_usuarios.object_list %}
+        {% load thumbnail %}
+        {% for usuarios in lista_usuarios.object_list %}
+            <ul class="image_list wide main">
+            {% for usuario in usuarios %}
+                <li>
+                    <a class="resultados_search" href="{{usuario.get_profile.get_absolute_url}}">
+		      <img src="{% thumbnail usuario.get_profile.foto "75x75"  %}" width="75" height="75" alt="Avatar" title="{% blocktrans %}Ver perfil{% endblocktrans %}" /></a>
+                    <form class="inside_user_image" action="/user/solicitar/" method=POST> {% csrf_token %}
+                        <input type="hidden" value="{{usuario.id}}" id="id_amigo" name="amigo">
+                        <input id="add_button" type="submit" value="" alt="AddToFriends" title="{% blocktrans %}Enviar solicitud de amistad{% endblocktrans %}" >
+                    </form>
+                    <p>
+                        {{usuario.first_name}}<br/>
+                        {{usuario.last_name}}
+                    </p>                        
+                </li>
+            {% endfor %}
+            </ul>
+            <div class="clear"></div>
+            <hr class="profile_separator"/>              
+        {% endfor %}
+
+        <ul class="image_list wide main">
+            <li>
+            <div class="pagination">
+                <span class="step-links">
+                    {% if lista_usuarios.has_previous %}
+                        <a href="?page={{ lista_usuarios.previous_page_number }}">{% blocktrans %}anterior{% endblocktrans %}</a>
+                    {% endif %}
+            
+                    <span class="current">
+                        {% blocktrans with lista_usuarios.number as n and lista_usuarios.paginator.num_pages as np %}Página {{ n }} de {{ np }}{% endblocktrans %}.
+                    </span>
+            
+                    {% if lista_usuarios.has_next %}
+                        <a href="?page={{ lista_usuarios.next_page_number }}">{% blocktrans %}siguiente{% endblocktrans %}</a>
+                    {% endif %}
+                </span>
+            </div>
+            </li>
+        </ul>
+    {% else %}
+        <ul class="image_list wide main">
+            <li>{% blocktrans %}No se encontraron resultados.{% endblocktrans %}</li>
+        </ul>
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends "fotos/forms/ver_perfil/base_profile.html"  %}
+{% load i18n %}
+
+{% block body1 %}
+        <table>
+            <tr>
+                <th>{% blocktrans %}Nombre de usuario{% endblocktrans %}:</th>
+                <td>{{username}}<td>
+            </tr>
+            <tr>
+                <th>{% blocktrans %}Imagen{% endblocktrans %}:</th>
+                <td>{% load thumbnail %}
+                    <img src="{% thumbnail object.foto 188x188 sharpen %}" width=188px height=188px alt="Avatar" />
+                </td>
+            </tr>            
+            <tr>
+                <th>{% blocktrans %}Nombres{% endblocktrans %}:</th>
+                <td>{{first_name}}</td>
+            </tr>
+            <tr>
+                <th>{% blocktrans %}Apellidos{% endblocktrans %}:</th>
+                <td>{{last_name}}</td>
+            </tr>
+            <tr>
+                <th>{% blocktrans %}Correo{% endblocktrans %}:</th>
+                <td>{{email}}</td>
+            </tr>            
+            <tr>
+                <th>{% blocktrans %}Fecha de Nacimiento{% endblocktrans %}:</th>
+                <td>{{object.fecha_nacimiento}}</td>
+            </tr>            
+            <tr>
+                <th>{% blocktrans %}Sexo{% endblocktrans %}:</th>
+                <td>{% if object.sexo == 'M' %}
+                        {% blocktrans %}Masculino{% endblocktrans %}
+                    {% endif %}
+                    {% if object.sexo == 'F'  %}
+                        {% blocktrans %}Femenino{% endblocktrans %}
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>{% blocktrans %}País{% endblocktrans %}:</th>
+                <td>{{object.pais}}</td>
+            </tr>            
+            
+        </table>
+{% endblock %}
