@@ -47,8 +47,8 @@ class EntryTestCase(TestCase):
         self.assertEquals(self.entry.pingbacks.count(), 0)
         self.assertEquals(self.entry.trackbacks.count(), 0)
 
-        author = User.objects.create_user(username='webmaster',
-                                          email='webmaster@example.com')
+        author = User.objects.create_user(username='webmain',
+                                          email='webmain@example.com')
 
         comment = Comment.objects.create(comment='My Comment 3',
                                          content_object=self.entry,

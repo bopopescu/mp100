@@ -63,8 +63,8 @@ class TemplateTagsTestCase(TestCase):
         self.assertEquals(len(context['authors']), 0)
         self.assertEquals(context['template'], 'zinnia/tags/authors.html')
 
-        user = User.objects.create_user(username='webmaster',
-                                        email='webmaster@example.com')
+        user = User.objects.create_user(username='webmain',
+                                        email='webmain@example.com')
         self.entry.authors.add(user)
         self.publish_entry()
         context = get_authors('custom_template.html')
@@ -272,8 +272,8 @@ class TemplateTagsTestCase(TestCase):
         self.assertEquals(list(context['comments']), [comment_2, comment_1])
 
     def test_get_recent_linkbacks(self):
-        user = User.objects.create_user(username='webmaster',
-                                        email='webmaster@example.com')
+        user = User.objects.create_user(username='webmain',
+                                        email='webmain@example.com')
         site = Site.objects.get_current()
         context = get_recent_linkbacks()
         self.assertEquals(len(context['linkbacks']), 0)
@@ -339,9 +339,9 @@ class TemplateTagsTestCase(TestCase):
         context = zinnia_breadcrumbs(source_context)
         self.assertEquals(len(context['breadcrumbs']), 3)
 
-        User.objects.create_user(username='webmaster',
-                                 email='webmaster@example.com')
-        author = Author.objects.get(username='webmaster')
+        User.objects.create_user(username='webmain',
+                                 email='webmain@example.com')
+        author = Author.objects.get(username='webmain')
         source_context = Context({'request': FakeRequest(author.get_absolute_url()),
                                   'object': author})
         context = zinnia_breadcrumbs(source_context)
@@ -364,7 +364,7 @@ class TemplateTagsTestCase(TestCase):
         # More tests can be done here, for testing path and objects in context
 
     def test_get_gravatar(self):
-        self.assertEquals(get_gravatar('webmaster@example.com'),
+        self.assertEquals(get_gravatar('webmain@example.com'),
                           'http://www.gravatar.com/avatar/86d4fd4a22de452a9228298731a0b592.jpg?s=80&amp;r=g')
         self.assertEquals(get_gravatar('  WEBMASTER@example.com  ', 15, 'x', '404'),
                           'http://www.gravatar.com/avatar/86d4fd4a22de452a9228298731a0b592.jpg?s=15&amp;r=x&amp;d=404')

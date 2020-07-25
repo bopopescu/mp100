@@ -45,8 +45,8 @@ class PingBackTestCase(TestCase):
         self.site.domain = 'localhost:8000'
         self.site.save()
         # Creating tests entries
-        self.author = User.objects.create_user(username='webmaster',
-                                               email='webmaster@example.com')
+        self.author = User.objects.create_user(username='webmain',
+                                               email='webmain@example.com')
         self.category = Category.objects.create(title='test', slug='test')
         params = {'title': 'My first entry',
                   'content': 'My first content',
